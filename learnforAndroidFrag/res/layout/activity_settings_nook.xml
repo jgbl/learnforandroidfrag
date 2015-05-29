@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+		android:orientation="vertical">
+	    
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:gravity="left|right"
+	        android:orientation="vertical"
+	        android:id="@+id/layoutSettings"
+	        >
+	            
+	        <TextView
+	            android:id="@+id/txtSettings"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/txtSettings"
+	            android:textSize="30sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	
+	        <TextView
+	            android:id="@+id/txtCharsetASCII"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtSettings"
+	            android:text="@string/txtCharsetASCII"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnASCII"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtCharsetASCII"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:contentDescription="@string/spnASCIIFontDescription"
+	            android:gravity="right"
+	            android:prompt="@string/spnASCIIFont" />
+	        
+	        <TextView
+	            android:id="@+id/txtAbfragebereich"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtCharsetASCII"
+	            android:text="@string/txtAbfragebereich"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	
+            
+	        <Spinner
+	            android:id="@+id/spnAbfragebereich"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtAbfragebereich"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:contentDescription="@string/spnAbfragebereichDescription"
+	            android:gravity="right"
+	            android:prompt="@string/spnAbfragebereich" />
+	
+	        
+	        
+	        <TextView
+	            android:id="@+id/txtStep"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtAbfragebereich"
+	            android:text="@string/txtStep"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnStep"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtStep"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:contentDescription="@string/spnStepDescriptions"
+	            android:gravity="right"
+	            android:prompt="@string/spnStep" />
+	        
+	        <TextView
+	            android:id="@+id/txtAnzeigedauerWord"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtStep"
+	            android:text="@string/txtAnzeigedauerWord"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnAnzeigedauerWord"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtAnzeigedauerWord"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:contentDescription="@string/spnAnzeigedauerWordDescription"
+	            android:gravity="right"
+	            android:prompt="@string/spnAnzeigedauerWord" />
+	        
+	        <TextView
+	            android:id="@+id/txtAnzeigedauerBed"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtAnzeigedauerWord"
+	            android:text="@string/txtAnzeigedauerBed"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnAnzeigedauerBed"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtAnzeigedauerBed"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:contentDescription="@string/spnAnzeigedauerBedDescription"
+	            android:gravity="right"
+	            android:prompt="@string/spnAnzeigedauerBed" />
+	        
+	        <TextView
+	            android:id="@+id/txtRepetitions"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtAnzeigedauerBed"
+	            android:text="@string/txtRepetitions"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnRepetitions"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtRepetitions"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:contentDescription="@string/spnRepetitionsDescription"
+	            android:entries="@array/spnRepetitions"
+	            android:gravity="right"
+	            android:prompt="@string/spnRepetions" />
+	        
+	        <TextView
+	            android:id="@+id/txtProbabilityFactor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtRepetitions"
+	            android:text="@string/txtProbabilityFactor"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnProbabilityFactor"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="27sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtProbabilityFactor"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:entries="@array/spnProbabilityFactors"
+	            android:gravity="right"
+	            android:prompt="@string/spnProbabilityFactor" />
+	        
+	        <TextView
+	            android:id="@+id/txtLanguage"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtProbabilityFactor"
+	            android:text="@string/txtLanguage"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnLanguages"
+	            style="?android:attr/spinnerItemStyle"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBaseline="@id/txtLanguage"
+	            android:layout_alignParentRight="true"
+	            android:layout_gravity="right"
+	            android:gravity="right"
+	            android:prompt="@string/spnLanguage" />
+	        
+	        <TextView
+	            android:id="@+id/txtColors"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtLanguage"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/txtColors"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <org.de.jmg.lib.NoClickSpinner
+	            android:id="@+id/spnColors"
+	            android:layout_width="400dp"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtLanguage"
+	            android:layout_alignParentRight="true"
+	            android:contentDescription="@string/spnColorDescription"
+	            android:textSize="27sp"
+	            android:prompt="@string/spnColors" />
+	       
+	        <TextView
+	            android:id="@+id/txtSounds"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtColors"
+	            android:layout_marginTop="35dp"
+	            android:text="@string/txtSounds"
+	            android:textSize="27sp"
+	            android:textStyle="bold"
+	            android:typeface="normal" />
+	        
+	        <org.de.jmg.lib.NoClickSpinner
+	            android:id="@+id/spnSounds"
+	            android:textSize="27sp"
+	            android:layout_width="450dp"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/txtColors"
+	            android:layout_marginTop="30dp"
+	            android:contentDescription="@string/spnSoundsDescription"
+	            android:prompt="@string/spnSounds"
+	        />
+	        
+	        	<CheckBox
+		            android:id="@+id/chkRandom"
+		            android:layout_width="150dp"
+		            android:layout_height="60dp"
+		            android:layout_alignParentLeft="true"
+		            android:layout_below="@+id/txtSounds"
+		            android:layout_marginBottom="15dp"
+		            android:layout_marginTop="60dp"
+		            android:checked="false"
+		            android:hint="@string/chkRandomHint"
+		            android:text="@string/chkRandom"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
+		        
+		        <CheckBox
+		            android:id="@+id/chkAskAll"
+		            android:layout_width="150dp"
+		            android:layout_height="60dp"
+		            android:layout_alignBaseline="@id/chkRandom"
+		            android:layout_centerHorizontal="true"
+		            android:layout_centerInParent="false"
+		            android:checked="false"
+		            android:hint="@string/chkAskAllHint"
+		            android:text="@string/chkAskAll"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
+		        
+		        <CheckBox
+		            android:id="@+id/chkSound"
+		            android:layout_width="150dp"
+		            android:layout_height="60dp"
+		            android:layout_alignBaseline="@id/chkRandom"
+		            android:layout_alignParentRight="true"
+		            android:checked="false"
+		            android:hint="@string/chkSoundHint"
+		            android:text="@string/chkSound"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
+		        
+		        <CheckBox
+		            android:id="@+id/chkDocumentProvider"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+		            android:layout_below="@+id/chkRandom"
+		            android:layout_centerVertical="false"
+		            android:layout_marginBottom="0dp"
+		            android:layout_marginTop="0dp"
+		            android:checked="false"
+		            android:gravity="center_vertical"
+		            android:hint="@string/hintProvider"
+		            android:text="@string/TakeDocumentProvider"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
+		        
+		        <CheckBox
+		            android:id="@+id/chkDontShowPersistableURIMessage"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+		            android:layout_below="@+id/chkDocumentProvider"
+		            android:checked="false"
+		            android:gravity="center_vertical"
+		            android:hint="@string/hintShowWarning"
+		            android:text="@string/chkShowWarning"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
+		        
+		        <CheckBox
+		             android:id="@+id/chkAlwaysStartExternalProgram"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content"
+		             android:layout_alignParentLeft="true"
+		             android:layout_below="@+id/chkDontShowPersistableURIMessage"
+		             android:layout_marginBottom="0dp"
+		             android:layout_marginTop="-30dp"
+		             android:checked="false"
+		             android:gravity="center_vertical"
+		             android:hint="@string/hintStartExternalProgram"
+		             android:text="@string/chkAlwaysStartExternalProgram"
+		             android:textSize="27sp"
+		             android:textStyle="bold"
+		             android:typeface="normal" />
+		        
+		    
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:id="@+id/layoutButtons"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/layoutSettings"
+	        android:layout_centerHorizontal="true" >
+
+				<Button
+			        android:id="@+id/btnCancel"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:text="@string/btnCancel"
+			        android:textSize="30sp" />
+				<Button
+			        android:id="@+id/btnOK"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_toRightOf="@+id/btnCancel"
+			        android:text="@string/btnOK"
+			        android:textSize="30sp" />
+	
+			    
+			        
+		 </RelativeLayout>
+	</RelativeLayout>
+
+</ScrollView>

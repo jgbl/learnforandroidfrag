@@ -1,22 +1,112 @@
 package org.de.jmg.learnforandroidfrag;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import org.de.jmg.learn.vok.Vokabel;
+import org.de.jmg.learn.vok.Vokabel.Bewertung;
+import org.de.jmg.learn.vok.Vokabel.EnumSprachen;
+import org.de.jmg.lib.BorderedEditText;
+import org.de.jmg.lib.BorderedTextView;
+import org.de.jmg.lib.lib;
+import org.de.jmg.lib.ColorSetting.ColorItems;
+import org.de.jmg.lib.lib.Sounds;
+import org.de.jmg.lib.lib.libString;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.SpannedString;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 
 public class _MainActivity extends Fragment {
 
-	View mainView;
+	public View mainView;
+	private Context context;
+	private Button _btnRight;
+	private Button _btnWrong;
+	private Button _btnSkip;
+	private Button _btnView;
+	private Button _btnEdit;
+	private BorderedTextView _txtWord;
+	private BorderedTextView _txtKom;
+	private BorderedEditText _txtedWord;
+	private BorderedEditText _txtedKom;
+	private BorderedTextView _txtStatus;
+	private BorderedEditText _txtMeaning1;
+	private BorderedEditText _txtMeaning2;
+	private BorderedEditText _txtMeaning3;
+	private double scale = 1;
+	private Drawable _MeaningBG;
+	private Vokabel _vok;
+	private MainActivity _main;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mainView = inflater.inflate(R.layout.activity_main, container,false);
-				
+		 _main = (MainActivity) getActivity();
+		 context = _main;
+		_vok = _main.vok;
+		libLearn.gStatus = "onCreate InitButtons";
+		try 
+		{
+			InitButtons();
+			libLearn.gStatus = "onCreate InitMeanings";
+			InitMeanings();
+			
+			
+			if (true)
+			{
+				mainView.getViewTreeObserver().addOnGlobalLayoutListener(
+						new ViewTreeObserver.OnGlobalLayoutListener() {
+	
+							@Override
+							public void onGlobalLayout() {
+								// Ensure you call it only once :
+								lib.removeLayoutListener(mainView.getViewTreeObserver(), this);
+								// Here you can get the size :)
+								resize();
+								//lib.ShowToast(SettingsActivity.this, "Resize End");
+							}
+						});
+	
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO Auto-generated catch block
+			lib.ShowException(_main, e);
+		}
+		
 		return mainView;
 	}
 	
@@ -34,6 +124,1132 @@ public class _MainActivity extends Fragment {
 			ex.printStackTrace();
 		}
 	};
+	private boolean _firstFocus = true;
+	private boolean _isSmallDevice = false;
+	private void resize() {
+		// _firstFocus = true;
+		Resources resources = context.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		int height = metrics.heightPixels;
+		int width = metrics.widthPixels;
+		int viewTop = _main.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+		height = height - viewTop;
+		scale = (double) height / (double) 950;
+		if (scale < .5f) 
+		{
+			_isSmallDevice = true;
+			scale = .5f;
+		}
+		/*
+		 * lib.ShowMessage(this, "Meaning3 Bottom: " +_txtMeaning3.getBottom() +
+		 * "\nbtnRight.Top: " + _btnRight.getTop() + "\nDisplayHeight: " +
+		 * height);
+		 */
+		if (scale != 1) {
 
+			
+			
+
+			lib.ShowToast(_main, "Scaling font by " + scale + " Screenheight = "
+					+ height);
+			_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtMeaning1.getTextSize() * scale));
+			_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtMeaning2.getTextSize() * scale));
+			_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtMeaning3.getTextSize() * scale));
+			_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtWord.getTextSize() * scale));
+			_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtKom.getTextSize() * scale));
+			_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtedWord.getTextSize() * scale));
+			_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtedKom.getTextSize() * scale));
+			
+
+			/*
+			 * _txtMeaning1.setOnFocusChangeListener(new
+			 * View.OnFocusChangeListener() {
+			 * 
+			 * @Override public void onFocusChange(View v, boolean hasFocus) {
+			 * // TODO Auto-generated method stub if (_firstFocus && hasFocus) {
+			 * hideKeyboard(); _firstFocus = false; } } });
+			 */
+
+			
+			
+			int widthButtons = _btnEdit.getRight() - _btnSkip.getLeft();
+			int allButtonsWidth = 520; /*_btnEdit.getWidth()
+					+_btnRight.getWidth()
+					+_btnView.getWidth()
+					+_btnWrong.getWidth()
+					+_btnEdit.getWidth();
+					*/
+			boolean blnWrongWidth = false;
+			if (widthButtons< allButtonsWidth) 
+				{
+					widthButtons=allButtonsWidth;
+					blnWrongWidth = true;
+				}
+			Double ScaleWidth = (width - 50)/(double)widthButtons;
+			if (ScaleWidth<.7)
+			{
+				_btnEdit.setVisibility(View.GONE);
+				_btnSkip.setVisibility(View.GONE);
+				widthButtons = _btnWrong.getRight() - _btnRight.getLeft();
+				if (widthButtons< 320) 
+				{
+					widthButtons=320;
+					blnWrongWidth = true;
+				}
+				ScaleWidth = (width - 20)/(double)widthButtons;
+				if (ScaleWidth<.5d) ScaleWidth=.5d;
+			}
+			Double ScaleTextButtons = ((scale < ScaleWidth)?scale:ScaleWidth);
+			
+			_btnRight.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_btnRight.getTextSize() * ScaleTextButtons));
+			_btnSkip.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_btnSkip.getTextSize() * ScaleTextButtons));
+			_btnView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_btnView.getTextSize() * ScaleTextButtons));
+			_btnWrong.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_btnWrong.getTextSize() * ScaleTextButtons));
+			_btnEdit.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_btnEdit.getTextSize() * ScaleTextButtons));
+			_txtStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtStatus.getTextSize() * ScaleTextButtons));
+			
+			RelativeLayout.LayoutParams params = 
+					(android.widget.RelativeLayout.LayoutParams) _txtMeaning1
+					.getLayoutParams();
+			params.topMargin = (int) (params.topMargin * scale);
+			_txtMeaning1.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
+					.getLayoutParams();
+			params.topMargin = (int) (params.topMargin * scale);
+			_txtMeaning2.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
+					.getLayoutParams();
+			params.topMargin = (int) (params.topMargin * scale);
+			_txtMeaning3.setLayoutParams(params);
+			
+			
+			RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtonsInner);
+			params = (android.widget.RelativeLayout.LayoutParams) layoutButtons
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.bottomMargin = (int) (params.bottomMargin * scale);
+			}
+			else
+			{
+				params.bottomMargin = (int) (0 * ScaleWidth);
+			}
+			layoutButtons.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _btnRight
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.height = (int) (params.height * scale);
+				params.bottomMargin = (int) (params.bottomMargin * scale);
+			}
+			else
+			{
+				params.height = (int) (60 * ScaleWidth);
+				params.bottomMargin = (int) (0 * ScaleWidth);
+			}
+			params.width = (int) (params.width * ScaleWidth);
+			_btnRight.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _btnWrong
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.height = (int) (params.height * scale);
+				params.bottomMargin = (int) (params.bottomMargin * scale);
+			}
+			else
+			{
+				params.height = (int) (60 * ScaleWidth);
+				params.bottomMargin = (int) (0 * ScaleWidth);
+			}
+			params.width = (int) (params.width * ScaleWidth);
+			_btnWrong.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _btnSkip
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.height = (int) (params.height * scale);
+				params.bottomMargin = (int) (params.bottomMargin * scale);
+			}
+			else
+			{
+				params.height = (int) (60 * ScaleWidth);
+				params.bottomMargin = (int) (0 * ScaleWidth);
+			}
+			params.width = (int) (params.width * ScaleWidth);
+			_btnSkip.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _btnView
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.height = (int) (params.height * scale);
+				params.bottomMargin = (int) (params.bottomMargin * scale);
+			}
+			else
+			{
+				params.height = (int) (60 * ScaleWidth);
+				params.bottomMargin = (int) (0 * ScaleWidth);
+			}
+			params.width = (int) (params.width * ScaleWidth);
+			_btnView.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _btnEdit
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.height = (int) (params.height * scale);
+				params.bottomMargin = (int) (params.bottomMargin * scale);
+			}
+			else
+			{
+				params.height = (int) (60 * ScaleWidth);
+				params.bottomMargin = (int) (0 * ScaleWidth);
+			}
+			params.width = (int) (params.width * ScaleWidth);
+			_btnEdit.setLayoutParams(params);
+			
+			params = (android.widget.RelativeLayout.LayoutParams) _txtStatus
+					.getLayoutParams();
+			if (!blnWrongWidth) 
+			{
+				params.topMargin = (int) (params.topMargin * scale);
+			}
+			else
+			{
+				params.topMargin = (int) (0 * ScaleWidth);
+			}
+			_txtStatus.setLayoutParams(params);
+			
+			resizeActionbar(0);
+
+		}
+	}
+
+	private View findViewById(int id) {
+		// TODO Auto-generated method stub
+		return this.mainView.findViewById(id);
+	}
+	public void getVokabel(boolean showBeds, boolean LoadNext) {
+		try {
+			EndEdit();
+			setBtnsEnabled(true);
+			if (showBeds) {
+				_btnRight.setEnabled(true);
+				_btnWrong.setEnabled(true);
+			} else {
+				_btnRight.setEnabled(false);
+				_btnWrong.setEnabled(false);
+			}
+			if (LoadNext)
+				_vok.setLernIndex((short) (_vok.getLernIndex() + 1));
+
+			View v = findViewById(R.id.word);
+			TextView t = (TextView) v;
+			/*
+			 * if (!_vok.getCardMode()) { Rect bounds = new Rect(); Paint
+			 * textPaint = t.getPaint();
+			 * textPaint.getTextBounds(_vok.getWort(),0,
+			 * _vok.getWort().length(),bounds); if (t.getWidth() <
+			 * bounds.width()){ //int lines = t.getLineCount(); t.setLines((2));
+			 * 
+			 * if (((float)bounds.width() / (float)t.getWidth()) > 2) {
+			 * t.setLines(3); } else { t.setLines((2)); }
+			 * 
+			 * } else { t.setLines(1); } }
+			 */
+			t.setText(lib.getSpanned(_vok.getWort()), TextView.BufferType.SPANNABLE);
+			if (_vok.getSprache() == EnumSprachen.Hebrew
+					|| _vok.getSprache() == EnumSprachen.Griechisch
+					|| (_vok.getFontWort().getName() == "Cardo")) {
+				t.setTypeface(_vok.TypefaceCardo);
+				_txtedWord.setTypeface(_vok.TypefaceCardo);
+			} else {
+				t.setTypeface(Typeface.DEFAULT);
+				_txtedWord.setTypeface(Typeface.DEFAULT);
+			}
+
+			v = findViewById(R.id.Comment);
+			t = (TextView) v;
+			t.setText(lib.getSpanned(_vok.getKommentar()),
+					TextView.BufferType.SPANNABLE);
+			if (_vok.getSprache() == EnumSprachen.Hebrew
+					|| _vok.getSprache() == EnumSprachen.Griechisch
+					|| (_vok.getFontKom().getName() == "Cardo")) {
+				t.setTypeface(_vok.TypefaceCardo);
+				_txtedKom.setTypeface(_vok.TypefaceCardo);
+			} else {
+				t.setTypeface(Typeface.DEFAULT);
+				_txtedKom.setTypeface(Typeface.DEFAULT);
+			}
+
+			v = findViewById(R.id.txtMeaning1);
+			t = (TextView) v;
+			if (!libString.IsNullOrEmpty(_vok.getBedeutung2()))
+				t.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			t.setText((showBeds ? _vok.getBedeutung1() : Vokabel.getComment(_vok
+					.getBedeutung1())));
+			if (_vok.getFontBed().getName() == "Cardo") {
+				t.setTypeface(_vok.TypefaceCardo);
+			} else {
+				t.setTypeface(Typeface.DEFAULT);
+			}
+			t.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					// TODO Auto-generated method stub
+					if (hasFocus && _firstFocus) {
+						hideKeyboard();
+						_firstFocus = false;
+					}
+				}
+			});
+
+			v = findViewById(R.id.txtMeaning2);
+			t = (TextView) v;
+			t.setText((showBeds ? _vok.getBedeutung2() : Vokabel.getComment(_vok
+					.getBedeutung2())));
+			if (_vok.getFontBed().getName() == "Cardo") {
+				t.setTypeface(_vok.TypefaceCardo);
+			} else {
+				t.setTypeface(Typeface.DEFAULT);
+			}
+			if (libString.IsNullOrEmpty(_vok.getBedeutung2())
+					|| _vok.getCardMode()) {
+				t.setVisibility(View.GONE);
+				_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			} else {
+				t.setVisibility(View.VISIBLE);
+				_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			}
+
+			v = findViewById(R.id.txtMeaning3);
+			t = (TextView) v;
+			t.setText((showBeds ? _vok.getBedeutung3() : Vokabel.getComment(_vok
+					.getBedeutung3())));
+			if (_vok.getFontBed().getName() == "Cardo") {
+				t.setTypeface(_vok.TypefaceCardo);
+			} else {
+				t.setTypeface(Typeface.DEFAULT);
+			}
+			if (libString.IsNullOrEmpty(_vok.getBedeutung3())
+					|| _vok.getCardMode()) {
+				t.setVisibility(View.GONE);
+				_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			} else {
+				t.setVisibility(View.VISIBLE);
+				_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+				_txtMeaning3.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			}
+			_txtMeaning1.requestFocus();
+			SetActionBarTitle();
+			hideKeyboard();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			lib.ShowException(_main, e);
+		}
+
+	}
 	
+	private int _lastIsWrongVokID;
+
+	private void InitButtons() throws Exception {
+		View v = findViewById(R.id.btnRight);
+		Button b = (Button) v;
+		_btnRight = b;
+		b.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					if (_lastIsWrongVokID == _vok.getIndex()) {
+						lib.playSound(_main, Sounds.Beep);
+						getVokabel(false, true);
+					} else {
+
+						int Zaehler = _vok.AntwortRichtig();
+						lib.playSound(_main, Zaehler);
+
+						getVokabel(false, false);
+					}
+					_lastIsWrongVokID = -1;
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					lib.ShowException(_main, e);
+
+				}
+
+			}
+		});
+		v = findViewById(R.id.btnWrong);
+		b = (Button) v;
+		_btnWrong = b;
+		b.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					_vok.AntwortFalsch();
+					lib.playSound(_main, _vok.getZaehler());
+					_lastIsWrongVokID = _vok.getIndex();
+
+					if (!_vok.getCardMode()) {
+						setBtnsEnabled(false);
+						flashwords();
+						// getVokabel(false,true);
+						// runFlashWords();
+						Handler handler = new Handler();
+						handler.postDelayed(
+								runnableFalse,
+								(long) ((_main.DisplayDurationWord * 1000 + _vok
+										.getAnzBed()
+										* 1000
+										* _main.DisplayDurationBed) * _main.PaukRepetitions));
+					} else {
+						getVokabel(false, false);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					lib.ShowException(_main, e);
+				}
+
+			}
+		});
+		v = findViewById(R.id.btnSkip);
+		b = (Button) v;
+		_btnSkip = b;
+		b.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					_vok.SkipVokabel();
+					getVokabel(false, false);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					lib.ShowException(_main, e);
+				}
+
+			}
+		});
+		v = findViewById(R.id.btnView);
+		b = (Button) v;
+		_btnView = b;
+		b.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					getVokabel(true, false);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					lib.ShowException(_main, e);
+				}
+
+			}
+		});
+
+		v = findViewById(R.id.btnEdit);
+		b = (Button) v;
+		_btnEdit = b;
+		b.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				try {
+					if (_txtWord.getVisibility()==View.VISIBLE)
+					{
+						StartEdit();
+					}
+					else
+					{
+						EndEdit();
+					}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					lib.ShowException(_main, e);
+				}
+
+			}
+		});
+
+		_txtMeaning1 = (BorderedEditText) findViewById(R.id.txtMeaning1);
+		_MeaningBG = _txtMeaning1.getBackground();
+		_txtMeaning1.setBackgroundResource(0);
+		_txtMeaning2 = (BorderedEditText) findViewById(R.id.txtMeaning2);
+		_txtMeaning2.setBackgroundResource(0);
+		_txtMeaning3 = (BorderedEditText) findViewById(R.id.txtMeaning3);
+		_txtMeaning3.setBackgroundResource(0);
+		_txtWord = (BorderedTextView) findViewById(R.id.word);
+		_txtedWord= (BorderedEditText) findViewById(R.id.edword);
+		_txtedKom = (BorderedEditText) findViewById(R.id.edComment);
+		_txtKom = (BorderedTextView) findViewById(R.id.Comment);
+		_txtStatus = (BorderedTextView) findViewById(R.id.txtStatus);
+		setBtnsEnabled(false);
+		setTextColors();
+	}
+	
+	void StartEdit() throws Exception
+	{
+		_txtWord.setVisibility(View.GONE);
+		_txtKom.setVisibility(View.GONE);
+		_txtedWord.setVisibility(View.VISIBLE);
+		_txtedWord.setText(_txtWord.getText());
+		_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,_txtWord.getTextSize());
+		View LayWord = findViewById(R.id.LayWord);
+		RelativeLayout.LayoutParams params = 
+				(RelativeLayout.LayoutParams) LayWord.getLayoutParams();
+		params.width = LayoutParams.MATCH_PARENT;
+		LayWord.setLayoutParams(params);
+		_txtedKom.setVisibility(View.VISIBLE);
+		_txtedKom.setText(_txtKom.getText());
+		_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,_txtKom.getTextSize());
+		_txtedWord.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		_txtedKom.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		if (!_vok.getCardMode())
+		{
+			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			_txtMeaning2.setVisibility(View.VISIBLE);
+			_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+			_txtMeaning3.setVisibility(View.VISIBLE);
+			_txtMeaning3.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			_txtMeaning2.setText(_vok.getBedeutung2());
+			_txtMeaning3.setText(_vok.getBedeutung3());
+			lib.setBgEditText(_txtMeaning1,_MeaningBG);
+			lib.setBgEditText(_txtMeaning2,_MeaningBG);
+			lib.setBgEditText(_txtMeaning3,_MeaningBG);
+			_txtMeaning1.setLines(1);
+			_txtMeaning1.setSingleLine();
+			_txtMeaning2.setLines(1);
+			_txtMeaning2.setSingleLine();
+			_txtMeaning3.setLines(1);
+			_txtMeaning3.setSingleLine();
+			
+		}
+		else
+		{
+			lib.setBgEditText(_txtMeaning1,_MeaningBG);
+			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_DONE);
+		}
+		_txtMeaning1.setText(_vok.getBedeutung1());
+		_txtedWord.requestFocus();
+		setBtnsEnabled(false);
+		_btnEdit.setEnabled(true);
+		
+	}
+	
+	void EndEdit() throws Exception
+	{
+		if (_txtedWord.getVisibility()== View.VISIBLE)
+		{
+			_txtWord.setVisibility(View.VISIBLE);
+			_txtKom.setVisibility(View.VISIBLE);
+			_txtedWord.setVisibility(View.GONE);
+			_txtWord.setText(_txtedWord.getText());
+			View LayWord = findViewById(R.id.LayWord);
+			RelativeLayout.LayoutParams params = 
+					(RelativeLayout.LayoutParams) LayWord.getLayoutParams();
+			params.width = LayoutParams.WRAP_CONTENT;
+			LayWord.setLayoutParams(params);
+			_txtedKom.setVisibility(View.GONE);
+			_txtKom.setText(_txtedKom.getText());
+			_txtedWord.setImeOptions(EditorInfo.IME_ACTION_NONE);
+			_txtedKom.setImeOptions(EditorInfo.IME_ACTION_NONE);
+			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			_txtMeaning2.setVisibility(View.VISIBLE);
+			_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			_txtMeaning3.setVisibility(View.VISIBLE);
+			_txtMeaning3.setImeOptions(EditorInfo.IME_ACTION_DONE);
+			_txtMeaning1.setBackgroundResource(0);
+			_txtMeaning2.setBackgroundResource(0);
+			_txtMeaning3.setBackgroundResource(0);
+			if (!_vok.getCardMode())
+			{
+				_txtMeaning1.setLines(1);
+				_txtMeaning1.setSingleLine();
+				_txtMeaning2.setLines(1);
+				_txtMeaning2.setSingleLine();
+				_txtMeaning3.setLines(1);
+				_txtMeaning3.setSingleLine();
+			}
+			_vok.setWort(_txtedWord.getText().toString());
+			_vok.setKommentar(_txtedKom.getText().toString());
+			_vok.setBedeutung1(_txtMeaning1.getText().toString());
+			_vok.setBedeutung2(_txtMeaning2.getText().toString());
+			_vok.setBedeutung3(_txtMeaning3.getText().toString());
+			getVokabel(false, false);
+		}
+		
+	}
+
+	private void InitMeanings() {
+		_txtMeaning1.setOnEditorActionListener(EditorActionListener);
+		_txtMeaning2.setOnEditorActionListener(EditorActionListener);
+		_txtMeaning3.setOnEditorActionListener(EditorActionListener);
+	}
+
+	private void hideKeyboard() {
+		// Check if no view has focus:
+		View view = _main.getCurrentFocus();
+		if (view != null) {
+			InputMethodManager inputManager = 
+					(InputMethodManager) _main.getSystemService
+					(Context.INPUT_METHOD_SERVICE);
+			inputManager.hideSoftInputFromWindow(view.getWindowToken(),
+					InputMethodManager.HIDE_NOT_ALWAYS);
+		}
+	}
+	
+	private OnEditorActionListener EditorActionListener = new OnEditorActionListener() {
+
+		@Override
+		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+			// TODO Auto-generated method stub
+			if (event == null) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					hideKeyboard();
+					String[] Antworten;
+					org.de.jmg.learn.vok.Vokabel.Bewertung Bew;
+					String meaning1 = _txtMeaning1.getText().toString();
+					String meaning2 = _txtMeaning2.getVisibility() == View.VISIBLE ? _txtMeaning2
+							.getText().toString() : null;
+					String meaning3 = _txtMeaning3.getVisibility() == View.VISIBLE ? _txtMeaning3
+							.getText().toString() : null;
+					if (_txtWord.getVisibility()==View.VISIBLE)
+					{
+						Antworten = new String[] { meaning1, meaning2, meaning3 };
+						try {
+							Bew = _vok.CheckAntwort(Antworten);
+							if (Bew == Bewertung.AllesRichtig) {
+								lib.ShowToast(_main,
+										getString(R.string.AnswerCorrect));
+								_btnRight.performClick();
+							} else if (Bew == Bewertung.AllesFalsch) {
+								try {
+									_vok.AntwortFalsch();
+									lib.playSound(_main,
+											_vok.getZaehler());
+									_lastIsWrongVokID = _vok.getIndex();
+									getVokabel(true, false);
+									if (!_vok.getCardMode()) {
+										setBtnsEnabled(false);
+										flashwords();
+										Handler handler = new Handler();
+										handler.postDelayed(
+												runnableFalse,
+												(long) ((_main.DisplayDurationWord * 1000 + _vok
+														.getAnzBed()
+														* 1000
+														* _main.DisplayDurationBed) * _main.PaukRepetitions));
+									}
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									lib.ShowException(_main, e);
+								}
+							} else if (Bew == Bewertung.aehnlich) {
+								lib.ShowMessage(_main,
+										getString(R.string.MeaningSimilar),"");
+							} else if (Bew == Bewertung.TeilweiseRichtig) {
+								lib.ShowMessage(_main,
+										getString(R.string.MeaningPartiallyCorrect),"");
+							} else if (Bew == Bewertung.enthalten) {
+								lib.ShowMessage(_main,
+										getString(R.string.MeaningIsSubstring),"");
+							} else if (Bew == Bewertung.AehnlichEnthalten) {
+								lib.ShowMessage(
+										_main,
+										getString(R.string.MeaningIsSubstringSimilar),"");
+							} else if (Bew == Bewertung.TeilweiseRichtigAehnlich) {
+								lib.ShowMessage(
+										_main,
+										getString(R.string.MeaningIsPartiallyCorrectSimilar),"");
+							} else if (Bew == Bewertung.TeilweiseRichtigAehnlichEnthalten) {
+								lib.ShowMessage(
+										_main,
+										getString(R.string.MeaningIsPartiallyCorrectSimilarSubstring),"");
+							} else if (Bew == Bewertung.TeilweiseRichtigEnthalten) {
+								lib.ShowMessage(
+										_main,
+										getString(R.string.MeaningIsPartiallyCorrectSubstring),"");
+							}
+	
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							lib.ShowException(_main, e);
+						}
+					}
+					else
+					{
+						try {
+							EndEdit();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							lib.ShowException(_main, e);
+						}
+						
+					}
+					return true;
+				}
+				// Capture soft enters in a singleLine EditText that is the last
+				// EditText.
+				else if (actionId == EditorInfo.IME_ACTION_NEXT)
+					return false;
+				// Capture soft enters in other singleLine EditTexts
+
+				else
+					return false; // Let system handle all other null KeyEvents
+
+			} else if (actionId == EditorInfo.IME_NULL) {
+				// Capture most soft enters in multi-line EditTexts and all hard
+				// enters.
+				// They supply a zero actionId and a valid KeyEvent rather than
+				// a non-zero actionId and a null event like the previous cases.
+				if (event.getAction() == KeyEvent.ACTION_DOWN)
+					return false;
+				// We capture the event when key is first pressed.
+				else
+					return false; // We consume the event when the key is
+									// released.
+			} else
+				return false;
+		}
+	};
+
+	void setTextColors() {
+		libLearn.gStatus = "setTextColors";
+		_txtMeaning1.setTextColor(_main.Colors.get(ColorItems.meaning).ColorValue);
+		_txtMeaning2.setTextColor(_main.Colors.get(ColorItems.meaning).ColorValue);
+		_txtMeaning3.setTextColor(_main.Colors.get(ColorItems.meaning).ColorValue);
+		_txtWord.setTextColor(_main.Colors.get(ColorItems.word).ColorValue);
+		_txtKom.setTextColor(_main.Colors.get(ColorItems.comment).ColorValue);
+		/*
+		 * _txtMeaning1.setBackgroundColor(_main.Colors.get(ColorItems.background).
+		 * ColorValue);
+		 * _txtMeaning2.setBackgroundColor(_main.Colors.get(ColorItems.background
+		 * ).ColorValue);
+		 * _txtMeaning3.setBackgroundColor(_main.Colors.get(ColorItems.background
+		 * ).ColorValue);
+		 * _txtWord.setBackgroundColor(_main.Colors.get(ColorItems.background
+		 * ).ColorValue);
+		 * _txtKom.setBackgroundColor(_main.Colors.get(ColorItems.background
+		 * ).ColorValue);
+		 */
+		findViewById(R.id.layoutMain).setBackgroundColor(
+				_main.Colors.get(ColorItems.background).ColorValue);
+	}
+
+	public void setBtnsEnabled(boolean enable) {
+		libLearn.gStatus = "setBtnsEnabled";
+		_btnEdit.setEnabled(enable);
+		_btnRight.setEnabled(enable);
+		_btnSkip.setEnabled(enable);
+		_btnView.setEnabled(enable);
+		_btnWrong.setEnabled(enable);
+
+	}
+	
+	public void SetViewsToVokMode()
+	{
+		// _txtWord.setMaxLines(3);
+		// _txtWord.setLines(1);
+		_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (60 * scale));
+		_txtWord.setHorizontallyScrolling(false);
+
+		// _txtKom.setMaxLines(3);
+		// _txtKom.setLines(2);
+		_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (35 * scale));
+		_txtKom.setHorizontallyScrolling(false);
+
+		_txtMeaning1.setLines(1);
+		_txtMeaning1.setSingleLine();
+		_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (40 * scale));
+		_txtMeaning1.setMaxLines(3);
+		_txtMeaning1.setHorizontallyScrolling(false);
+
+		_txtMeaning2.setVisibility(View.VISIBLE);
+		_txtMeaning2.setLines(1);
+		_txtMeaning2.setSingleLine();
+		_txtMeaning2.setMaxLines(3);
+		_txtMeaning2.setHorizontallyScrolling(false);
+
+		_txtMeaning3.setVisibility(View.VISIBLE);
+		_txtMeaning3.setLines(1);
+		_txtMeaning3.setSingleLine();
+		_txtMeaning3.setMaxLines(3);
+		_txtMeaning3.setHorizontallyScrolling(false);
+
+	}
+	public void SetViewsToCardmode()
+	{
+		// _txtWord.setMaxLines(3);
+		// _txtWord.setLines(2);
+		_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (40 * scale));
+
+		// _txtKom.setMaxLines(3);
+		// _txtKom.setLines(2);
+		_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (30 * scale));
+
+		_txtMeaning1.setSingleLine(false);
+		_txtMeaning1.setMaxLines(30);
+		_txtMeaning1.setLines(16);
+		_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (20 * scale));
+		// _txtMeaning1.setImeOptions(EditorInfo.IME_NULL);
+		// _txtMeaning1.setImeActionLabel(null, KeyEvent.KEYCODE_ENTER);
+		// _txtMeaning1.setImeActionLabel("Custom text",
+		// KeyEvent.KEYCODE_ENTER);
+		_txtMeaning2.setVisibility(View.GONE);
+		_txtMeaning3.setVisibility(View.GONE);
+	
+	}
+
+
+	/*
+	 * private Runnable runnableGetVok = new Runnable() {
+	 * 
+	 * @Override public void run() { // do what you need to do
+	 * getVokabel(false,true); } };
+	 */
+	private Runnable runnableFalse = new Runnable() {
+		@Override
+		public void run() {
+			/* do what you need to do */
+			getVokabel(false, false);
+		}
+	};
+
+	/*
+	 * private void runFlashWords() { new Thread(new Runnable() {
+	 * 
+	 * @Override public void run() { // TODO Auto-generated method stub try {
+	 * flashwords(); } catch (Exception e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } } }).start(); }
+	 */
+	private void flashwords() throws Exception {
+		final RelativeLayout layout = (RelativeLayout) findViewById(R.id.layoutMainParent);
+		layout.setBackgroundColor(_main.Colors.get(ColorItems.background_wrong).ColorValue);
+		final ScrollView layoutScroll = (ScrollView) findViewById(R.id.layoutMain);
+		layoutScroll.setBackgroundColor(_main.Colors.get(ColorItems.background_wrong).ColorValue);
+		final RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtons);
+		layoutButtons.setVisibility(View.GONE);
+		View tb = this.findViewById(R.id.action_bar);
+		tb.setVisibility(View.GONE);
+		Handler handler = new Handler();
+		if (_isSmallDevice)
+		{
+			_txtKom.setVisibility(View.GONE);
+		}
+		_txtWord.requestFocus();
+		long delay = 0;
+		for (int i = 0; i < _main.PaukRepetitions; i++) {
+			// _txtWord.setBackgroundResource(R.layout.roundedbox);
+			handler.postDelayed(new showWordBordersTask(), delay);
+			delay += _main.DisplayDurationWord * 1000;
+			handler.postDelayed(new hideWordBordersTask(), delay);
+			BorderedEditText Beds[] = { _txtMeaning1, _txtMeaning2,
+					_txtMeaning3 };
+			for (int ii = 0; ii < _vok.getAnzBed(); ii++) {
+				if (!libString.IsNullOrEmpty(_vok.getBedeutungen()[ii]))
+				{
+					handler.postDelayed(new showBedBordersTask(Beds[ii]), delay);
+					delay += _main.DisplayDurationBed * 1000;
+					handler.postDelayed(new hideBedBordersTask(Beds[ii]), delay);
+				}
+			}
+
+		}
+		handler.postDelayed(new resetLayoutTask(layout), delay);
+		delay += 1000;
+
+	}
+
+	private class resetLayoutTask implements Runnable {
+		public View view;
+
+		public resetLayoutTask(View layout) {
+			// TODO Auto-generated constructor stub
+			this.view = layout;
+		}
+
+		public void run() {
+			if (view != null) {
+				view.setBackgroundColor(_main.Colors.get(ColorItems.background).ColorValue);
+				if (_isSmallDevice)
+				{
+					_txtKom.setVisibility(View.VISIBLE);
+				}
+				final RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtons);
+				layoutButtons.setVisibility(View.VISIBLE);
+				View tb = findViewById(R.id.action_bar);
+				tb.setVisibility(View.VISIBLE);
+				final ScrollView layoutScroll = (ScrollView) findViewById(R.id.layoutMain);
+				layoutScroll.setBackgroundColor(_main.Colors.get(ColorItems.background).ColorValue);
+				
+				
+			}
+		}
+	}
+
+	private class showWordBordersTask implements Runnable {
+		public void run() {
+			try {
+				lib.playSound(_main, org.de.jmg.lib.lib.Sounds.Beep);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			showWordBorders();
+		}
+	}
+
+	private class hideWordBordersTask implements Runnable {
+
+		public void run() {
+			// TODO Auto-generated method stub
+			hideWordBorders();
+		}
+
+	}
+
+	private class showBedBordersTask implements Runnable {
+		public BorderedEditText Bed;
+
+		public showBedBordersTask(BorderedEditText Bed) {
+			// TODO Auto-generated constructor stub
+			this.Bed = Bed;
+		}
+
+		public void run() {
+			// TODO Auto-generated method stub
+			// Bed.setPadding(5, 5, 5, 5);
+			Bed.setShowBorders(true,
+					_main.Colors.get(ColorItems.box_meaning).ColorValue);
+			try {
+				lib.playSound(_main, org.de.jmg.lib.lib.Sounds.Beep);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	private class hideBedBordersTask implements Runnable {
+		public BorderedEditText Bed;
+
+		public hideBedBordersTask(BorderedEditText Bed) {
+			// TODO Auto-generated constructor stub
+			this.Bed = Bed;
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			// Bed.setPadding(0, 0, 0, 0);
+			Bed.setShowBorders(false,
+					_main.Colors.get(ColorItems.background).ColorValue);
+		}
+
+	}
+
+	/*
+	 * private class CancelTimerTask extends TimerTask { public Timer T; public
+	 * CancelTimerTask(Timer T) { // TODO Auto-generated constructor stub this.T
+	 * = T; }
+	 * 
+	 * @Override public void run() { // TODO Auto-generated method stub
+	 * T.cancel(); }
+	 * 
+	 * }
+	 */
+	private void showWordBorders() {
+		// TODO Auto-generated method stub
+		// _txtWord.setPadding(5, 5, 5, 5);
+		_txtWord.setShowBorders(true,
+				_main.Colors.get(ColorItems.box_word).ColorValue);
+	}
+
+	private void hideWordBorders() {
+		// TODO Auto-generated method stub
+		// _txtWord.setPadding(0, 0, 0, 0);
+		_txtWord.setShowBorders(false,
+				_main.Colors.get(ColorItems.background).ColorValue);
+	}
+
+	public void SetActionBarTitle() throws Exception {
+		if (_vok.getGesamtzahl() > 0) {
+			String FName = "";
+			if (! libString.IsNullOrEmpty(_vok.getFileName()))
+			{
+				FName = new File(_vok.getFileName()).getName();
+			}
+			else if (_vok.getURI()!=null)
+			{
+				String path = lib.dumpUriMetaData(_main, _vok.getURI());
+				if(path.contains(":")) path = path.split(":")[0];
+				int li=path.lastIndexOf("/");
+				if (li>-1)
+				{
+					FName = path.substring(path.lastIndexOf("/"));
+				}
+				else
+				{
+					FName = "/" + path;
+				}
+			}
+			else if (! libString.IsNullOrEmpty(_vok.getURIName()))
+			{
+				FName = _vok.getURIName();
+			}
+			String title = "" + FName
+					+ " " + getString(R.string.number) + ": " + _vok.getIndex()
+					+ " " + getString(R.string.counter) + ": "
+					+ _vok.getZaehler();
+			String Right = " " + _vok.AnzRichtig;
+			String Wrong = " " + _vok.AnzFalsch;
+			SpannableString spnTitle = new SpannableString(title);
+			SpannableString spnRight = new SpannableString(Right);
+			SpannableString spnWrong = new SpannableString(Wrong);
+			spnRight.setSpan(new ForegroundColorSpan(Color.GREEN), 0,
+					spnRight.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+			spnWrong.setSpan(new ForegroundColorSpan(Color.RED), 0,
+					spnWrong.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+			((TextView)(findViewById(R.id.txtStatus))).setText(TextUtils.concat(spnTitle, spnRight, spnWrong));
+			//getSupportActionBar().setTitle(
+			//		TextUtils.concat(spnTitle, spnRight, spnWrong));
+
+		} else {
+			/*
+			 * String title = "Learn " + "empty._vok" + " " +
+			 * getString(R.string.number) + ": " + _vok.getIndex() + " " +
+			 * getString(R.string.counter) + ": " + _vok.getZaehler(); String
+			 * Right = " " + _vok.AnzRichtig; String Wrong = " " + _vok.AnzFalsch;
+			 * SpannableString spnTitle = new SpannableString(title);
+			 * SpannableString spnRight = new SpannableString(Right);
+			 * SpannableString spnWrong = new SpannableString(Wrong);
+			 * spnRight.setSpan(new ForegroundColorSpan(Color.GREEN), 0,
+			 * spnRight.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+			 * spnWrong.setSpan(new ForegroundColorSpan(Color.RED), 0,
+			 * spnWrong.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+			 * 
+			 * getSupportActionBar().setTitle( TextUtils.concat(spnTitle,
+			 * spnRight, spnWrong));
+			 */
+		}
+		resizeActionbar(0);
+	}
+	
+	float _ActionBarOriginalTextSize[] = {0f,0f,0f,0f,0f};
+	public void resizeActionbar(int width) {
+		/*
+		View tb = this.findViewById(R.id.action_bar);
+		Paint p = new Paint();
+		int SizeOther = 0;
+		if (tb != null) {
+			if (width == 0)
+				width = tb.getWidth();
+			if (width > 0) {
+				ViewGroup g = (ViewGroup) tb;
+				for (int i = 0; i < g.getChildCount(); i++) {
+					View v = g.getChildAt(i);
+					if (!(v instanceof TextView)) {
+						SizeOther += v.getWidth();
+					}
+				}
+				if (SizeOther == 0) SizeOther=lib.dpToPx(50);
+				for (int i = 0; i < g.getChildCount(); i++) {
+					View v = g.getChildAt(i);
+					if (v instanceof TextView) {
+						TextView t = (TextView) v;
+						if (_ActionBarOriginalTextSize[i] == 0 )
+						{
+							_ActionBarOriginalTextSize[i] = t.getTextSize();
+						}
+						else
+						{
+							t.setTextSize(TypedValue.COMPLEX_UNIT_PX,_ActionBarOriginalTextSize[i]);
+						}
+						if (t.getText() instanceof SpannedString) {
+							p.setTextSize(t.getTextSize());
+							SpannedString s = (SpannedString) t.getText();
+							width = width - SizeOther - lib.dpToPx(50);
+							float measuredWidth = p.measureText(s.toString());
+							if (measuredWidth > width)
+							{
+								float scaleA = (float)width / (float)measuredWidth;
+								if (scaleA < .5f) scaleA = .5f;
+								
+								t.setTextSize(
+										TypedValue.COMPLEX_UNIT_PX,
+										(float) (t.getTextSize() * (scaleA)));
+							}
+							
+						}
+					}
+				}
+
+			}
+
+		}
+		*/
+		TextView t = _txtStatus;
+		Paint p = new Paint();
+		if (width == 0)	width = mainView.getWidth();
+		if (width == 0) return;
+		if (_ActionBarOriginalTextSize[0] == 0 )
+		{
+			_ActionBarOriginalTextSize[0] = t.getTextSize();
+		}
+		else
+		{
+			t.setTextSize(TypedValue.COMPLEX_UNIT_PX,_ActionBarOriginalTextSize[0]);
+		}
+		if (t.getText() instanceof SpannedString) {
+			p.setTextSize(t.getTextSize());
+			SpannedString s = (SpannedString) t.getText();
+			width = width  - lib.dpToPx(50);
+			float measuredWidth = p.measureText(s.toString());
+			if (measuredWidth != width)
+			{
+				float scaleA = (float)width / (float)measuredWidth;
+				if (scaleA < .5f) scaleA = .5f;
+				if (scaleA>2.0f) scaleA = 2.0f;
+				t.setTextSize(
+						TypedValue.COMPLEX_UNIT_PX,
+						(float) (t.getTextSize() * (scaleA)));
+			}
+			
+		}
+	}
+	
+	
+
+
+
 }

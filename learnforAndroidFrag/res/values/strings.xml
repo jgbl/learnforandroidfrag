@@ -19,6 +19,7 @@
     <string name="mnuFile">File</string>
     <string name="mnuFileOpen">open file</string>
     <string name="Save">Do you want to save the vocabulary?</string>
+    <string name="btnSave">save</string>
     <string name="mnuFileSave">save</string>
     <string name="mnuFileOpenASCII">open ASCII</string>
     <string name="FileFormatNotRecognized">The file format could not be recognized! Aborting load!</string>
@@ -198,5 +199,28 @@
 	            <string name="txtLanguage">language</string>
 	            <string name="spnLanguage">language?</string>
 	            <string name="txtFlashCardFile">Do you want to create a flashcard file?</string>
+	            <string name="SaveNewVokabularyAs">Do you want to save the new vocabulary?</string>
+	            <string name="mnuOpenUri">open URI</string>
+	            <string name="msgWrongExt">You have chosen a wrong extension! Do you want to save nevertheless?</string>
+	            <string name="msgWrongExtLoad">The filename has a wrong extension! Do you want to load the file nevertheless?</string>
+	            <string name="InstallFilemanager">Please install a filemanager!</string>
+	            <string name="msgStartExternalProgram">Do you want to start an external program?</string>
+	            <string name="msgFileCouldNotBeSaved">The file could not be saved with the selected content provider! Do you want to chosse another provider?</string>
+	            <string name="msgFileCouldNotBeSaved2">The file could not be saved with the selected content provider!</string>
+	            <string name="msgShowDocumentProvider">Do you want to select only from document providers?</string>
+	            <string name="msgNoPersistableUriPermissionCouldBeTaken">No persistable Uri permission could be taken!</string>
+	            <string name="msgRememberChoice">remember this choice</string>
+	            <string name="msgDontShowThisMessageAgain">Don\'t show this message again</string>
+	            <string name="question">Question</string>
+	            <string name="message">Message</string>
+	            <string name="TakeDocumentProvider">take document provider</string>
+	            <string name="hintProvider">here you can select wether open opens only the document providers or all providers</string>
+	            <string name="chkShowWarning">Don\'t show warning if permission could not be taken</string>
+	            <string name="hintShowWarning">show warning if permanent permission could not be taken (this happens if document provider was not selected)</string>
+	            <string name="msgSaveSettings">Do you want to save the settings?</string>
+	            <string name="msgResetSetting">Do you want to reset this setting to the default value?</string>
+	            <string name="Error">Error</string>
+	            <string name="chkAlwaysStartExternalProgram">always start external program</string>
+	            <string name="hintStartExternalProgram">Start external program for opening and saving files</string>
         
 </resources>
