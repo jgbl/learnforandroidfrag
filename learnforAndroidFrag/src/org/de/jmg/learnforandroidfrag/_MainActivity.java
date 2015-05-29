@@ -15,7 +15,7 @@ public class _MainActivity extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mainView = inflater.inflate(R.layout.fragmentactivity_main, container,false);
+		mainView = inflater.inflate(R.layout.activity_main, container,false);
 				
 		return mainView;
 	}

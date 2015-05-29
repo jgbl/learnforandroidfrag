@@ -5,6 +5,7 @@ import org.de.jmg.learnforandroidfrag.MyFragmentPagerAdapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,10 +16,10 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragmentactivity_main);
+		setContentView(R.layout.activity_main_viewpager);
 		        /** Getting a reference to ViewPager from the layout */
-        
-		mPager = (ViewPager) findViewById(R.id.pager);
+        View pager = this.findViewById(R.id.pager);
+		mPager = (ViewPager) pager;
 
         /** Getting a reference to FragmentManager */
         FragmentManager fm = getSupportFragmentManager();
@@ -48,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
     }
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-
+		if (mPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+        }
 	}
 
 }
