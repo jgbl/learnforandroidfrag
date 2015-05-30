@@ -91,7 +91,7 @@ public class SettingsActivity extends Fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-				
+		_main = (MainActivity) getActivity();		
 	}
 
 	View SettingsView;
@@ -108,25 +108,26 @@ public class SettingsActivity extends Fragment
 			SettingsView = inflater.inflate(R.layout.activity_settings, container,false);
 			
 		}		
-		_main = (MainActivity) getActivity();
+		
 		mainView = SettingsView;
 		/*
 				*/
-
+		init();
 		return SettingsView;
 	}
 	
 
 	Intent _Intent;
-		
-	public void init(Intent intent2, int settingsActivity) {
+	boolean _blnInitialized = false;	
+	public void init() {
 	// TODO Auto-generated method stub
-		_Intent = intent2;
+		if (_blnInitialized) return;
+		_Intent = _main.getSettingsIntent();
 		try
 		{
 			//lib.ShowToast(_main, "Settings Start");
 			
-			RelativeLayout layout = (RelativeLayout) _main.findViewById(R.id.layoutSettings); // id fetch from xml
+			RelativeLayout layout = (RelativeLayout) findViewById(R.id.layoutSettings); // id fetch from xml
 			ShapeDrawable rectShapeDrawable = new ShapeDrawable(); // pre defined class
 			int pxPadding = lib.dpToPx(10);
 			rectShapeDrawable.setPadding(pxPadding, pxPadding, pxPadding, pxPadding * ((lib.NookSimpleTouch()) ? 2 : 1));
@@ -177,7 +178,7 @@ public class SettingsActivity extends Fragment
 			{
 				//resize(1.8f);
 			}
-			
+			_blnInitialized = true;
 		}
 		catch (Exception ex)
 		{

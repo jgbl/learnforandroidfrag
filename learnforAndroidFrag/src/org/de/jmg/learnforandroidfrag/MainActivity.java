@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 			Thread.setDefaultUncaughtExceptionHandler(ErrorHandler);
 
 			// View LayoutMain = findViewById(R.id.layoutMain);
-
+			libLearn.gStatus = "getting preferences";
 			try {
 				libLearn.gStatus = "onCreate getPrefs";
 				prefs = this.getPreferences(Context.MODE_PRIVATE);
@@ -160,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
 						"vok.tmp");
 				// SetActionBarTitle();
 				boolean CardMode = false;
-				if (savedInstanceState != null) {
+				if (savedInstanceState != null) 
+				{
 					libLearn.gStatus = "onCreate Load SavedInstanceState";
 					String filename = savedInstanceState.getString("vokpath");
 					Uri uri = null;
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
 				} 
 				else 
 				{
+					libLearn.gStatus = "getting lastfile";
 					String strURI = prefs.getString("URI","");
 					String filename = prefs.getString("LastFile", "");
 					String UriName = prefs.getString("FileName", "");
@@ -216,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
 						CardMode = prefs.getBoolean("Cardmode", false);
 						if (Lernvokabeln != null) {
 							if (isTmpFile) {
+								libLearn.gStatus = "getting lastfile load tmpfile";
 								LoadVokabel(tmppath, uri, index, Lernvokabeln,
 										Lernindex, CardMode);
 								vok.setFileName(filename);
@@ -229,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
 							} 
 							else 
 							{
+								libLearn.gStatus = "getting lastfile load file";
 								LoadVokabel(filename, uri, index, Lernvokabeln,
 										Lernindex, CardMode);
 								vok.setLastIndex(prefs.getInt("vokLastIndex",
@@ -239,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
 						{
 							if (isTmpFile) 
 							{
+								libLearn.gStatus = "getting lastfiletmp no Lernvokablen";
 								LoadVokabel(tmppath, uri, 1, null, 0, CardMode);
 								vok.setFileName(filename);
 								vok.setURI(uri);
@@ -248,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
 							} 
 							else 
 							{
+								libLearn.gStatus = "getting lastfile no Lernvokablen";
 								LoadVokabel(filename, uri, 1, null, 0, CardMode);
 							}
 						}
@@ -262,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
 				e.printStackTrace();
 				lib.ShowException(this, e);
 			}
-			ShowSettings();
+			//InitSettings();
 						
 
 		} catch (Exception ex) {
@@ -1091,7 +1097,9 @@ public class MainActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void ShowSettings() {
+	public Intent getSettingsIntent() 
+	{
+		libLearn.gStatus = "initializing SettingsFragment";
 		Intent intent = new Intent(this, SettingsActivity.class);
 		intent.putExtra("Abfragebereich", vok.getAbfragebereich());
 		intent.putExtra("CharsetASCII", vok.CharsetASCII);
@@ -1113,7 +1121,8 @@ public class MainActivity extends AppCompatActivity {
 		key = "AlwaysStartExternalProgram";
 		int AlwaysStartExternalProgram = prefs.getInt(key, 999);
 		intent.putExtra(key, AlwaysStartExternalProgram);
-		fPA.fragSettings.init(intent, Settings_Activity);
+		//fPA.fragSettings.init(intent, Settings_Activity);
+		return intent;
 	}
 	
 	public void LoadFile(boolean blnUniCode) throws Exception {
