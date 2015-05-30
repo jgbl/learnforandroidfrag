@@ -23,6 +23,7 @@ import org.de.jmg.lib.lib.libString;
 
 import br.com.thinkti.android.filechooser.AdvFileChooser;
 import br.com.thinkti.android.filechooser.FileChooser;
+import br.com.thinkti.android.filechooserfrag.fragFileChooser;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -50,11 +51,11 @@ import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
-	ViewPager mPager;	
-	private static final int FILE_CHOOSER = 34823;
-	private static final int Settings_Activity = 34824;
-	private static final int FILE_CHOOSERADV = 34825;
-	private static final int FILE_OPENINTENT = 34826;
+	public ViewPager mPager;	
+	public static final int FILE_CHOOSER = 34823;
+	public static final int Settings_Activity = 34824;
+	public static final int FILE_CHOOSERADV = 34825;
+	public static final int FILE_OPENINTENT = 34826;
 	private Context context = this;
 	private boolean _blnEink;
 	boolean _blnUniCode = true;
@@ -89,14 +90,21 @@ public class MainActivity extends AppCompatActivity {
         /** Defining a listener for pageChange */
         ViewPager.SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener()
         {
-                @Override
+            int LastPosition;    
+        	@Override
                 public void onPageSelected(int position)
                 {
                         super.onPageSelected(position);
-                        if (position == 1)
+                        if (LastPosition == SettingsActivity.fragID)
                         {
-                        	//ShowSettings();
-                        }
+                        		try {
+                    				fPA.fragSettings.saveResultsAndFinish(true);
+                    			} catch (Exception e) {
+                    				// TODO Auto-generated catch block
+                    				lib.ShowException(MainActivity.this, e);
+                    			}
+                    	}
+                        LastPosition=position;
                 }
 
         };
@@ -105,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         mPager.setOnPageChangeListener(pageChangeListener);
         
         /** Creating an instance of FragmentPagerAdapter */
-        fPA = new MyFragmentPagerAdapter(fm);
+        fPA = new MyFragmentPagerAdapter(fm, this);
 
         /** Setting the FragmentPagerAdapter object to the viewPager object */
         mPager.setAdapter(fPA);
@@ -184,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
 						vok.setURI(uri);
 						vok.setCardMode(CardMode);
 						vok.aend = savedInstanceState.getBoolean("aend", true);
-						fPA.fragMain.SetActionBarTitle();
 					}
 				} 
 				else 
@@ -227,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
 								vok.setCardMode(CardMode);
 								vok.setLastIndex(prefs.getInt("vokLastIndex",
 										vok.getLastIndex()));
-								fPA.fragMain.SetActionBarTitle();
 								vok.aend = aend;
 							} 
 							else 
@@ -248,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
 								vok.setFileName(filename);
 								vok.setURI(uri);
 								vok.setCardMode(CardMode);
-								fPA.fragMain.SetActionBarTitle();
 								vok.aend = aend;
 							} 
 							else 
@@ -281,7 +286,11 @@ public class MainActivity extends AppCompatActivity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
+		if (mPager.getCurrentItem() == fragFileChooser.fragID)
+		{
+			boolean res = this.fPA.fragChooser.onKeyDown(keyCode, event);
+			if (res == false) return res;
+		}
 		if (keyCode == KeyEvent.KEYCODE_HOME) {
 			try {
 				saveVok(false);
@@ -441,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
 		try 
 		{
 			if (uri==null) saveVok(false);
-			fPA.fragMain.setBtnsEnabled(false);
+			if (fPA.fragMain!=null)fPA.fragMain.setBtnsEnabled(false);
 			try 
 			{
 				vok.LoadFile(this, fileSelected, uri, false, false, _blnUniCode);
@@ -462,11 +471,11 @@ public class MainActivity extends AppCompatActivity {
 			}
 
 			if (vok.getCardMode() || CardMode) {
-				fPA.fragMain.SetViewsToCardmode();
+				if (fPA.fragMain!=null)fPA.fragMain.SetViewsToCardmode();
 			} 
 			else 
 			{
-				fPA.fragMain.SetViewsToVokMode();
+				if (fPA.fragMain!=null)fPA.fragMain.SetViewsToVokMode();
 			}
 
 			// if (index >0 ) vok.setIndex(index);
@@ -475,12 +484,14 @@ public class MainActivity extends AppCompatActivity {
 			if (Lernindex > 0)
 				vok.setLernIndex((short) Lernindex);
 			if (vok.getGesamtzahl() > 0)
-				fPA.fragMain.setBtnsEnabled(true);
-			fPA.fragMain.getVokabel(false, false);
+				{
+				if (fPA.fragMain!=null)fPA.fragMain.setBtnsEnabled(true);
+				}
+			if (fPA.fragMain!=null) fPA.fragMain.getVokabel(false, false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			lib.ShowException(this, e);
-			fPA.fragMain.getVokabel(true, true);
+			if (fPA.fragMain!=null) fPA.fragMain.getVokabel(true, true);
 		}
 	}
 	
@@ -488,7 +499,7 @@ public class MainActivity extends AppCompatActivity {
 	private Handler handlerbackpressed = new Handler();
 
 	private synchronized boolean saveVok(boolean dontPrompt) throws Exception {
-		fPA.fragMain.EndEdit();
+		if (fPA.fragMain!=null)fPA.fragMain.EndEdit();
 		if (vok.aend) 
 		{
 			if (!dontPrompt) 
@@ -1124,8 +1135,8 @@ public class MainActivity extends AppCompatActivity {
 		//fPA.fragSettings.init(intent, Settings_Activity);
 		return intent;
 	}
-	
-	public void LoadFile(boolean blnUniCode) throws Exception {
+	public boolean checkLoadFile() throws Exception
+	{
 		boolean blnLoadFile = false;
 		if (vok.aend && libString.IsNullOrEmpty(vok.getFileName()))
 		{
@@ -1143,37 +1154,46 @@ public class MainActivity extends AppCompatActivity {
 		{
 			blnLoadFile = true;
 		}
-		if (blnLoadFile)
+		return blnLoadFile;
+	}
+	
+	public void LoadFile(boolean blnUniCode) throws Exception {
+		
+		if (checkLoadFile())
 		{			
-			Intent intent = new Intent(this, FileChooser.class);
-			ArrayList<String> extensions = new ArrayList<String>();
-			extensions.add(".k??");
-			extensions.add(".v??");
-			extensions.add(".K??");
-			extensions.add(".V??");
-			extensions.add(".KAR");
-			extensions.add(".VOK");
-			extensions.add(".kar");
-			extensions.add(".vok");
-			extensions.add(".dic");
-			extensions.add(".DIC");
-
-			intent.putStringArrayListExtra("filterFileExtension", extensions);
-			intent.putExtra("blnUniCode", blnUniCode);
-			intent.putExtra("DefaultDir",
-					new File(JMGDataDirectory).exists() ? JMGDataDirectory
-							: "/sdcard/");
-			if (_blnUniCode)
-				_oldUniCode = yesnoundefined.yes;
-			else
-				_oldUniCode = yesnoundefined.no;
-			_blnUniCode = blnUniCode;
-
+			Intent intent = getFileChooserIntent(blnUniCode);
 			this.startActivityForResult(intent, FILE_CHOOSER);
 
 		}
 	}
 
+	public Intent getFileChooserIntent(boolean blnUniCode)
+	{
+		Intent intent = new Intent(this, FileChooser.class);
+		ArrayList<String> extensions = new ArrayList<String>();
+		extensions.add(".k??");
+		extensions.add(".v??");
+		extensions.add(".K??");
+		extensions.add(".V??");
+		extensions.add(".KAR");
+		extensions.add(".VOK");
+		extensions.add(".kar");
+		extensions.add(".vok");
+		extensions.add(".dic");
+		extensions.add(".DIC");
+
+		intent.putStringArrayListExtra("filterFileExtension", extensions);
+		intent.putExtra("blnUniCode", blnUniCode);
+		intent.putExtra("DefaultDir",
+				new File(JMGDataDirectory).exists() ? JMGDataDirectory
+						: "/sdcard/");
+		if (_blnUniCode)
+			_oldUniCode = yesnoundefined.yes;
+		else
+			_oldUniCode = yesnoundefined.no;
+		_blnUniCode = blnUniCode;
+		return intent;
+	}
 	
 	private void newvok() throws Exception
 	{

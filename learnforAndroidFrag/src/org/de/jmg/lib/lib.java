@@ -426,7 +426,8 @@ public class lib {
 		A.setPositiveButton("OK", listener());
 		A.setMessage(ex.getMessage() + "\n"
 				+ (ex.getCause() == null ? "" : ex.getCause().getMessage())
-				+ "\nStatus: " + libLearn.gStatus);
+				+ "\nStatus: " + libLearn.gStatus
+				+ "\n" + Log.getStackTraceString(ex));
 		A.setTitle("Error");
 		A.show();
 	}

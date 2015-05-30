@@ -62,7 +62,7 @@ public class SettingsActivity extends Fragment
 {
 	
 	private static final int FILE_CHOOSER = 0x42FA;
-	public final static int fragID = 1;
+	public final static int fragID = 2;
 	public Spinner spnAbfragebereich;
 	public Spinner spnASCII;
 	public Spinner spnStep;
@@ -98,6 +98,11 @@ public class SettingsActivity extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		if (SettingsView != null) 
+			{
+				init();
+				return SettingsView;
+			}
 		if (lib.NookSimpleTouch())
 		{
 			SettingsView = inflater.inflate(R.layout.activity_settings_nook, container,false);
@@ -108,10 +113,8 @@ public class SettingsActivity extends Fragment
 			SettingsView = inflater.inflate(R.layout.activity_settings, container,false);
 			
 		}		
-		
+		_blnInitialized = false;
 		mainView = SettingsView;
-		/*
-				*/
 		init();
 		return SettingsView;
 	}
@@ -119,10 +122,19 @@ public class SettingsActivity extends Fragment
 
 	Intent _Intent;
 	boolean _blnInitialized = false;	
-	public void init() {
+	public void init(Intent mainintent, MainActivity main) {
 	// TODO Auto-generated method stub
-		if (_blnInitialized) return;
-		_Intent = _main.getSettingsIntent();
+		
+		_Intent = mainintent;
+		_main = main;
+	}
+	
+	public void init()
+	{
+		if (_Intent == null || _main == null || SettingsView == null || _blnInitialized)
+		{
+			return;
+		}
 		try
 		{
 			//lib.ShowToast(_main, "Settings Start");

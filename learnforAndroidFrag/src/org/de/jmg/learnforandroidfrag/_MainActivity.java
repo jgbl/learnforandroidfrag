@@ -71,7 +71,11 @@ public class _MainActivity extends Fragment {
 	public final static int fragID = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+			Bundle savedInstanceState) 
+	{
+		
+		if (mainView!=null)return mainView;
+		
 		mainView = inflater.inflate(R.layout.activity_main, container,false);
 		 _main = (MainActivity) getActivity();
 		 context = _main;
@@ -99,6 +103,25 @@ public class _MainActivity extends Fragment {
 							}
 						});
 	
+			}
+			try {
+				this.SetActionBarTitle();
+				if (_vok.getCardMode() ) {
+					SetViewsToCardmode();
+				} 
+				else 
+				{
+					SetViewsToVokMode();
+				}
+				if (_vok.getGesamtzahl() > 0)
+				{
+					setBtnsEnabled(true);
+				}
+				getVokabel(false, false);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				lib.ShowException(_main, e1);
+				getVokabel(true, true);
 			}
 		} 
 		catch (Exception e) 
@@ -958,7 +981,7 @@ public class _MainActivity extends Fragment {
 		layoutScroll.setBackgroundColor(_main.Colors.get(ColorItems.background_wrong).ColorValue);
 		final RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtons);
 		layoutButtons.setVisibility(View.GONE);
-		View tb = this.findViewById(R.id.action_bar);
+		View tb = _main.findViewById(R.id.action_bar);
 		tb.setVisibility(View.GONE);
 		Handler handler = new Handler();
 		if (_isSmallDevice)
@@ -1006,7 +1029,7 @@ public class _MainActivity extends Fragment {
 				}
 				final RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtons);
 				layoutButtons.setVisibility(View.VISIBLE);
-				View tb = findViewById(R.id.action_bar);
+				View tb = _main.findViewById(R.id.action_bar);
 				tb.setVisibility(View.VISIBLE);
 				final ScrollView layoutScroll = (ScrollView) findViewById(R.id.layoutMain);
 				layoutScroll.setBackgroundColor(_main.Colors.get(ColorItems.background).ColorValue);
