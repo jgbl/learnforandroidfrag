@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         super.onPageSelected(position);
                         if (position == 1)
                         {
-                        	ShowSettings();
+                        	//ShowSettings();
                         }
                 }
 
@@ -262,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
 				e.printStackTrace();
 				lib.ShowException(this, e);
 			}
+			ShowSettings();
 						
 
 		} catch (Exception ex) {
@@ -1018,8 +1019,7 @@ public class MainActivity extends AppCompatActivity {
 		int id = item.getItemId();
 		try {
 			if (id == R.id.action_settings) {
-				mPager.setCurrentItem(fPA.fragSettings.getId());
-				ShowSettings();
+				mPager.setCurrentItem(SettingsActivity.fragID);
 			} else if (id == R.id.mnuFileOpen) {
 				LoadFile(true);
 			} else if (id == R.id.mnuOpenUri) {
@@ -1169,7 +1169,7 @@ public class MainActivity extends AppCompatActivity {
 	private void newvok() throws Exception
 	{
 		vok.NewFile();
-		mPager.setCurrentItem(fPA.fragMain.getId());
+		mPager.setCurrentItem(_MainActivity.fragID);
 		if (lib.ShowMessageYesNo(this, getString(R.string.txtFlashCardFile),""))
 		{
 			vok.setCardMode(true);

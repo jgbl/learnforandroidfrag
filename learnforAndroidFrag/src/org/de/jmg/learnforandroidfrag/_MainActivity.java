@@ -68,7 +68,7 @@ public class _MainActivity extends Fragment {
 	private Drawable _MeaningBG;
 	private Vokabel _vok;
 	private MainActivity _main;
-	
+	public final static int fragID = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

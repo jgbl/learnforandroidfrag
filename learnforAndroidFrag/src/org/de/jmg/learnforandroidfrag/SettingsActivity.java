@@ -62,6 +62,7 @@ public class SettingsActivity extends Fragment
 {
 	
 	private static final int FILE_CHOOSER = 0x42FA;
+	public final static int fragID = 1;
 	public Spinner spnAbfragebereich;
 	public Spinner spnASCII;
 	public Spinner spnStep;
@@ -820,7 +821,7 @@ public class SettingsActivity extends Fragment
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				_main.mPager.setCurrentItem(0);
+				_main.mPager.setCurrentItem(_MainActivity.fragID);
 			}
 		});
 
@@ -838,7 +839,7 @@ public class SettingsActivity extends Fragment
 					Sounds.getItem(i).SoundPath);
 		}
 		_main.processSettingsIntent(intent);
-		if (!blnDontSetCurrentItem) _main.mPager.setCurrentItem(0);
+		if (!blnDontSetCurrentItem) _main.mPager.setCurrentItem(_MainActivity.fragID);
 	}
 
 	public float scale = 1;

@@ -22,7 +22,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 	
 	@Override
 	public Fragment getItem(int arg0) {
-		if (arg0 != fragSettings.getId() && LastItem == fragSettings)
+		if (arg0 != SettingsActivity.fragID && LastItem == fragSettings)
 		{
 			try {
 				fragSettings.saveResultsAndFinish(true);
@@ -34,12 +34,12 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 		switch(arg0){
 		
 			/** tab1 is selected */
-			case 0:
+			case _MainActivity.fragID:
 				LastItem = fragMain;
 				return fragMain;
 				
 			/** tab2 is selected */
-			case 1:
+			case SettingsActivity.fragID:
 				LastItem = fragSettings;
 				return fragSettings;	
 		}
