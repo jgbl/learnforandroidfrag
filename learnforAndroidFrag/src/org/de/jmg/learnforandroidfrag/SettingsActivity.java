@@ -60,7 +60,7 @@ import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
 public class SettingsActivity extends Fragment 
 {
 	
-	private static final int FILE_CHOOSER = 0x42FA;
+	public static final int FILE_CHOOSERSOUND = 0x42FA;
 	public final static int fragID = 3;
 	public Spinner spnAbfragebereich;
 	public Spinner spnASCII;
@@ -1057,7 +1057,7 @@ public class SettingsActivity extends Fragment
 		SoundSetting item = Sounds.getItem(spnSounds
 				.getSelectedItemPosition());
 		File F = new File(item.SoundPath);
-		String dir = Environment.getExternalStorageDirectory().getPath();
+		String dir = _main.SoundDir;
 		if (F.exists())
 			dir = F.getParent();
 		Intent intent = new Intent(_main, FileChooser.class);
@@ -1070,13 +1070,13 @@ public class SettingsActivity extends Fragment
 		intent.putStringArrayListExtra("filterFileExtension", extensions);
 		intent.putExtra("DefaultDir", dir);
 
-		_main.startActivityForResult(intent, FILE_CHOOSER);
+		_main.startActivityForResult(intent, FILE_CHOOSERSOUND);
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		try {
-			if (requestCode == FILE_CHOOSER
+			if (requestCode == FILE_CHOOSERSOUND
 					&& (resultCode == Activity.RESULT_OK)) {
 				String fileSelected = data.getStringExtra("fileSelected");
 				SoundSetting item = Sounds
@@ -1085,7 +1085,11 @@ public class SettingsActivity extends Fragment
 				File F = new File(item.SoundPath);
 				try {
 					if (F.exists())
-						lib.playSound(F);
+						{
+							lib.playSound(F);
+							_main.setSoundDir(F.getParent());
+						}
+						
 					else
 						lib.playSound(_main.getAssets(), item.SoundPath);
 				} catch (IOException e) {

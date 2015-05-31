@@ -114,7 +114,7 @@ public class Vokabel {
 	// ******** Types ******
 
 	public class typFonts {
-		// Für Fonts
+		// FÃ¼r Fonts
 		public clsFont Wort;
 		public clsFont Bed;
 		public clsFont Kom;
@@ -127,11 +127,11 @@ public class Vokabel {
 
 	final short ErrNoFileHandle = 1002;
 	private ArrVok mVok;
-	// enthält die Indexwerte der Lernvokabeln
+	// enthÃ¤lt die Indexwerte der Lernvokabeln
 	private int[] mLernVokabeln;
 	// gibt an welcher Index zuletzt bei den Lernvokabeln verwendet wurde
 	private int mLastIndex;
-	// Abfragen ist möglich
+	// Abfragen ist mÃ¶glich
 	private boolean mblnLernInit;
 	// lokale Kopie
 	private int mIndex;
@@ -151,7 +151,7 @@ public class Vokabel {
 	// lokale Kopie
 	private short mAbfragebereich;
 	// lokale Kopie
-	private boolean mAbfrageZufällig;
+	private boolean mAbfrageZufÃ¤llig;
 	// lokale Kopie
 	private short mLerngeschwindigkeit;
 	// lokale Kopie
@@ -323,19 +323,19 @@ public class Vokabel {
 	}
 
 	public boolean getAbfrageZufaellig() {
-		return mAbfrageZufällig;
+		return mAbfrageZufÃ¤llig;
 	}
 
 	public void setAbfrageZufaellig(boolean value) {
-		mAbfrageZufällig = value;
+		mAbfrageZufÃ¤llig = value;
 	}
 
-	// Der Abfragebereicht wird durch eine Zahl zwischen -1 und 6 repräsentiert
-	// <=0 repräsentiert alle Vokabeln, die ein oder mehrmals nicht gewußt
+	// Der Abfragebereicht wird durch eine Zahl zwischen -1 und 6 reprÃ¤sentiert
+	// <=0 reprÃ¤sentiert alle Vokabeln, die ein oder mehrmals nicht gewuÃŸt
 	// wurden
-	// 1 alle Zahlen, die noch gar nicht gewußt wurden, bei jeder richtigen
+	// 1 alle Zahlen, die noch gar nicht gewuÃŸt wurden, bei jeder richtigen
 	// Antwort wird
-	// der Zähler um eins erhöht.
+	// der ZÃ¤hler um eins erhÃ¶ht.
 	public short getAbfragebereich() {
 		return mAbfragebereich;
 	}
@@ -490,22 +490,22 @@ public class Vokabel {
 	public short getZaehler() throws Exception {
 		short functionReturnValue = 0;
 		// ERROR: Not supported in C#: OnErrorStatement
-		libLearn.gStatus = "Vokabel.ZÃƒÂ¤hler Start";
+		libLearn.gStatus = "Vokabel.ZÃƒÆ’Ã‚Â¤hler Start";
 		// ERROR: Not supported in C#: OnErrorStatement
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
-		// Syntax: Debug.Print X.ZÃƒÂ¤hler
+		// Syntax: Debug.Print X.ZÃƒÆ’Ã‚Â¤hler
 		functionReturnValue = mVok.get(mIndex).z;
 		return functionReturnValue;
 	}
 
 	public void setZaehler(short value) throws Exception {
 		// ERROR: Not supported in C#: OnErrorStatement
-		libLearn.gStatus = "Vokabel.ZÃƒÂ¤hler Start";
+		libLearn.gStatus = "Vokabel.ZÃƒÆ’Ã‚Â¤hler Start";
 		// ERROR: Not supported in C#: OnErrorStatement
 		// wird beim Zuweisen eines Werts in eine Eigenschaft auf der linken
 		// Seite der Gleichung, verwendet.
-		// Syntax: X.ZÃƒÂ¤hler = 5
+		// Syntax: X.ZÃƒÆ’Ã‚Â¤hler = 5
 		mVok.get(mIndex).z = value;
 		aend = true;
 	}
@@ -602,7 +602,7 @@ public class Vokabel {
 			aend = true;
 			mVok.get(mIndex).Bed1 = value;
 		} else {
-			throw new Exception("Bedeutung1 muß¸ Text enthalten!");
+			throw new Exception("Bedeutung1 muÃŸÂ¸ Text enthalten!");
 		}
 	}
 
@@ -697,7 +697,7 @@ public class Vokabel {
 			Bedeutungen = new String[] { getBedeutung1(), getBedeutung2(),
 					getBedeutung3() };
 			mAntworten = Antworten;
-			libLearn.gStatus = CodeLoc + " Gleichheit Überprüfen";
+			libLearn.gStatus = CodeLoc + " Gleichheit ÃœberprÃ¼fen";
 
 			for (ii = 0; ii <= (Bedeutungen.length - 1); ii++) {
 				Bedeutungen[ii] = (Bedeutungen[ii]).trim();
@@ -737,7 +737,7 @@ public class Vokabel {
 								break; // TODO: might not be correct. Was : Exit
 										// For
 								// Falls eine Antwort mehrere Teilantworten
-								// enthält
+								// enthÃ¤lt
 							} else {
 								String[] s = EnthaeltTrennzeichen(RemoveKomment(Bedeutungen[ii]));
 								RefSupport<String> refVar1 = new RefSupport<String>(
@@ -1010,7 +1010,7 @@ public class Vokabel {
 			}
 			libLearn.gStatus = CodeLoc + "Kommentare herausfiltern";
 			Bed = RemoveKomment(Bed);
-			libLearn.gStatus = CodeLoc + " Ungültige Zeichen ersetzen";
+			libLearn.gStatus = CodeLoc + " UngÃ¼ltige Zeichen ersetzen";
 			if (Bed.length() > 0) {
 				Bed = (Bed).toUpperCase(Locale.getDefault());
 
@@ -1024,7 +1024,7 @@ public class Vokabel {
 						}
 					} catch (Exception ex) {
 						throw new Exception(
-								"Fehler bei MakeVergl Ungültige Zeichen: \n"
+								"Fehler bei MakeVergl UngÃ¼ltige Zeichen: \n"
 										+ ex.getMessage());
 					}
 				}
@@ -1209,7 +1209,7 @@ public class Vokabel {
 
 	private String[] EnthaeltTrennzeichen(String Antwort) {
 		String[] functionReturnValue = null;
-		// Rückgabewert ist Anzahl der Teilbedeutungen
+		// RÃ¼ckgabewert ist Anzahl der Teilbedeutungen
 		// ERROR: Not supported in C#: OnErrorStatement
 
 		libLearn.gStatus = "Vokabel.EnthaeltTrennzeichen Start";
@@ -1323,10 +1323,10 @@ public class Vokabel {
 			}
 
 			mLernVokabeln = lib.ResizeArray(mLernVokabeln, mSchrittweite + 1);
-			// Überprüfen ob Cache mit Lernvokabeln gefüllt ist
+			// ÃœberprÃ¼fen ob Cache mit Lernvokabeln gefÃ¼llt ist
 			for (i = 1; i <= mSchrittweite; i++) {
 				if (mLernVokabeln[i] == 0) {
-					// falls Lernvokabel gelÃ¶scht ist neue holen
+					// falls Lernvokabel gelÃƒÂ¶scht ist neue holen
 					if (!_AskAll) {
 						if (mAbfragebereich == -1 | blnDurch2 == true) {
 							RefSupport<Object> refVar___0 = new RefSupport<Object>(
@@ -1361,7 +1361,7 @@ public class Vokabel {
 						} else {
 							voknr = 1;
 						}
-						if (mAbfrageZufällig) {
+						if (mAbfrageZufÃ¤llig) {
 							do {
 								voknr = (short) lib.rndInt(0, mGesamtzahl);
 							} while (CheckIfNotContained(voknr) == false);
@@ -1371,7 +1371,7 @@ public class Vokabel {
 				}
 
 			}
-			// Nächste Vokabel im Puffer einstellen
+			// NÃ¤chste Vokabel im Puffer einstellen
 			mLernindex += 1;
 			// falls wir am Ende sind wieder an den Anfang gehen
 			if (mLernindex > mSchrittweite)
@@ -1474,7 +1474,7 @@ public class Vokabel {
 				if ((Boolean) refblnDurch.getValue() == true) {
 					refblnDurch2.setValue(true);
 					// UPGRADE_ISSUE: Die Anweisung GoSub wird nicht
-					// unterstützt. Klicken Sie hier für weitere Informationen:
+					// unterstÃ¼tzt. Klicken Sie hier fÃ¼r weitere Informationen:
 					// 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="C5A1A479-AB8B-4D40-AAF4-DB19A2E5E77F"'
 					RefSupport<Object> refVar___0 = new RefSupport<Object>(
 							vokNr);
@@ -1515,7 +1515,7 @@ public class Vokabel {
 		Random rnd = new Random();
 		do {
 
-			if (mAbfrageZufällig) {
+			if (mAbfrageZufÃ¤llig) {
 				do {
 					intVokNr = (short) lib.rndInt(0, mGesamtzahl);
 				} while (CheckIfNotContained(intVokNr) == false);
@@ -2010,7 +2010,7 @@ public class Vokabel {
 		mIndex = 1;
 
 		// ******** Hier gehts hin wenn ein Fehler auftrit oder wenn _
-		// ' ******** Schluß ist.....
+		// ' ******** SchluÃŸ ist.....
 
 		// Defmouse 0
 		sp = (short) (sp & 7);
@@ -2019,7 +2019,7 @@ public class Vokabel {
 		}
 		switch (indexlang) {
 		// Case 0: mSprache = "Deutsch"
-		// Case 1: mSprache = "Hebräisch"
+		// Case 1: mSprache = "HebrÃ¤isch"
 		// Case 2: mSprache = "Griechisch"
 		// Case Is > 2: Sprache = "Sonstige"
 		}
@@ -2060,7 +2060,7 @@ public class Vokabel {
 							.substring(hh - 1, h - 1)));
 			} catch (Exception __dummyCatchVar0) {
 				if (fontfil.getValue().substring(hh - 1, h - 1)
-						.equals("Hebräisch")) {
+						.equals("HebrÃ¤isch")) {
 					mSprache = EnumSprachen.Hebrew;
 				} else {
 					mSprache = EnumSprachen.Normal;
@@ -2253,7 +2253,7 @@ public class Vokabel {
 						lib.ShowMessage(getContext(),
 								getContext().getString(R.string.FileDoesNotExist),"");
 						// Call Err.Raise(vbObjectError + ErrWrongfilename, CodeLoc
-						// & "", "Dateiname_ungültig", "", "")
+						// & "", "Dateiname_ungÃ¼ltig", "", "")
 						return;
 					}
 				}
@@ -2548,16 +2548,16 @@ public class Vokabel {
 						CurVok.Bed3 = CurVok.Bed3.replace("ùú", "\r\n");
 						if (blnSingleLine) {
 							CurVok.Wort = ConvMulti(CurVok.Wort);
-							CurVok.Kom = ConvMulti(CurVok.Kom); // .Kom.replace("ù",
+							CurVok.Kom = ConvMulti(CurVok.Kom); // .Kom.replace("Ã¹",
 																// "\r\n");
-							CurVok.Bed1 = ConvMulti(CurVok.Bed1); // .replace("ù",
+							CurVok.Bed1 = ConvMulti(CurVok.Bed1); // .replace("Ã¹",
 																	// "\r\n");
-							CurVok.Bed2 = ConvMulti(CurVok.Bed2); // .replace("ù",
+							CurVok.Bed2 = ConvMulti(CurVok.Bed2); // .replace("Ã¹",
 																	// "\r\n");
-							CurVok.Bed3 = ConvMulti(CurVok.Bed3); // .replace("ù",
+							CurVok.Bed3 = ConvMulti(CurVok.Bed3); // .replace("Ã¹",
 																	// "\r\n");
-							CurVok.Wort = ConvMulti(CurVok.Wort); // .replace("",
-																	// "ä");
+							CurVok.Wort = ConvMulti(CurVok.Wort); // .replace("Â„",
+																	// "Ã¤");
 	
 						}
 					}
@@ -2592,7 +2592,7 @@ public class Vokabel {
 					mIndex = 1;
 	
 				// ******** Hier gehts hin wenn ein Fehler auftrit oder wenn _
-				// ' ******** Schluß ist.....
+				// ' ******** SchluÃŸ ist.....
 				libLearn.gStatus = CodeLoc + " CloseFile";
 				// closefile:
 				// Inserted by CodeCompleter
@@ -2607,7 +2607,7 @@ public class Vokabel {
 				switch (indexlang) {
 				// Case 0: mSprache = "Deutsch"
 	
-				// Case 1: mSprache = "Hebräisch"
+				// Case 1: mSprache = "HebrÃ¤isch"
 				// Case 2: mSprache = "Griechisch"
 				// Case Is > 2: Sprache = "Sonstige"
 				}
@@ -2664,11 +2664,11 @@ public class Vokabel {
 	public void ConvertMulti() {
 		for (typVok CurVok : mVok) {
 			CurVok.Wort = ConvMulti(CurVok.Wort);
-			CurVok.Kom = ConvMulti(CurVok.Kom); // .Kom.replace("ù", "\r\n");
-			CurVok.Bed1 = ConvMulti(CurVok.Bed1); // .replace("ù", "\r\n");
-			CurVok.Bed2 = ConvMulti(CurVok.Bed2); // .replace("ù", "\r\n");
-			CurVok.Bed3 = ConvMulti(CurVok.Bed3); // .replace("ù", "\r\n");
-			CurVok.Wort = ConvMulti(CurVok.Wort); // .replace("", "ä");
+			CurVok.Kom = ConvMulti(CurVok.Kom); // .Kom.replace("Ã¹", "\r\n");
+			CurVok.Bed1 = ConvMulti(CurVok.Bed1); // .replace("Ã¹", "\r\n");
+			CurVok.Bed2 = ConvMulti(CurVok.Bed2); // .replace("Ã¹", "\r\n");
+			CurVok.Bed3 = ConvMulti(CurVok.Bed3); // .replace("Ã¹", "\r\n");
+			CurVok.Wort = ConvMulti(CurVok.Wort); // .replace("Â„", "Ã¤");
 			aend = true;
 		}
 	}
@@ -2703,7 +2703,6 @@ public class Vokabel {
 		return s;
 
 	}
-
 	public void ResetAbfrage() throws Exception {
 		mLernVokabeln = new int[mSchrittweite + 1];
 		InitAbfrage();
@@ -2736,7 +2735,7 @@ public class Vokabel {
 	 * System.Text.Encoding.GetEncoding(1252)); } else {
 	 * Interaction.MsgBox(ClsGlobal.GetLang("FileDoesNotExist",
 	 * "Dateiname existiert nicht!", )); //Call Err.Raise(vbObjectError +
-	 * ErrWrongfilename, "Vokabel.Loadfile", "Dateiname_ungültig", "", "")
+	 * ErrWrongfilename, "Vokabel.Loadfile", "Dateiname_ungÃ¼ltig", "", "")
 	 * return; } if (System.IO.Path.GetExtension(strFileName).IndexOf(".k",
 	 * System.StringComparison.CurrentCultureIgnoreCase) != -1) _cardmode =
 	 * true; else _cardmode = false;
@@ -2760,7 +2759,7 @@ public class Vokabel {
 	 * mVok.get(n).Wort = libString.Left(mVok.get(n).Wort, qf - 1); } else {
 	 * mVok.get(n).Kom = ""; } String WordConvert = ""; char cTest = '\0';
 	 * foreach (char c in mVok.get(n).Wort) { String cConv = c; if (this.Sprache
-	 * == EnumSprachen.Hebrew) { this.aend = true; cConv = ConvHebrew(c);
+	 * == EnumSprachen.Hebrew) { this.aend = true; cConv = ConvHebreÂ„w(c);
 	 * WordConvert = cConv + WordConvert; } else if (this.Sprache ==
 	 * EnumSprachen.Griechisch) { this.aend = true; cConv = ConvGreek(c);
 	 * WordConvert += cConv; }
@@ -2774,28 +2773,28 @@ public class Vokabel {
 	 * libLearn.gStatus = "Vokabel.LoadFile Line 849"; // Inserted by
 	 * CodeCompleter if (!sr.EndOfStream) { mVok.get(n).Bed3 =
 	 * sr.readLine().replace("{CR}", "\r").replace("{LF}", "\n"); } } else {
-	 * mVok.get(n).Bed2 = ""; mVok.get(n).Bed3 = ""; } if (!sr.EndOfStream) {
+	 * mVok.get(n).Bed2 = ""; mVok.get(n).Bed3 = ""Â„; } if (!sr.EndOfStream) {
 	 * strTmp = sr.readLine(); mVok.get(n).z = Conversion.Val(strTmp); } if
 	 * (libString.IsNullOrEmpty(mVok.get(n).Wort)) { n = n - 1; libLearn.gStatus
 	 * = "Vokabel.LoadFile Line 859"; // Inserted by CodeCompleter
-	 * Array.Resize(ref mVok, n + 1); } else { mVok.get(n).Wort =
-	 * mVok.get(n).Wort.replace("ùú", "\r\n"); mVok.get(n).Kom =
-	 * mVok.get(n).Kom.replace("ùú", "\r\n"); mVok.get(n).Bed1 =
-	 * mVok.get(n).Bed1.replace("ùú", "\r\n"); mVok.get(n).Bed2 =
-	 * mVok.get(n).Bed2.replace("ùú", "\r\n"); mVok.get(n).Bed3 =
-	 * mVok.get(n).Bed3.replace("ùú", "\r\n"); }
+	 * Array.Resize(ref mVokÂ„, n + 1); } else { mVok.get(n).Wort =
+	 * mVok.get(n).Wort.replace("Ã¹Ãº", "\r\n"); mVok.get(n).Kom =
+	 * mVok.get(n).Kom.replace("Ã¹Ãº", "\r\n"); mVok.get(n).Bed1 =
+	 * mVok.get(n).Bed1.replace("Ã¹Ãº", "\r\n"); mVok.get(n).Bed2 =
+	 * mVok.get(n).Bed2.replace("Ã¹Ãº", "\r\n"); mVok.get(n).Bed3 =
+	 * mVok.get(n).Bed3.replace("Ã¹Ãº", "\r\n"); }
 	 * 
 	 * } if (this.aend == true) { if (this.Sprache == EnumSprachen.Hebrew ||
 	 * this.Sprache == EnumSprachen.Griechisch) { this.FontWort.Name = "Cardo";
 	 * varHebr = false; } } mGesamtzahl = n; if (!blnAppend) mIndex = 1;
 	 * 
 	 * // ******** Hier gehts hin wenn ein Fehler auftrit oder wenn _ //'
-	 * ******** Schluß ist..... libLearn.gStatus = "Vokabel.LoadFile Line 869";
+	 * ******** SchluÃŸ ist..... libLearn.gStatus = "Vokabel.LoadFile Line 869";
 	 * closefile: // Inserted by CodeCompleter sr.Close(); sr.Dispose(); sr =
 	 * null; //Defmouse 0 sp = sp & 7; if (sp >= 0 & sp <= 3) { indexlang = sp;
 	 * } switch (indexlang) { // Case 0: mSprache = "Deutsch"
 	 * 
-	 * // Case 1: mSprache = "Hebräisch" // Case 2: mSprache = "Griechisch" //
+	 * // Case 1: mSprache = "HebrÃ¤isch" // Case 2: mSprache = "Griechisch" //
 	 * Case Is > 2: Sprache = "Sonstige" } //If Sprache <> "" Then mSprache =
 	 * Sprache if (mGesamtzahl > 5) { InitAbfrage(); if (!blnAppend) mFileName =
 	 * strFileName; } else { libLearn.gStatus = "Vokabel.LoadFile Line 889"; //
@@ -2810,18 +2809,18 @@ public class Vokabel {
 	 * 
 	 * } // ERROR: Not supported in C#: OnErrorStatement
 	 * 
-	 * goto closefile; return; } public String ConvHebrew(char c) { char cTest
+	 * goto closefile; return; } public String ConvHebrew(char c) {Â„ char cTest
 	 * = '\0'; String cConv = c; if (c != 'I') { cTest = (char.ToLower(c)); }
 	 * else { cTest = c; } switch (libString.Asc(cTest)) { case 0x61: case 0x62:
 	 * cConv = libString.ChrW(libString.Asc(c) - 0x61 + 0x5d0); break; case
 	 * 0x63: cConv = libString.ChrW(0x5e1); break; case 0x64: cConv =
 	 * libString.ChrW(0x5d3); break; case 0x65: cConv = libString.ChrW(0x5b6);
-	 * break; case 0x66: cConv = libString.ChrW(0x5b8); break; case 0x67: cConv
+	 * break; case 0x66: cConv = libString.ChrW(0x5b8); break; case 0x67:Â„ cConv
 	 * = libString.ChrW(0x5d2); break; case 0x68: cConv = libString.ChrW(0x5d4);
 	 * break; case 0x69: cConv = libString.ChrW(0x5e2); break; case 0x6a: cConv
 	 * = libString.ChrW(0x5e6); break; case 0x6b: cConv = libString.ChrW(0x5db);
 	 * break; case 0x6c: cConv = libString.ChrW(0x5dc); break; case 0x6d: cConv
-	 * = libString.ChrW(0x5de); break; case 0x6e: cConv =
+	 * = libString.ChrW(0x5de); break; case 0x6e:Â„ cConv =
 	 * libString.ChrW(0x5e0); break; case 0x6f: //o cConv =
 	 * libString.ChrW(0x5b9); break; case libString.Asc('p'): cConv =
 	 * libString.ChrW(0x5e4); break; case libString.Asc('q'): cConv =
@@ -2842,7 +2841,7 @@ public class Vokabel {
 	 * libString.ChrW(0x5b7); break; case libString.Asc('0'): cConv =
 	 * libString.ChrW(0x5c2); break; case libString.Asc('1'): cConv =
 	 * libString.ChrW(0x5c5); break; case libString.Asc('2'): cConv =
-	 * libString.ChrW(0x5b0); break; case libString.Asc('3'): cConv =
+	 * libString.ChrWÂ„(0x5b0); break; case libString.Asc('3'): cConv =
 	 * libString.ChrW(0x5a6); break; case libString.Asc('4'): cConv = ""; break;
 	 * case libString.Asc('5'): cConv = ""; break; case libString.Asc('6'):
 	 * cConv = ""; break; case libString.Asc('7'): cConv = ""; break; case
@@ -2874,7 +2873,7 @@ public class Vokabel {
 	 * libString.Asc('G'): cConv = libString.ChrW(0x393); break; case
 	 * libString.Asc('H'): cConv = libString.ChrW(0x397); break; case
 	 * libString.Asc('I'): cConv = libString.ChrW(0x399); break; case
-	 * libString.Asc('J'): cConv = "ῳͅ"; break; case libString.Asc('K'): cConv =
+	 * libString.Asc('J'): cConv = "á¿³Í…"; break; case libString.Asc('K'): cConv =
 	 * libString.ChrW(0x39a); break; case libString.Asc('L'): cConv =
 	 * libString.ChrW(0x39b); break; case libString.Asc('M'): cConv =
 	 * libString.ChrW(0x39c); break; case libString.Asc('N'): cConv =
@@ -2885,37 +2884,37 @@ public class Vokabel {
 	 * libString.ChrW(0x3a1); break; case libString.Asc('S'): cConv =
 	 * libString.ChrW(0x3a3); break; case libString.Asc('T'): cConv =
 	 * libString.ChrW(0x3a4); break; case libString.Asc('U'): cConv =
-	 * libString.ChrW(0x3a5); break; case libString.Asc('V'): cConv = "ῃ";
+	 * libString.ChrW(0x3a5); break; case libString.Asc('V'): cConv = "á¿ƒ";
 	 * break; case libString.Asc('W'): cConv = libString.ChrW(0x3a9); break;
 	 * case libString.Asc('X'): cConv = libString.ChrW(0x39e); break; case
 	 * libString.Asc('Y'): cConv = libString.ChrW(0x3a8); break; case
 	 * libString.Asc('Z'): cConv = libString.ChrW(0x396); break; case
-	 * libString.Asc('…'): cConv = "ί"; break; case libString.Asc('š'): cConv =
-	 * "έ"; break; case libString.Asc('Œ'): cConv = "ἷ"; break; case
-	 * libString.Asc('ƒ'): cConv = "ἱ"; break; case libString.Asc('†'): cConv =
-	 * "ἵ"; break; case libString.Asc('„'): cConv = "ἰ"; break; case
-	 * libString.Asc('ˆ'): cConv = "ὶ"; break; case libString.Asc('$'): cConv =
-	 * "ϛ"; break; case libString.Asc('%'): cConv = "ϙ"; break; case
-	 * libString.Asc('#'): cConv = "ϝ"; break; case 0x61: // TODO: to 0x7a cConv
+	 * libString.Asc('â€¦'): cConv = "á½·"; break; case libString.Asc('Å¡'): cConv =
+	 * "á½³"; break; case libString.Asc('Å’'): cConv = "á¼·"; break; case
+	 * libString.Asc('Æ’'): cConv = "á¼±"; break;Â„ case libString.Asc('â€ '): cConv =
+	 * "á¼µ"; break; case libString.Asc('â€ž'): cConv = "á¼°"; break; case
+	 * libString.Asc('Ë†'): cConv = "á½¶"; break; case libString.Asc('$'): cConv =
+	 * "Ï›"; break; case libString.Asc('%'): cConv = "Ï™"; break; case
+	 * libString.Asc('#'): cConv = "Ï�"; break; case 0x61: // TODO: to 0x7a cConv
 	 * =
-	 * "αβχδεφγηιςκλμνοπθρστυᾳωξψζ".SubString("abcdefghijklmnopqrstuvwxyz".IndexOf
-	 * (cTest), 1); break; case libString.Asc('·'): // TODO: to
-	 * libString.Asc('Ï') cConv =
-	 * "ῥῤἡἠήἥἤὴἣἢῆἧἦͺᾑᾐῄᾕᾔῂᾓᾒῇᾗᾖ".SubString("·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ"
+	 * "Î±Î²Ï‡Î´ÎµÏ†Î³Î·Î¹Ï‚ÎºÎ»Î¼Î½Î¿Ï€Î¸Ï�ÏƒÏ„Ï…á¾³Ï‰Î¾ÏˆÎ¶".SubString("abcdefghijklmnopqrstuvwxyz".IndexOf
+	 * (cTest), 1); break; case libString.Asc('Â·'): // TODO: to
+	 * libString.Asc('Ã�') cConv =
+	 * "á¿¥á¿¤á¼¡á¼ á½µá¼¥á¼¤á½´á¼£á¼¢á¿†á¼§á¼¦Íºá¾‘á¾�á¿„á¾•á¾”á¿‚á¾“á¾’á¿‡á¾—á¾–".SubString("Â·Â¸Â¹ÂºÂ»Â¼Â½Â¾Â¿Ã€Ã�Ã‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃ�ÃŽÃ�"
 	 * .IndexOf(cTest), 1); break; case libString.Asc('\u008d'): // TODO: to
-	 * libString.Asc('¶') int Index =
-	 * "\u008d\u008e\u008f\u0090\u009d\u009e¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶"
+	 * libString.Asc('Â¶') int Index =
+	 * "\u008d\u008e\u008f\u0090\u009d\u009eÂ¡Â¢Â£Â¤Â¥Â¦Â§Â¨Â©ÂªÂ«Â¬Â®Â¯Â°Â±Â²Â³Â´ÂµÂ¶"
 	 * .IndexOf(cTest); if (Index > -1) { cConv =
-	 * "ἶῑΐῒὲἓἁἀάἅἄὰἃἂᾶἇἆᾁᾴᾅᾄᾲᾃᾄᾷᾇᾆ".SubString(Index, 1); } break; case
-	 * libString.Asc('Ð'): // TODO: to libString.Asc('å') int Index =
-	 * "ÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäå".IndexOf(cTest); if (Index > -1) { cConv =
-	 * "ὁὀόὅὄὸὃὂὑὐύὕὔὺὓὔῦὗὖϋΰῢ".SubString(Index, 1); } break; case
-	 * libString.Asc('æ'): // TODO: to libString.Asc('û') int Index =
-	 * "æçèéêëìíîïðñòóôõö÷øùúû".IndexOf(cTest); if (Index > -1) { cConv =
-	 * "ὡὠώὥὤὼὣὢῶὧὦᾡᾠῴᾥᾤῲᾣᾢῷᾧᾦ".SubString(Index, 1); } break; case
-	 * libString.Asc('ü'): // TODO: to libString.Asc('∙') int Index =
-	 * "üýŒœŠšŸƒˆ˜–—‘’\"„†‡•…‰‹›™∙".IndexOf(cTest); if (Index > -1) { cConv =
-	 * "εοἷἔἒἲέἒἱὶἑ῍΅῟῏῞῎ἰἵἴ῝ίἳῖἕἐῥ".SubString(Index, 1); }
+	 * "á¼¶á¿‘á¿“á¿’á½²á¼“á¼�á¼€á½±á¼…á¼„á½°á¼ƒá¼‚á¾¶á¼‡á¼†á¾�á¾´á¾…á¾„á¾²á¾ƒá¾„á¾·á¾‡á¾†".SubString(Index, 1); } break; case
+	 * libString.Asc('Ã�'): // TODO: to libString.Asc('Ã¥') int Index =
+	 * "Ã�Ã‘Ã’Ã“Ã”Ã•Ã–Ã—Ã˜Ã™ÃšÃ›ÃœÃ�ÃžÃŸÃ Ã¡Ã¢Ã£Ã¤Ã¥".IndexOf(cTest); if (Index > -1) { cConv =
+	 * "á½�á½€á½¹á½…á½„á½¸á½ƒá½‚á½‘á½�á½»á½•á½”á½ºá½“á½”á¿¦á½—á½–Ï‹á¿£á¿¢".SubString(Index, 1); } break; case
+	 * libString.Asc('Ã¦'): // TODO: to libString.Asc('Ã»') int Index =
+	 * "Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã·Ã¸Ã¹ÃºÃ»".IndexOf(cTest); if (Index > -1) { cConv =
+	 * "á½¡á½ á½½á½¥á½¤á½¼á½£á½¢á¿¶á½§á½¦á¾¡á¾ á¿´á¾¥á¾¤á¿²á¾£á¾¢á¿·á¾§á¾¦".SubString(Index, 1); } break; case
+	 * libString.Asc('Ã¼'): // TODO: to libString.Asc('âˆ™') int Index =
+	 * "Ã¼Ã½Å’Å“Å Å¡Å¸Æ’Ë†Ëœâ€“â€”â€˜â€™\"â€žâ€ â€¡â€¢â€¦â€°â€¹â€ºâ„¢âˆ™".IndexOf(cTest); if (Index > -1) { cConv =
+	 * "ÎµÎ¿á¼·á¼”á¼’á¼²á½³á¼’á¼±á½¶á¼‘á¿�á¿®á¿Ÿá¿�á¿žá¿Žá¼°á¼µá¼´á¿�á½·á¼³á¿–á¼•á¼�á¿¥".SubString(Index, 1); }
 	 * 
 	 * break;
 	 * 
@@ -2923,7 +2922,7 @@ public class Vokabel {
 	 */
 
 	// UPGRADE_NOTE: Class_Initialize wurde aktualisiert auf Init. Klicken Sie
-	// hier für weitere Informationen:
+	// hier fÃ¼r weitere Informationen:
 	// 'ms-help://MS.VSExpressCC.v80/dv_commoner/local/redirect.htm?keyword="A9E4979A-37FA-4718-9994-97DD76ED70A7"'
 	private void Init() throws Exception {
 		// ERROR: Not supported in C#: OnErrorStatement
@@ -2938,7 +2937,7 @@ public class Vokabel {
 		mConfirmChanges = true;
 		mSchrittweite = 6;
 		mAbfragebereich = -1;
-		mAbfrageZufällig = false;
+		mAbfrageZufÃ¤llig = false;
 		mLerngeschwindigkeit = 1;
 
 		return;

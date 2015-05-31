@@ -46,6 +46,7 @@ import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 	public View mainView;
 	public SharedPreferences prefs; // =
 	public MyFragmentPagerAdapter fPA;
+	public String SoundDir;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 						vok.getAbfrageZufaellig()));
 				vok.setAskAll(prefs.getBoolean("AskAll", vok.getAskAll()));
 				lib.sndEnabled = prefs.getBoolean("Sound", lib.sndEnabled);
+				SoundDir = prefs.getString("SoundDir", Environment.getExternalStorageDirectory().getPath());
 				Colors = getColorsFromPrefs();
 				colSounds = getSoundsFromPrefs();
 			} catch (Exception e) {
@@ -1240,6 +1243,11 @@ public class MainActivity extends AppCompatActivity {
 				LoadVokabel(fileSelected, null, 1, null, 0, false);
 
 			}
+			else if (requestCode == SettingsActivity.FILE_CHOOSERSOUND)
+			{
+				if (fPA.fragSettings!=null)
+					fPA.fragSettings.onActivityResult(requestCode, resultCode, data);
+			}
 			else if ((requestCode == FILE_CHOOSERADV)
 					&& (resultCode == Activity.RESULT_OK)) {
 				final String fileSelected = data.getStringExtra("fileSelected");
@@ -1575,6 +1583,12 @@ public class MainActivity extends AppCompatActivity {
 		fPA.fragMain.getVokabel(false, false);
 	
 
+	}
+
+	public void setSoundDir(String dir) 
+	{
+		SoundDir = dir;
+		prefs.edit().putString("SoundDir", dir);
 	}
 
 }
