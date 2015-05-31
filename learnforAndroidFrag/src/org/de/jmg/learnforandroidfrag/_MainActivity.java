@@ -138,7 +138,7 @@ public class _MainActivity extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		mainView=null;
 	}
 
 	public UncaughtExceptionHandler ErrorHandler = new UncaughtExceptionHandler() {

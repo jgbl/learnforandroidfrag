@@ -299,6 +299,48 @@ public class MainActivity extends AppCompatActivity {
     }
 	
 	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		try {
+			boolean aend = vok.aend;
+			String filename = vok.getFileName();
+			Uri uri = vok.getURI();
+			if (vok.getGesamtzahl() > 0 ) {
+				saveFilePrefs(true);
+				if(uri!=null)
+				{
+					lib.CheckPermissions(this, uri,false);
+					//this.takePersistableUri(getIntent(), uri,true);
+				}
+				vok.SaveFile(
+						Path.combine(getApplicationInfo().dataDir, "vok.tmp"),uri,
+						vok.getUniCode(), true);
+				outState.putString("vokpath", filename);
+				outState.putInt("vokindex", vok.getIndex());
+				outState.putInt("vokLastIndex", vok.getLastIndex());
+				outState.putIntArray("Lernvokabeln", vok.getLernvokabeln());
+				outState.putInt("Lernindex", vok.getLernIndex());
+				outState.putBoolean("Unicode", vok.getUniCode());
+				outState.putBoolean("Cardmode", vok.getCardMode());
+				outState.putBoolean("aend", aend);
+				if (uri!= null) outState.putString("URI", uri.toString());
+				vok.aend = aend;
+				vok.setFileName(filename);
+				vok.setURI(uri);
+				
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Log.e("OnSaveInstanceState", e.getMessage(), e);
+			e.printStackTrace();
+		}
+		// outState.putParcelable("vok", vok);
+
+	}
+
+	
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (mPager.getCurrentItem() == fragFileChooser.fragID)
 		{
@@ -1588,7 +1630,7 @@ public class MainActivity extends AppCompatActivity {
 	public void setSoundDir(String dir) 
 	{
 		SoundDir = dir;
-		prefs.edit().putString("SoundDir", dir);
+		prefs.edit().putString("SoundDir", dir).commit();
 	}
 
 }

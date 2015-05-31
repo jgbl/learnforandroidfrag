@@ -90,7 +90,9 @@ public class SettingsActivity extends Fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		_main = (MainActivity) getActivity();		
+		_main = (MainActivity) getActivity();	
+		SettingsView = null;
+		_blnInitialized = false;
 	}
 
 	View SettingsView;

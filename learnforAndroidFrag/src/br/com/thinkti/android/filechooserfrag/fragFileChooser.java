@@ -93,6 +93,7 @@ public class fragFileChooser extends ListFragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		_main = (org.de.jmg.learnforandroidfrag.MainActivity)getActivity();
+		_blnInitialized = false;
 	}
 	
 	private boolean ExtensionsMatch(File pathname)
