@@ -10,11 +10,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 	
-	final int PAGE_COUNT = 3;
+	final int PAGE_COUNT = 4;
 	public _MainActivity fragMain;
 	public SettingsActivity fragSettings;
 	public br.com.thinkti.android.filechooserfrag.fragFileChooser fragChooser;
 	public MainActivity main;
+	public fragStatistics fragChart;
 	/** Constructor of the class */
 	public MyFragmentPagerAdapter(FragmentManager fm, MainActivity main) {
 		super(fm);
@@ -40,19 +41,25 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 			case fragFileChooser.fragID:
 			try {
 				if (fragChooser==null) 
-					{
-						fragChooser=new fragFileChooser();
-						fragChooser.init(main.getFileChooserIntent(true),main);
-					}
-				if (main.checkLoadFile())
 				{
-					LastItem = fragChooser;
-					return fragChooser;
+					fragChooser=new fragFileChooser();
+					fragChooser.init(main.getFileChooserIntent(true),main);
 				}
+				LastItem = fragChooser;
+				return fragChooser;
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				lib.ShowException(main, e);
 			}
+				
+			case fragStatistics.fragID:
+			if (fragChart==null)
+			{
+				fragChart = new fragStatistics();
+			}
+			LastItem = fragChart;
+			return fragChart;
 				
 				
 			/** tab2 is selected */

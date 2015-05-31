@@ -32,7 +32,6 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -62,7 +61,7 @@ public class SettingsActivity extends Fragment
 {
 	
 	private static final int FILE_CHOOSER = 0x42FA;
-	public final static int fragID = 2;
+	public final static int fragID = 3;
 	public Spinner spnAbfragebereich;
 	public Spinner spnASCII;
 	public Spinner spnStep;
@@ -814,6 +813,7 @@ public class SettingsActivity extends Fragment
 
 
 	private void initButtons() {
+		/*
 		Button b = (Button) findViewById(R.id.btnOK);
 		b.setOnClickListener(new OnClickListener() {
 
@@ -837,7 +837,7 @@ public class SettingsActivity extends Fragment
 				_main.mPager.setCurrentItem(_MainActivity.fragID);
 			}
 		});
-
+		*/
 	}
 	
 	void saveResultsAndFinish(boolean blnDontSetCurrentItem) throws Exception
@@ -987,6 +987,7 @@ public class SettingsActivity extends Fragment
 					// /c.setButtonDrawable(d);
 				}
 			}
+			/*
 			libLearn.gStatus="Buttons";
 			Button b = (Button) findViewById(R.id.btnOK);
 			RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) b
@@ -1005,6 +1006,7 @@ public class SettingsActivity extends Fragment
 			if (params.width>0)params.width = (int) (params.width * scale);
 			b.setLayoutParams(params);
 			b.setTextSize(TypedValue.COMPLEX_UNIT_PX, b.getTextSize() * scale);
+			*/
 		}
 		catch (Exception ex)
 		{

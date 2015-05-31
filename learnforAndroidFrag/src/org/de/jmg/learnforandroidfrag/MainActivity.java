@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.de.jmg.learnforandroidfrag.libLearn;
-import org.de.jmg.learn.chart.IDemoChart;
 import org.de.jmg.learn.vok.Vokabel;
 import org.de.jmg.learnforandroidfrag.MyFragmentPagerAdapter;
 import org.de.jmg.lib.ColorSetting;
@@ -105,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
                     			}
                     	}
                         LastPosition=position;
+                        
+                        if (position == fragFileChooser.fragID)
+                    	{
+                    		try {
+								checkLoadFile();
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								lib.ShowException(MainActivity.this, e);
+							}
+                    	}
+        				
+        				
                 }
 
         };
@@ -1038,7 +1049,8 @@ public class MainActivity extends AppCompatActivity {
 			if (id == R.id.action_settings) {
 				mPager.setCurrentItem(SettingsActivity.fragID);
 			} else if (id == R.id.mnuFileOpen) {
-				LoadFile(true);
+				mPager.setCurrentItem(fragFileChooser.fragID);
+				//LoadFile(true);
 			} else if (id == R.id.mnuOpenUri) {
 				if (saveVok(false))
 				{
@@ -1092,9 +1104,12 @@ public class MainActivity extends AppCompatActivity {
 			} else if (id == R.id.mnuStatistics) {
 				if (vok.getGesamtzahl() > 5) {
 					try {
+						/*
 						IDemoChart chart = new org.de.jmg.learn.chart.LearnBarChart();
 						Intent intent = chart.execute(this);
 						this.startActivity(intent);
+						*/
+						mPager.setCurrentItem(fragStatistics.fragID);
 					} catch (Exception ex) {
 						lib.ShowException(this, ex);
 					}
@@ -1138,7 +1153,7 @@ public class MainActivity extends AppCompatActivity {
 	public boolean checkLoadFile() throws Exception
 	{
 		boolean blnLoadFile = false;
-		if (vok.aend && libString.IsNullOrEmpty(vok.getFileName()))
+		if (vok.aend && libString.IsNullOrEmpty(vok.getFileName()) && vok.getURI()==null)
 		{
 			if (lib.ShowMessageYesNo(this, getString(R.string.SaveNewVokabularyAs),""))
 			{

@@ -50,6 +50,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.view.View;
 
 /**
  * Sales demo bar chart.
@@ -83,6 +84,25 @@ public class LearnBarChart extends AbstractDemoChart {
 	 */
 	public Intent execute(Context context) {
 		MainActivity Main = (MainActivity) context;
+		BuildChart(Main);
+		
+		return ChartFactory.getBarChartIntent(context,
+				buildBarDataset(titles, values), renderer, Type.DEFAULT);
+	}
+
+	public View getView(MainActivity Main) {
+		BuildChart(Main);
+		
+		return ChartFactory.getBarChartView(Main,
+				buildBarDataset(titles, values), renderer, Type.DEFAULT);
+	}
+	
+	String[] titles;
+	List<double[]> values;
+	XYMultipleSeriesRenderer renderer;
+	
+	public void BuildChart(MainActivity Main)
+	{
 		Vokabel vok = Main.vok;
 		File F;
 		Uri uri;
@@ -98,8 +118,8 @@ public class LearnBarChart extends AbstractDemoChart {
 			name = lib.dumpUriMetaData(Main, uri);
 			if (name.contains(":")) name = name.split(":")[0];
 		}
-		String[] titles = new String[] { name };
-		List<double[]> values = new ArrayList<double[]>();
+		titles = new String[] { name };
+		values = new ArrayList<double[]>();
 		double v[] = new double[14];
 		for (int i = -6; i <= 6; i++) {
 			v[i + 6] = vok.getLearned(i);
@@ -108,7 +128,7 @@ public class LearnBarChart extends AbstractDemoChart {
 		values.add(v);
 
 		int[] colors = new int[] { Color.CYAN }; // Color.CYAN,Color.GREEN,Color.BLUE,Color.MAGENTA,Color.RED,Color.YELLOW};
-		XYMultipleSeriesRenderer renderer = buildBarRenderer(colors);
+		renderer = buildBarRenderer(colors);
 		renderer.setOrientation(Orientation.HORIZONTAL);
 
 		setChartSettings(renderer, "Learned vocabulary for " + name,
@@ -133,8 +153,7 @@ public class LearnBarChart extends AbstractDemoChart {
 			seriesRenderer.setGradientStart(0, Color.CYAN);
 			seriesRenderer.setGradientStop(vok.getGesamtzahl(), Color.RED);
 		}
-		return ChartFactory.getBarChartIntent(context,
-				buildBarDataset(titles, values), renderer, Type.DEFAULT);
+
 	}
 
 }

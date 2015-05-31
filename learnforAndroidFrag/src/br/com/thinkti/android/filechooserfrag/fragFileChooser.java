@@ -8,8 +8,6 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -168,7 +166,7 @@ public class fragFileChooser extends ListFragment
 		else 
 			dirs = f.listFiles();
 			
-		_main.setTitle(getString(R.string.currentDir) + ": " + f.getName());
+		_main.setTitle(f.getName());
 		List<Option> dir = new ArrayList<Option>();
 		List<Option> fls = new ArrayList<Option>();
 		try {

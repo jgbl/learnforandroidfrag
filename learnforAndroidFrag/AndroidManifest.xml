@@ -37,9 +37,9 @@
 			    <category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
         </activity>
-        <activity android:name="br.com.thinkti.android.filechooserfrag.FileChooser"></activity>
+        <activity android:name="br.com.thinkti.android.filechooser.FileChooser"></activity>
         <activity android:name="org.achartengine.GraphicalActivity"></activity>
-        <activity android:name="br.com.thinkti.android.filechooserfrag.AdvFileChooser"></activity>
+        <activity android:name="br.com.thinkti.android.filechooser.AdvFileChooser"></activity>
     </application>
 
 </manifest>
