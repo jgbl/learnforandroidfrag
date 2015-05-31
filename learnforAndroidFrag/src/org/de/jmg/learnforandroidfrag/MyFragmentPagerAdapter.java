@@ -17,9 +17,41 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 	public MainActivity main;
 	public fragStatistics fragChart;
 	/** Constructor of the class */
-	public MyFragmentPagerAdapter(FragmentManager fm, MainActivity main) {
+	public MyFragmentPagerAdapter(FragmentManager fm, MainActivity main, boolean restart) {
 		super(fm);
 		this.main = main;
+		try
+		{
+			if (restart) 
+			{
+				for (Fragment f: fm.getFragments())
+				{
+					if (f instanceof _MainActivity) 
+					{
+						fragMain = (_MainActivity) f;
+						fragMain._main = main;
+					}
+					else if (f instanceof SettingsActivity)
+					{
+						fragSettings = (SettingsActivity) f;
+						fragSettings._main = main;
+					}
+					else if (f instanceof fragFileChooser)
+					{
+						fragChooser = (fragFileChooser) f;
+						fragChooser._main = main;
+					}
+					else if (f instanceof fragStatistics)
+					{
+						fragChart = (fragStatistics) f;
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	/** This method will be invoked when a page is requested to create */
@@ -43,7 +75,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 				if (fragChooser==null) 
 				{
 					fragChooser=new fragFileChooser();
-					fragChooser.init(main.getFileChooserIntent(true),main);
+					if (main!=null) fragChooser.init(main.getFileChooserIntent(true),main);
 				}
 				LastItem = fragChooser;
 				return fragChooser;
@@ -82,9 +114,5 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 		return PAGE_COUNT;
 	}
 
-	public void init(Intent intent, int settingsActivity) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

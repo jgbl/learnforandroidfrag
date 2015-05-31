@@ -40,6 +40,8 @@ public class fragFileChooser extends ListFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		_chooserView = super.onCreateView(inflater, container, savedInstanceState);
+		if (_main==null)_main = (MainActivity)getActivity();
+		if (_Intent==null&&_main!=null)_Intent=_main.getFileChooserIntent(true);
 		init();
 		return _chooserView;
 	}
@@ -94,6 +96,7 @@ public class fragFileChooser extends ListFragment
 		super.onCreate(savedInstanceState);
 		_main = (org.de.jmg.learnforandroidfrag.MainActivity)getActivity();
 		_blnInitialized = false;
+		_chooserView = null;
 	}
 	
 	private boolean ExtensionsMatch(File pathname)

@@ -68,8 +68,8 @@ public class _MainActivity extends Fragment {
 	private BorderedEditText _txtMeaning3;
 	private double scale = 1;
 	private Drawable _MeaningBG;
-	private Vokabel _vok;
-	private MainActivity _main;
+	Vokabel _vok;
+	MainActivity _main;
 	public final static int fragID = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -702,6 +702,7 @@ public class _MainActivity extends Fragment {
 	
 	void EndEdit() throws Exception
 	{
+		if (_txtedWord==null)return;
 		if (_txtedWord.getVisibility()== View.VISIBLE)
 		{
 			_txtWord.setVisibility(View.VISIBLE);

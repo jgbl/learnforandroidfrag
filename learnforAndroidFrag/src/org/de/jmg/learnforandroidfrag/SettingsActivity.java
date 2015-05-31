@@ -93,6 +93,21 @@ public class SettingsActivity extends Fragment
 		_main = (MainActivity) getActivity();	
 		SettingsView = null;
 		_blnInitialized = false;
+		if (_main.fPA!=null && _main.fPA.fragSettings==null)
+		{
+			_main.fPA.fragSettings=this;
+		}
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		try {
+			saveResultsAndFinish(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			lib.ShowException(_main, e);
+		}
 	}
 
 	View SettingsView;
@@ -116,6 +131,8 @@ public class SettingsActivity extends Fragment
 		}		
 		_blnInitialized = false;
 		mainView = SettingsView;
+		if (_main == null) _main=(MainActivity)getActivity();
+		if (_Intent==null && _main!=null)_Intent=_main.getSettingsIntent();
 		init();
 		return SettingsView;
 	}

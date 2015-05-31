@@ -80,18 +80,19 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+				
 		setContentView(R.layout.activity_main_viewpager);
 		        /** Getting a reference to ViewPager from the layout */
         View pager = this.findViewById(R.id.pager);
 		mPager = (ViewPager) pager;
 
         /** Getting a reference to FragmentManager */
-        FragmentManager fm = getSupportFragmentManager();
-
+        
         /** Defining a listener for pageChange */
         ViewPager.SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener()
         {
-            int LastPosition;    
+            int LastPosition = -1;    
         	@Override
                 public void onPageSelected(int position)
                 {
@@ -99,7 +100,13 @@ public class MainActivity extends AppCompatActivity {
                         if (LastPosition == SettingsActivity.fragID)
                         {
                         		try {
-                    				fPA.fragSettings.saveResultsAndFinish(true);
+                    				if(fPA!=null)
+                    					{
+                    						if (fPA.fragSettings!=null)
+                    							{
+                    								fPA.fragSettings.saveResultsAndFinish(true);
+                    							}
+                    					}
                     			} catch (Exception e) {
                     				// TODO Auto-generated catch block
                     				lib.ShowException(MainActivity.this, e);
@@ -126,11 +133,12 @@ public class MainActivity extends AppCompatActivity {
         mPager.setOnPageChangeListener(pageChangeListener);
         
         /** Creating an instance of FragmentPagerAdapter */
-        fPA = new MyFragmentPagerAdapter(fm, this);
-
+        FragmentManager fm = getSupportFragmentManager();
+        if(fPA==null)fPA = new MyFragmentPagerAdapter(fm, this, savedInstanceState!=null);
+                
         /** Setting the FragmentPagerAdapter object to the viewPager object */
         mPager.setAdapter(fPA);
-        
+        mPager.setCurrentItem(_MainActivity.fragID);
         libLearn.gStatus = "onCreate getEink";
 		try {
 			_blnEink = getWindowManager().getDefaultDisplay().getRefreshRate() < 5.0;
@@ -152,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
 				prefs = this.getPreferences(Context.MODE_PRIVATE);
 				vok = new Vokabel(this,
 						(TextView) this.findViewById(R.id.txtStatus));
+				if (fPA.fragMain != null) fPA.fragMain._vok = vok;
 				vok.setSchrittweite((short) prefs.getInt("Schrittweite", 6));
 				CharsetASCII = prefs.getString("CharsetASCII", "Windows-1252");
 				vok.CharsetASCII = CharsetASCII;
@@ -207,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
 						vok.setCardMode(CardMode);
 						vok.aend = savedInstanceState.getBoolean("aend", true);
 					}
+					//mPager.setCurrentItem(savedInstanceState.getInt("SelFragID", 0));
 				} 
 				else 
 				{
@@ -305,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
 			boolean aend = vok.aend;
 			String filename = vok.getFileName();
 			Uri uri = vok.getURI();
+			outState.putInt("SelFragID", mPager.getCurrentItem());
 			if (vok.getGesamtzahl() > 0 ) {
 				saveFilePrefs(true);
 				if(uri!=null)
@@ -1620,9 +1631,9 @@ public class MainActivity extends AppCompatActivity {
 
 		editor.commit();
 		libLearn.gStatus = "setTextColors";
-		fPA.fragMain.setTextColors();
+		if (fPA.fragMain!=null) fPA.fragMain.setTextColors();
 		libLearn.gStatus = "getVokabel";
-		fPA.fragMain.getVokabel(false, false);
+		if (fPA.fragMain!=null) fPA.fragMain.getVokabel(false, false);
 	
 
 	}
