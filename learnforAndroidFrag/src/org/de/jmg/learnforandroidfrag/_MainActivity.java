@@ -78,7 +78,7 @@ public class _MainActivity extends Fragment {
 			Bundle savedInstanceState) 
 	{
 		
-		if (mainView!=null)return mainView;
+		//if (mainView!=null)return mainView;
 		
 		mainView = inflater.inflate(R.layout.activity_main, container,false);
 		 _main = (MainActivity) getActivity();
