@@ -51,6 +51,7 @@ import org.de.jmg.lib.SoundSetting;
 import org.de.jmg.lib.SoundsArrayAdapter;
 import org.de.jmg.lib.lib;
 import org.de.jmg.lib.lib.libString;
+import org.de.jmg.lib.lib.yesnoundefined;
 import org.de.jmg.lib.ColorSetting;
 import yuku.ambilwarna.*;
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener;
@@ -329,7 +330,7 @@ public class SettingsActivity extends Fragment
 					if(!isChecked)
 					{
 						String msg=_main.getString(R.string.msgResetSetting);
-						if(lib.ShowMessageYesNo(_main, msg, ""))
+						if(lib.ShowMessageYesNo(_main, msg, "")==yesnoundefined.yes)
 						{
 							ShowAlwaysDocumentProvider=999;	
 						}
@@ -391,7 +392,7 @@ public class SettingsActivity extends Fragment
 				if(!isChecked)
 				{
 					String msg=_main.getString(R.string.msgResetSetting);
-					if(lib.ShowMessageYesNo(_main, msg, ""))
+					if(lib.ShowMessageYesNo(_main, msg, "")==yesnoundefined.yes)
 					{
 						AlwaysStartExternalProgram=999;	
 					}

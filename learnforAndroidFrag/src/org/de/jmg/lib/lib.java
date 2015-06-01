@@ -55,13 +55,11 @@ public class lib {
 
 	public static class YesNoCheckResult {
 		
-		public boolean yes;
-		public boolean no;
+		public yesnoundefined res;
 		public boolean checked;
-		public YesNoCheckResult(boolean yes, boolean no, boolean checked)
+		public YesNoCheckResult(yesnoundefined res, boolean checked)
 		{
-			this.yes = yes;
-			this.no = no;
+			this.res=res;
 			this.checked= checked;
 		}
 	}
@@ -436,9 +434,9 @@ public class lib {
 		return null;
 	}
 
-	private static Handler YesNoHandler;
+	public static Handler YesNoHandler;
 
-	public static synchronized boolean ShowMessageYesNo(Context context,
+	public static synchronized yesnoundefined ShowMessageYesNo(Context context,
 			String msg, String title) {
 		// System.Threading.SynchronizationContext.Current.Post(new
 		// System.Threading.SendOrPostCallback(DelShowException),new
@@ -453,7 +451,7 @@ public class lib {
 					}
 				};
 
-			DialogResultYes = false;
+			DialogResultYes = yesnoundefined.undefined;
 			AlertDialog.Builder A = new AlertDialog.Builder(context);
 			A.setPositiveButton(context.getString(R.string.yes), listenerYesNo);
 			A.setNegativeButton(context.getString(R.string.no), listenerYesNo);
@@ -467,6 +465,7 @@ public class lib {
 				Looper.loop();
 			} catch (RuntimeException e2) {
 				// Looper.myLooper().quit();
+				YesNoHandler = null;
 			}
 		} catch (Exception ex) {
 			ShowException(context, ex);
@@ -490,7 +489,7 @@ public class lib {
 					}
 				};
 
-			DialogResultYes = false;
+			DialogResultYes = yesnoundefined.undefined;
 			AlertDialog.Builder A = new AlertDialog.Builder(context);
 			A.setPositiveButton(context.getString(R.string.yes), listenerYesNo);
 			A.setNegativeButton(context.getString(R.string.no), listenerYesNo);
@@ -510,8 +509,9 @@ public class lib {
 				Looper.loop();
 			} catch (RuntimeException e2) {
 				// Looper.myLooper().quit();
+				YesNoHandler = null;
 			}
-			return new YesNoCheckResult(DialogResultYes, !DialogResultYes, cbx.isChecked());
+			return new YesNoCheckResult(DialogResultYes, cbx.isChecked());
 		} catch (Exception ex) {
 			ShowException(context, ex);
 		}
@@ -519,7 +519,7 @@ public class lib {
 	}
 
 
-	public static synchronized boolean ShowMessageYesNoWithCheckboxes(Context context,
+	public static synchronized yesnoundefined ShowMessageYesNoWithCheckboxes(Context context,
 			String msg, CharSequence[] items, boolean[]checkedItems, DialogInterface.OnMultiChoiceClickListener cbListener) {
 		// System.Threading.SynchronizationContext.Current.Post(new
 		// System.Threading.SendOrPostCallback(DelShowException),new
@@ -534,7 +534,7 @@ public class lib {
 					}
 				};
 
-			DialogResultYes = false;
+			DialogResultYes = yesnoundefined.undefined;
 			AlertDialog.Builder A = new AlertDialog.Builder(context);
 			A.setPositiveButton(context.getString(R.string.yes), listenerYesNo);
 			A.setNegativeButton(context.getString(R.string.no), listenerYesNo);
@@ -552,6 +552,7 @@ public class lib {
 			}
 		} catch (Exception ex) {
 			ShowException(context, ex);
+			YesNoHandler = null;
 		}
 		return DialogResultYes;
 	}
@@ -562,8 +563,11 @@ public class lib {
 		Toast T = Toast.makeText(context, msg, Toast.LENGTH_LONG);
 		T.show();
 	}
-
-	private static boolean DialogResultYes = false;
+	
+	public enum yesnoundefined {
+		yes, no, undefined
+	}
+	private static yesnoundefined DialogResultYes = yesnoundefined.undefined;
 	private static DialogInterface.OnClickListener listenerYesNo = new DialogInterface.OnClickListener() {
 
 		@Override
@@ -571,15 +575,15 @@ public class lib {
 			switch (which) {
 			case DialogInterface.BUTTON_POSITIVE:
 				// Yes button clicked
-				DialogResultYes = true;
+				DialogResultYes = yesnoundefined.yes;
 				break;
 
 			case DialogInterface.BUTTON_NEGATIVE:
 				// No button clicked
-				DialogResultYes = false;
+				DialogResultYes = yesnoundefined.no;
 				break;
 			}
-			YesNoHandler.sendMessage(YesNoHandler.obtainMessage());
+		 if (YesNoHandler!=null)YesNoHandler.sendMessage(YesNoHandler.obtainMessage());
 		}
 	};
 
@@ -946,10 +950,11 @@ public class lib {
 		if (Build.VERSION.SDK_INT>=19 && ShowAlwaysDocumentProvider==999)
 		{
 			res = ShowMessageYesNoWithCheckbox(context, "", msg, checkBoxTitle);
+			if (res.res == yesnoundefined.undefined) return;
 		}
 		
 		if (Build.VERSION.SDK_INT<19 || ShowAlwaysDocumentProvider==0 || 
-				(res != null && res.no))
+				(res != null && res.res == yesnoundefined.no))
 		{
 			intent.setAction(Intent.ACTION_GET_CONTENT);
 			if (res != null && res.checked)

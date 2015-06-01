@@ -3,6 +3,7 @@ package org.de.jmg.learnforandroidfrag;
 import java.io.File;
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
 
 import org.de.jmg.learn.vok.Vokabel;
 import org.de.jmg.learn.vok.Vokabel.Bewertung;
@@ -68,6 +69,7 @@ public class _MainActivity extends Fragment {
 	private BorderedEditText _txtMeaning3;
 	private double scale = 1;
 	private Drawable _MeaningBG;
+	Handler handler = new Handler();
 	Vokabel _vok;
 	MainActivity _main;
 	public final static int fragID = 0;
@@ -151,6 +153,15 @@ public class _MainActivity extends Fragment {
 	{
 		super.onSaveInstanceState(outState);
 		outState.putInt("lastIsWrongVokID", _lastIsWrongVokID);
+		if (lib.YesNoHandler!=null) lib.YesNoHandler.sendMessage(lib.YesNoHandler.obtainMessage());
+		handler.removeCallbacks(runnableFalse);
+		if (rFlashs!=null)
+		{
+			for (Runnable r: rFlashs)
+			{
+				handler.removeCallbacks(r);
+			}
+		}
 	}
 	
 
@@ -557,7 +568,7 @@ public class _MainActivity extends Fragment {
 						flashwords();
 						// getVokabel(false,true);
 						// runFlashWords();
-						Handler handler = new Handler();
+						
 						handler.postDelayed(
 								runnableFalse,
 								(long) ((_main.DisplayDurationWord * 1000 + _vok
@@ -1008,7 +1019,9 @@ public class _MainActivity extends Fragment {
 	 * flashwords(); } catch (Exception e) { // TODO Auto-generated catch block
 	 * e.printStackTrace(); } } }).start(); }
 	 */
+	private ArrayList<Runnable> rFlashs = new ArrayList<Runnable>();
 	private void flashwords() throws Exception {
+		Runnable r;
 		final RelativeLayout layout = (RelativeLayout) findViewById(R.id.layoutMainParent);
 		layout.setBackgroundColor(_main.Colors.get(ColorItems.background_wrong).ColorValue);
 		final ScrollView layoutScroll = (ScrollView) findViewById(R.id.layoutMain);
@@ -1017,7 +1030,7 @@ public class _MainActivity extends Fragment {
 		layoutButtons.setVisibility(View.GONE);
 		View tb = _main.findViewById(R.id.action_bar);
 		tb.setVisibility(View.GONE);
-		Handler handler = new Handler();
+		
 		if (_isSmallDevice)
 		{
 			_txtKom.setVisibility(View.GONE);
@@ -1026,25 +1039,37 @@ public class _MainActivity extends Fragment {
 		long delay = 0;
 		for (int i = 0; i < _main.PaukRepetitions; i++) {
 			// _txtWord.setBackgroundResource(R.layout.roundedbox);
-			handler.postDelayed(new showWordBordersTask(), delay);
+			r = new showWordBordersTask();
+			rFlashs.add(r);
+			handler.postDelayed(r, delay);
 			delay += _main.DisplayDurationWord * 1000;
-			handler.postDelayed(new hideWordBordersTask(), delay);
+			r = new hideWordBordersTask();
+			rFlashs.add(r);
+			handler.postDelayed(r, delay);
 			BorderedEditText Beds[] = { _txtMeaning1, _txtMeaning2,
 					_txtMeaning3 };
 			for (int ii = 0; ii < _vok.getAnzBed(); ii++) {
 				if (!libString.IsNullOrEmpty(_vok.getBedeutungen()[ii]))
 				{
-					handler.postDelayed(new showBedBordersTask(Beds[ii]), delay);
+					r = new showBedBordersTask(Beds[ii]);
+					rFlashs.add(r);
+					handler.postDelayed(r, delay);
 					delay += _main.DisplayDurationBed * 1000;
-					handler.postDelayed(new hideBedBordersTask(Beds[ii]), delay);
+					r = new hideBedBordersTask(Beds[ii]);
+					rFlashs.add(r);
+					handler.postDelayed(r, delay);
 				}
 			}
 
 		}
-		handler.postDelayed(new resetLayoutTask(layout), delay);
+		r = new resetLayoutTask(layout);
+		rFlashs.add(r);
+		handler.postDelayed(r, delay);
 		delay += 1000;
 
 	}
+	
+	
 
 	private class resetLayoutTask implements Runnable {
 		public View view;
@@ -1070,6 +1095,7 @@ public class _MainActivity extends Fragment {
 				
 				
 			}
+			rFlashs.clear();
 		}
 	}
 

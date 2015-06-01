@@ -1657,7 +1657,7 @@ public class Vokabel {
 			} else {
 				if (dontPrompt
 						|| lib.ShowMessageYesNo(getContext(), getContext()
-								.getString(R.string.SaveAsUniCode), "") == false) {
+								.getString(R.string.SaveAsUniCode), "") == lib.yesnoundefined.no) {
 					enc = CharsetWindows;
 				} else {
 					blnUniCode = true;

@@ -19,6 +19,7 @@ import org.de.jmg.lib.lib;
 import org.de.jmg.lib.ColorSetting.ColorItems;
 import org.de.jmg.lib.lib.Sounds;
 import org.de.jmg.lib.lib.libString;
+import org.de.jmg.lib.lib.yesnoundefined;
 
 import br.com.thinkti.android.filechooser.AdvFileChooser;
 import br.com.thinkti.android.filechooser.FileChooser;
@@ -62,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
 	private boolean _blnEink;
 	boolean _blnUniCode = true;
 	yesnoundefined _oldUniCode = yesnoundefined.undefined;
-	enum yesnoundefined {
-		yes, no, undefined
-	}
+	
 	public float DisplayDurationWord;
 	public float DisplayDurationBed;
 	public int PaukRepetitions = 3;
@@ -361,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
 				vok.setURI(uri);
 				
 			}
+			handlerbackpressed.removeCallbacks(rSetBackPressedFalse);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -592,8 +592,10 @@ public class MainActivity extends AppCompatActivity {
 		{
 			if (!dontPrompt) 
 			{
-				dontPrompt = lib.ShowMessageYesNo(this,
+				yesnoundefined res = lib.ShowMessageYesNo(this,
 						getString(R.string.Save),"");
+				if (res==yesnoundefined.undefined) return false;
+				dontPrompt = res==yesnoundefined.yes;
 				if (!dontPrompt) 
 				{
 					_backPressed += 1;
@@ -658,7 +660,7 @@ public class MainActivity extends AppCompatActivity {
 				{
 					// TODO Auto-generated catch block
 					//lib.ShowException(this, e);
-					if (lib.ShowMessageYesNo(this, getString(R.string.msgFileCouldNotBeSaved),""))
+					if (lib.ShowMessageYesNo(this, getString(R.string.msgFileCouldNotBeSaved),"")==yesnoundefined.yes)
 					{
 						SaveVokAs(true,false);
 					}
@@ -945,13 +947,17 @@ public class MainActivity extends AppCompatActivity {
 						if (AlwaysStartExternalProgram==999 && !(vok.getURI()!=null && i == 1))
 						{
 							res = lib.ShowMessageYesNoWithCheckbox(this, "", getString(R.string.msgStartExternalProgram), getString(R.string.msgRememberChoice));
-							if (res.checked) prefs.edit().putInt(key, res.yes?-1:0).commit();
+							if (res.res==yesnoundefined.undefined) return;
+							if (res.checked) prefs.edit().putInt(key, res.res==yesnoundefined.yes?-1:0).commit();
 						}
 						else
 						{
-							res = new lib.YesNoCheckResult(AlwaysStartExternalProgram==-1, AlwaysStartExternalProgram==0, true);
+							yesnoundefined par = yesnoundefined.undefined;
+							if (AlwaysStartExternalProgram==-1)par=yesnoundefined.yes;
+							if (AlwaysStartExternalProgram==0)par=yesnoundefined.no;
+							res = new lib.YesNoCheckResult(par, true);
 						}
-						if ((vok.getURI()!=null && i == 1) || res.yes==false)
+						if ((vok.getURI()!=null && i == 1) || res.res==yesnoundefined.no)
 						{
 							Intent intent = new Intent(this, AdvFileChooser.class);
 							ArrayList<String> extensions = new ArrayList<String>();
@@ -1173,7 +1179,7 @@ public class MainActivity extends AppCompatActivity {
 				fPA.fragMain.getVokabel(false, false);
 			} else if (id == R.id.mnuReset) {
 				if (lib.ShowMessageYesNo(this,
-						this.getString(R.string.ResetVocabulary),"")) {
+						this.getString(R.string.ResetVocabulary),"")==yesnoundefined.yes) {
 					vok.reset();
 				}
 
@@ -1231,7 +1237,7 @@ public class MainActivity extends AppCompatActivity {
 		boolean blnLoadFile = false;
 		if (vok.aend && libString.IsNullOrEmpty(vok.getFileName()) && vok.getURI()==null)
 		{
-			if (lib.ShowMessageYesNo(this, getString(R.string.SaveNewVokabularyAs),""))
+			if (lib.ShowMessageYesNo(this, getString(R.string.SaveNewVokabularyAs),"")==yesnoundefined.yes)
 			{
 				SaveVokAs(true,false);
 			}
@@ -1290,7 +1296,9 @@ public class MainActivity extends AppCompatActivity {
 	{
 		vok.NewFile();
 		mPager.setCurrentItem(_MainActivity.fragID);
-		if (lib.ShowMessageYesNo(this, getString(R.string.txtFlashCardFile),""))
+		yesnoundefined res = lib.ShowMessageYesNo(this, getString(R.string.txtFlashCardFile),"");
+		if (res==yesnoundefined.undefined)return;
+		if (res == yesnoundefined.yes)
 		{
 			vok.setCardMode(true);
 			fPA.fragMain.SetViewsToCardmode();
@@ -1350,7 +1358,7 @@ public class MainActivity extends AppCompatActivity {
 								&& (!F.exists() || lib
 										.ShowMessageYesNo(
 												MainActivity.this,
-												getString(R.string.Overwrite),""))) {
+												getString(R.string.Overwrite),"")==yesnoundefined.yes)) {
 							File ParentDir = F.getParentFile();
 							if (!ParentDir.exists())
 								ParentDir.mkdirs();
@@ -1478,7 +1486,7 @@ public class MainActivity extends AppCompatActivity {
 				String strUri = selectedUri.toString();
 				String path = lib.dumpUriMetaData(this, selectedUri);
 				if(path.contains(":")) path = path.split(":")[0];
-				if (lib.RegexMatchVok(path) || lib.ShowMessageYesNo(this, getString(R.string.msgWrongExtLoad),""))
+				if (lib.RegexMatchVok(path) || lib.ShowMessageYesNo(this, getString(R.string.msgWrongExtLoad),"")==yesnoundefined.yes)
 				{
 					LoadVokabel(null,selectedUri, 1, null, 0, false);
 					takePersistableUri(selectedUri,false);
@@ -1512,7 +1520,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 				
 				
-				if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),""))
+				if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),"")==yesnoundefined.yes)
 				{
 					takePersistableUri(selectedUri,false);
 					vok.SaveFile(null, selectedUri,
@@ -1552,7 +1560,7 @@ public class MainActivity extends AppCompatActivity {
 					}
 					
 					
-					if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),""))
+					if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),"")==yesnoundefined.yes)
 					{
 						takePersistableUri(selectedUri,false);
 						vok.SaveFile(null, selectedUri,
