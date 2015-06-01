@@ -361,6 +361,11 @@ public class MainActivity extends AppCompatActivity {
 				
 			}
 			handlerbackpressed.removeCallbacks(rSetBackPressedFalse);
+			for (AlertDialog dlg: lib.OpenDialogs)
+			{
+				dlg.dismiss();
+			}
+			lib.OpenDialogs.clear();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -1171,10 +1176,14 @@ public class MainActivity extends AppCompatActivity {
 				SaveVokAs(true,false);
 			} else if (id == R.id.mnuRestart) {
 				vok.restart();
-			} else if (id == R.id.mnuDelete) {
+			} 
+			else if (id == R.id.mnuDelete) 
+			{
 				vok.DeleteVokabel();
-				fPA.fragMain.getVokabel(false, false);
-			} else if (id == R.id.mnuReverse) {
+				fPA.fragMain.EndEdit2();
+			} 
+			else if (id == R.id.mnuReverse) 
+			{
 				vok.revert();
 				fPA.fragMain.getVokabel(false, false);
 			} else if (id == R.id.mnuReset) {

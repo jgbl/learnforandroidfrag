@@ -24,6 +24,7 @@ import org.de.jmg.lib.WindowsBufferedReader;
 import org.de.jmg.lib.RefSupport;
 import org.de.jmg.lib.lib;
 import org.de.jmg.lib.lib.libString;
+import org.de.jmg.lib.lib.yesnoundefined;
 
 public class Vokabel {
 
@@ -1652,14 +1653,27 @@ public class Vokabel {
 			 * java.io.InputStreamReader(in,enc); enc =
 			 * Charset.forName(r.getEncoding()); r.close(); in.close(); }
 			 */
-			if (blnUniCode) {
+			if (blnUniCode) 
+			{
 				enc = Charset.forName("UTF-8");
-			} else {
+			} 
+			else 
+			{
+				yesnoundefined res = yesnoundefined.undefined;
+				if (!dontPrompt)
+				{
+					res = lib.ShowMessageYesNo(getContext(), getContext()
+							.getString(R.string.SaveAsUniCode), "");
+					if (res == yesnoundefined.undefined) return;
+				}
+				
 				if (dontPrompt
-						|| lib.ShowMessageYesNo(getContext(), getContext()
-								.getString(R.string.SaveAsUniCode), "") == lib.yesnoundefined.no) {
+						|| res == lib.yesnoundefined.no) 
+				{
 					enc = CharsetWindows;
-				} else {
+				} 
+				else 
+				{
 					blnUniCode = true;
 					enc = Charset.forName("UTF-8");
 				}
@@ -1818,19 +1832,27 @@ public class Vokabel {
 			mVok.get(h).Bed1 = vok;
 			mVok.get(h).z = 0;
 		}
-		File F = new File(mFileName);
-		mFileName = lib.getFilenameWithoutExtension(F) + "rev.vok";
-		F = new File(mFileName);
-		if (F.exists()) {
-			for (int i = 0; i < 1000; i++) {
-				mFileName = lib.getFilenameWithoutExtension(F) + "rev" + i
-						+ ".vok";
-				F = new File(mFileName);
-				if (!F.exists())
-					break;
+		if (!libString.IsNullOrEmpty(mFileName))
+		{
+			File F = new File(mFileName);
+			mFileName = lib.getFilenameWithoutExtension(F) + "rev.vok";
+			F = new File(mFileName);
+			if (F.exists()) {
+				for (int i = 0; i < 1000; i++) {
+					mFileName = lib.getFilenameWithoutExtension(F) + "rev" + i
+							+ ".vok";
+					F = new File(mFileName);
+					if (!F.exists())
+						break;
+				}
 			}
-		}
+			else
+			{
+				setURI(null);
+			}
 
+		}
+		
 	}
 
 	public void reset() {

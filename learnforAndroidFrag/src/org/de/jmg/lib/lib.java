@@ -3,6 +3,7 @@
 //import android.support.v7.app.ActionBarActivity;
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -77,6 +78,7 @@ public class lib {
 	public static String getgstatus() {
 		return _status;
 	}
+	public static ArrayList<AlertDialog> OpenDialogs = new ArrayList<AlertDialog>();
 
 	public static void setgstatus(String value) {
 		_status = value;
@@ -372,10 +374,12 @@ public class lib {
 		if (libString.IsNullOrEmpty(title)) title = context.getString(R.string.message);
 			
 		AlertDialog.Builder A = new AlertDialog.Builder(context);
-		A.setPositiveButton("OK", listener());
+		A.setPositiveButton("OK", new listener());
 		A.setMessage(msg);
 		A.setTitle(title);
-		A.show();
+		AlertDialog dlg = A.create();
+		dlg.show();
+		OpenDialogs.add(dlg);
 	}
 	
 	public static synchronized boolean ShowMessageWithCheckbox(Context context,String title, String msg, String CheckboxTitle) 
@@ -404,34 +408,47 @@ public class lib {
 			}
 		});
 		//A.setMessage(msg);
-		A.show();
+		AlertDialog dlg = A.create();
+		dlg.show();
+		OpenDialogs.add(dlg);
 		try
 
 		{
 			Looper.loop();
 		} catch (RuntimeException e2) {
 			// Looper.myLooper().quit();
+			OpenDialogs.remove(dlg);
+			dlg=null;
 		}
 		return cbx.isChecked();
 
 	}
 
+	static AlertDialog dlgOK;
 	public static synchronized void ShowException(Context context, Throwable ex) {
 		// System.Threading.SynchronizationContext.Current.Post(new
 		// System.Threading.SendOrPostCallback(DelShowException),new
 		// ExStateInfo(context, ex));
 		AlertDialog.Builder A = new AlertDialog.Builder(context);
-		A.setPositiveButton("OK", listener());
+		A.setPositiveButton("OK", new listener());
 		A.setMessage(ex.getMessage() + "\n"
 				+ (ex.getCause() == null ? "" : ex.getCause().getMessage())
 				+ "\nStatus: " + libLearn.gStatus
 				+ "\n" + Log.getStackTraceString(ex));
 		A.setTitle("Error");
-		A.show();
+		dlgOK = A.create();
+		dlgOK.show();
+		OpenDialogs.add(dlgOK);
 	}
 
-	private static DialogInterface.OnClickListener listener() {
-		return null;
+	private static class listener implements DialogInterface.OnClickListener  
+	{
+		
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+					OpenDialogs.remove(dialog);
+			}
 	}
 
 	public static Handler YesNoHandler;
@@ -457,8 +474,9 @@ public class lib {
 			A.setNegativeButton(context.getString(R.string.no), listenerYesNo);
 			A.setMessage(msg);
 			A.setTitle(title);
-			A.show();
-
+			AlertDialog dlg = A.create();
+			dlg.show();
+			OpenDialogs.add(dlg);
 			try
 
 			{
@@ -466,6 +484,8 @@ public class lib {
 			} catch (RuntimeException e2) {
 				// Looper.myLooper().quit();
 				YesNoHandler = null;
+				OpenDialogs.remove(dlg);
+				dlg = null;
 			}
 		} catch (Exception ex) {
 			ShowException(context, ex);
@@ -500,9 +520,9 @@ public class lib {
 			cbx.setText(CheckBoxTitle);
 						
 			A.setView(checkBoxView);
-			
-			A.show();
-
+			AlertDialog dlg = A.create();
+			dlg.show();
+			OpenDialogs.add(dlg);
 			try
 
 			{
@@ -510,6 +530,8 @@ public class lib {
 			} catch (RuntimeException e2) {
 				// Looper.myLooper().quit();
 				YesNoHandler = null;
+				OpenDialogs.remove(dlg);
+				dlg = null;
 			}
 			return new YesNoCheckResult(DialogResultYes, cbx.isChecked());
 		} catch (Exception ex) {
@@ -541,18 +563,23 @@ public class lib {
 			//A.setMessage(msg);
 			A.setTitle(msg);
 			A.setMultiChoiceItems(items,checkedItems, cbListener);
-			A.show();
-
+			AlertDialog dlg = A.create();
+			dlg.show();
+			OpenDialogs.add(dlg);
+			
 			try
 
 			{
 				Looper.loop();
 			} catch (RuntimeException e2) {
 				// Looper.myLooper().quit();
+				YesNoHandler = null;
+				OpenDialogs.remove(dlg);
+				dlg = null;
 			}
 		} catch (Exception ex) {
 			ShowException(context, ex);
-			YesNoHandler = null;
+			
 		}
 		return DialogResultYes;
 	}

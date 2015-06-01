@@ -388,7 +388,9 @@ public class _MainActivity extends Fragment {
 			_txtStatus.setLayoutParams(params);
 			
 			resizeActionbar(0);
-
+			Runnable r = new resetLayoutTask(null);
+			rFlashs.add(r);
+			handler.post(r);
 		}
 	}
 
@@ -730,6 +732,29 @@ public class _MainActivity extends Fragment {
 		if (_txtedWord==null)return;
 		if (_txtedWord.getVisibility()== View.VISIBLE)
 		{
+			
+			try
+			{
+				_vok.setWort(_txtedWord.getText().toString());
+				_vok.setKommentar(_txtedKom.getText().toString());
+				_vok.setBedeutung1(_txtMeaning1.getText().toString());
+				_vok.setBedeutung2(_txtMeaning2.getText().toString());
+				_vok.setBedeutung3(_txtMeaning3.getText().toString());
+				EndEdit2();
+			}
+			catch (Exception ex)
+			{
+				lib.ShowMessage(context, ex.getMessage(), null);
+			}
+		}
+		
+	}
+	
+	void EndEdit2()
+	{
+		if (_txtedWord==null)return;
+		if (_txtedWord.getVisibility()== View.VISIBLE)
+		{
 			_txtWord.setVisibility(View.VISIBLE);
 			_txtKom.setVisibility(View.VISIBLE);
 			_txtedWord.setVisibility(View.GONE);
@@ -760,14 +785,8 @@ public class _MainActivity extends Fragment {
 				_txtMeaning3.setLines(1);
 				_txtMeaning3.setSingleLine();
 			}
-			_vok.setWort(_txtedWord.getText().toString());
-			_vok.setKommentar(_txtedKom.getText().toString());
-			_vok.setBedeutung1(_txtMeaning1.getText().toString());
-			_vok.setBedeutung2(_txtMeaning2.getText().toString());
-			_vok.setBedeutung3(_txtMeaning3.getText().toString());
-			getVokabel(false, false);
 		}
-		
+		getVokabel(false, false);
 	}
 
 	private void InitMeanings() {
@@ -1076,6 +1095,7 @@ public class _MainActivity extends Fragment {
 
 		public resetLayoutTask(View layout) {
 			// TODO Auto-generated constructor stub
+			if (layout == null) layout = (RelativeLayout) findViewById(R.id.layoutMainParent);
 			this.view = layout;
 		}
 
