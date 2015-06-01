@@ -114,7 +114,6 @@ public class SettingsActivity extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
 		if (lib.NookSimpleTouch())
 		{
 			SettingsView = inflater.inflate(R.layout.activity_settings_nook, container,false);
@@ -125,7 +124,7 @@ public class SettingsActivity extends Fragment
 			SettingsView = inflater.inflate(R.layout.activity_settings, container,false);
 			
 		}		
-		_blnInitialized = false;
+		_blnInitialized=false;
 		mainView = SettingsView;
 		if (_main == null) _main=(MainActivity)getActivity();
 		if (_Intent==null && _main!=null)_Intent=_main.getSettingsIntent();

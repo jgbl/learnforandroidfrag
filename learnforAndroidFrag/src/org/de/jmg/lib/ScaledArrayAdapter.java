@@ -33,7 +33,15 @@ public class ScaledArrayAdapter<T> extends AbstractScaledArrayAdapter<T> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		boolean blnNew = (convertView == null);
-		View V = super.getView(position, convertView, parent);
+		View V;
+		if (position >= 0)
+		{
+			V = super.getView(position, convertView, parent);
+		}
+		else
+		{
+			V = null;
+		}
 		if (V != null)
 		{
 			if (V.getTag() == null)

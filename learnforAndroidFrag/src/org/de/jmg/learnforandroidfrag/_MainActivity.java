@@ -79,7 +79,6 @@ public class _MainActivity extends Fragment {
 	{
 		
 		//if (mainView!=null)return mainView;
-		
 		mainView = inflater.inflate(R.layout.activity_main, container,false);
 		 _main = (MainActivity) getActivity();
 		 context = _main;
