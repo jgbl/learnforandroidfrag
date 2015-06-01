@@ -23,7 +23,6 @@ import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
-import android.os.Environment;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;

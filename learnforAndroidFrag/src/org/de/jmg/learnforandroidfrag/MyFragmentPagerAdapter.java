@@ -3,10 +3,10 @@ package org.de.jmg.learnforandroidfrag;
 import org.de.jmg.lib.lib;
 
 import br.com.thinkti.android.filechooserfrag.fragFileChooser;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.LayoutInflater;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 	
@@ -24,6 +24,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 		{
 			if (restart) 
 			{
+				LayoutInflater Li = LayoutInflater.from(main);
 				for (Fragment f: fm.getFragments())
 				{
 					if (f instanceof _MainActivity) 
@@ -35,11 +36,13 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 					{
 						fragSettings = (SettingsActivity) f;
 						fragSettings._main = main;
+						
 					}
 					else if (f instanceof fragFileChooser)
 					{
 						fragChooser = (fragFileChooser) f;
 						fragChooser._main = main;
+						fragChooser.onCreateView(Li, main.Layout, null);
 					}
 					else if (f instanceof fragStatistics)
 					{

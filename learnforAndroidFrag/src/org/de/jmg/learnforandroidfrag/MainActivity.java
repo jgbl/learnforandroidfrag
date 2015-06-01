@@ -29,9 +29,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 import android.annotation.SuppressLint;
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 	public Vokabel vok;
 	public String CharsetASCII = "Windows-1252";
 	public View mainView;
+	public ViewGroup Layout;
 	public SharedPreferences prefs; // =
 	public MyFragmentPagerAdapter fPA;
 	public String SoundDir;
@@ -81,13 +84,19 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		if (savedInstanceState!=null)
+		{
+			JMGDataDirectory = savedInstanceState.getString("JMGDataDirectory");
+		}
 				
 		setContentView(R.layout.activity_main_viewpager);
 		        /** Getting a reference to ViewPager from the layout */
         View pager = this.findViewById(R.id.pager);
+        Layout = (ViewGroup) pager;
 		mPager = (ViewPager) pager;
 
         /** Getting a reference to FragmentManager */
+		FragmentManager fm = getSupportFragmentManager();
         
         /** Defining a listener for pageChange */
         ViewPager.SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener()
@@ -133,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
         mPager.setOnPageChangeListener(pageChangeListener);
         
         /** Creating an instance of FragmentPagerAdapter */
-        FragmentManager fm = getSupportFragmentManager();
         if(fPA==null)fPA = new MyFragmentPagerAdapter(fm, this, savedInstanceState!=null);
                 
         /** Setting the FragmentPagerAdapter object to the viewPager object */
         mPager.setAdapter(fPA);
-        mPager.setCurrentItem(_MainActivity.fragID);
+        
+        
         libLearn.gStatus = "onCreate getEink";
 		try {
 			_blnEink = getWindowManager().getDefaultDisplay().getRefreshRate() < 5.0;
@@ -185,6 +194,8 @@ public class MainActivity extends AppCompatActivity {
 			}
 			libLearn.gStatus = "onCreate Copy Assets";
 			CopyAssets();
+			
+			
 			try {
 				
 				String tmppath = Path.combine(getApplicationInfo().dataDir,
@@ -193,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
 				boolean CardMode = false;
 				if (savedInstanceState != null) 
 				{
+					if (fPA.fragMain!=null)
+					{
+						fPA.fragMain.onCreateView(LayoutInflater.from(this), Layout, null);
+					}
 					libLearn.gStatus = "onCreate Load SavedInstanceState";
 					String filename = savedInstanceState.getString("vokpath");
 					Uri uri = null;
@@ -216,6 +231,11 @@ public class MainActivity extends AppCompatActivity {
 						vok.setCardMode(CardMode);
 						vok.aend = savedInstanceState.getBoolean("aend", true);
 					}
+					if (fPA.fragSettings!=null)
+					{
+						fPA.fragSettings.onCreateView(LayoutInflater.from(this), Layout, null);
+					}
+					
 					//mPager.setCurrentItem(savedInstanceState.getInt("SelFragID", 0));
 				} 
 				else 
@@ -316,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
 			String filename = vok.getFileName();
 			Uri uri = vok.getURI();
 			outState.putInt("SelFragID", mPager.getCurrentItem());
+			outState.putString("JMGDataDirectory", JMGDataDirectory);
 			if (vok.getGesamtzahl() > 0 ) {
 				saveFilePrefs(true);
 				if(uri!=null)
@@ -719,8 +740,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 	};
 
-
-	
+		
 	public String JMGDataDirectory;
 	private void CopyAssets() {
 		libLearn.gStatus = "Copy Assets";
@@ -1256,7 +1276,7 @@ public class MainActivity extends AppCompatActivity {
 		intent.putStringArrayListExtra("filterFileExtension", extensions);
 		intent.putExtra("blnUniCode", blnUniCode);
 		intent.putExtra("DefaultDir",
-				new File(JMGDataDirectory).exists() ? JMGDataDirectory
+				(JMGDataDirectory!= null && new File(JMGDataDirectory).exists()) ? JMGDataDirectory
 						: "/sdcard/");
 		if (_blnUniCode)
 			_oldUniCode = yesnoundefined.yes;

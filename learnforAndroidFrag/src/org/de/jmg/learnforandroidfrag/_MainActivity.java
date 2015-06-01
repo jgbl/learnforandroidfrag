@@ -139,7 +139,20 @@ public class _MainActivity extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mainView=null;
+		if (savedInstanceState!=null)
+		{
+			_lastIsWrongVokID = savedInstanceState.getInt("lastIsWrongVokID");
+		}
 	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState)
+		
+	{
+		super.onSaveInstanceState(outState);
+		outState.putInt("lastIsWrongVokID", _lastIsWrongVokID);
+	}
+	
 
 	public UncaughtExceptionHandler ErrorHandler = new UncaughtExceptionHandler() {
 
@@ -374,6 +387,7 @@ public class _MainActivity extends Fragment {
 	}
 	public void getVokabel(boolean showBeds, boolean LoadNext) {
 		try {
+			if (_btnRight == null) return;
 			EndEdit();
 			setBtnsEnabled(true);
 			if (showBeds) {
@@ -880,6 +894,7 @@ public class _MainActivity extends Fragment {
 
 	void setTextColors() {
 		libLearn.gStatus = "setTextColors";
+		if (_txtMeaning1==null)return;
 		_txtMeaning1.setTextColor(_main.Colors.get(ColorItems.meaning).ColorValue);
 		_txtMeaning2.setTextColor(_main.Colors.get(ColorItems.meaning).ColorValue);
 		_txtMeaning3.setTextColor(_main.Colors.get(ColorItems.meaning).ColorValue);
