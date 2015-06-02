@@ -1,5 +1,7 @@
 package org.de.jmg.lib;
 
+import java.util.Collection;
+
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
@@ -35,6 +37,12 @@ public class ScaledArrayAdapter<T> extends AbstractScaledArrayAdapter<T> {
 	{
 		int count = super.getCount();
 		return count;
+	}
+	
+	@Override
+	public void addAll(Collection<? extends T>collection)
+	{
+		super.addAll(collection);
 	}
 	
 	@Override

@@ -79,6 +79,7 @@ public class _MainActivity extends Fragment {
 	{
 		
 		//if (mainView!=null)return mainView;
+		
 		mainView = inflater.inflate(R.layout.activity_main, container,false);
 		 _main = (MainActivity) getActivity();
 		 context = _main;
@@ -163,7 +164,6 @@ public class _MainActivity extends Fragment {
 		}
 	}
 	
-
 	public UncaughtExceptionHandler ErrorHandler = new UncaughtExceptionHandler() {
 
 		@Override
@@ -172,63 +172,93 @@ public class _MainActivity extends Fragment {
 			ex.printStackTrace();
 		}
 	};
+	
+	
 	private boolean _firstFocus = true;
 	private boolean _isSmallDevice = false;
-	private void resize() {
-		// _firstFocus = true;
-		if (scale != 1) return;
-		Resources resources = context.getResources();
-		DisplayMetrics metrics = resources.getDisplayMetrics();
-		int height = metrics.heightPixels;
-		int width = metrics.widthPixels;
-		int viewTop = _main.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-		height = height - viewTop;
-		scale = (double) height / (double) 950;
-		if (scale < .5f) 
-		{
-			_isSmallDevice = true;
-			scale = .5f;
-		}
-		/*
-		 * lib.ShowMessage(this, "Meaning3 Bottom: " +_txtMeaning3.getBottom() +
-		 * "\nbtnRight.Top: " + _btnRight.getTop() + "\nDisplayHeight: " +
-		 * height);
-		 */
-		if (scale != 1) {
-
-			
-			
-
-			lib.ShowToast(_main, "Scaling font by " + scale + " Screenheight = "
-					+ height);
-			_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtMeaning1.getTextSize() * scale));
-			_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtMeaning2.getTextSize() * scale));
-			_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtMeaning3.getTextSize() * scale));
-			float size = _txtWord.getTextSize();
-			size *= scale;
-			_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
-			_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtKom.getTextSize() * scale));
-			_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtedWord.getTextSize() * scale));
-			_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtedKom.getTextSize() * scale));
-			
-
+	Double ScaleWidth = 0d;
+	Double ScaleTextButtons = 0d;
+	boolean blnWrongWidth = false;
+	int width;
+	private void resize() 
+	{
+		RelativeLayout.LayoutParams params;
+		if (scale == 1)
+		{	
+			Resources resources = context.getResources();
+			DisplayMetrics metrics = resources.getDisplayMetrics();
+			int height = metrics.heightPixels;
+			width = metrics.widthPixels;
+			int viewTop = _main.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+			height = height - viewTop;
+			scale = (double) height / (double) 950;
+			if (scale < .5f) 
+			{
+				_isSmallDevice = true;
+				scale = .5f;
+			}
 			/*
-			 * _txtMeaning1.setOnFocusChangeListener(new
-			 * View.OnFocusChangeListener() {
-			 * 
-			 * @Override public void onFocusChange(View v, boolean hasFocus) {
-			 * // TODO Auto-generated method stub if (_firstFocus && hasFocus) {
-			 * hideKeyboard(); _firstFocus = false; } } });
+			 * lib.ShowMessage(this, "Meaning3 Bottom: " +_txtMeaning3.getBottom() +
+			 * "\nbtnRight.Top: " + _btnRight.getTop() + "\nDisplayHeight: " +
+			 * height);
 			 */
-
+			if (scale != 1) {
+	
+				
+				
+	
+				lib.ShowToast(_main, "Scaling font by " + scale + " Screenheight = "
+						+ height);
+				_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtMeaning1.getTextSize() * scale));
+				_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtMeaning2.getTextSize() * scale));
+				_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtMeaning3.getTextSize() * scale));
+				float size = _txtWord.getTextSize();
+				size *= scale;
+				_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
+				_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtKom.getTextSize() * scale));
+				_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtedWord.getTextSize() * scale));
+				_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtedKom.getTextSize() * scale));
+				
+	
+				/*
+				 * _txtMeaning1.setOnFocusChangeListener(new
+				 * View.OnFocusChangeListener() {
+				 * 
+				 * @Override public void onFocusChange(View v, boolean hasFocus) {
+				 * // TODO Auto-generated method stub if (_firstFocus && hasFocus) {
+				 * hideKeyboard(); _firstFocus = false; } } });
+				 */
+	
+					
+				
+				params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning1
+						.getLayoutParams();
+				params.topMargin = (int) (params.topMargin * scale);
+				_txtMeaning1.setLayoutParams(params);
+				
+				params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
+						.getLayoutParams();
+				params.topMargin = (int) (params.topMargin * scale);
+				_txtMeaning2.setLayoutParams(params);
+				
+				params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
+						.getLayoutParams();
+				params.topMargin = (int) (params.topMargin * scale);
+				_txtMeaning3.setLayoutParams(params);
+				
+				
+						
+			}
 			
-			
+		}
+		if (scale != 1)
+		{
 			int widthButtons = _btnEdit.getRight() - _btnSkip.getLeft();
 			int allButtonsWidth = 520; /*_btnEdit.getWidth()
 					+_btnRight.getWidth()
@@ -236,13 +266,12 @@ public class _MainActivity extends Fragment {
 					+_btnWrong.getWidth()
 					+_btnEdit.getWidth();
 					*/
-			boolean blnWrongWidth = false;
 			if (widthButtons< allButtonsWidth) 
 				{
 					widthButtons=allButtonsWidth;
 					blnWrongWidth = true;
 				}
-			Double ScaleWidth = (width - 50)/(double)widthButtons;
+			ScaleWidth = (width - 50)/(double)widthButtons;
 			if (ScaleWidth<.7)
 			{
 				_btnEdit.setVisibility(View.GONE);
@@ -256,7 +285,7 @@ public class _MainActivity extends Fragment {
 				ScaleWidth = (width - 20)/(double)widthButtons;
 				if (ScaleWidth<.5d) ScaleWidth=.5d;
 			}
-			Double ScaleTextButtons = ((scale < ScaleWidth)?scale:ScaleWidth);
+			ScaleTextButtons = ((scale < ScaleWidth)?scale:ScaleWidth);
 			
 			_btnRight.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					(float) (_btnRight.getTextSize() * ScaleTextButtons));
@@ -268,25 +297,6 @@ public class _MainActivity extends Fragment {
 					(float) (_btnWrong.getTextSize() * ScaleTextButtons));
 			_btnEdit.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					(float) (_btnEdit.getTextSize() * ScaleTextButtons));
-			_txtStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtStatus.getTextSize() * ScaleTextButtons));
-			
-			RelativeLayout.LayoutParams params = 
-					(android.widget.RelativeLayout.LayoutParams) _txtMeaning1
-					.getLayoutParams();
-			params.topMargin = (int) (params.topMargin * scale);
-			_txtMeaning1.setLayoutParams(params);
-			
-			params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
-					.getLayoutParams();
-			params.topMargin = (int) (params.topMargin * scale);
-			_txtMeaning2.setLayoutParams(params);
-			
-			params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
-					.getLayoutParams();
-			params.topMargin = (int) (params.topMargin * scale);
-			_txtMeaning3.setLayoutParams(params);
-			
 			
 			RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.layoutButtonsInner);
 			params = (android.widget.RelativeLayout.LayoutParams) layoutButtons
@@ -375,6 +385,12 @@ public class _MainActivity extends Fragment {
 			}
 			params.width = (int) (params.width * ScaleWidth);
 			_btnEdit.setLayoutParams(params);
+		
+			
+			
+			
+			_txtStatus.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					(float) (_txtStatus.getTextSize() * ScaleTextButtons));
 			
 			params = (android.widget.RelativeLayout.LayoutParams) _txtStatus
 					.getLayoutParams();
@@ -387,11 +403,12 @@ public class _MainActivity extends Fragment {
 				params.topMargin = (int) (0 * ScaleWidth);
 			}
 			_txtStatus.setLayoutParams(params);
-			
+			_ActionBarOriginalTextSize = 0;
 			resizeActionbar(0);
 			Runnable r = new resetLayoutTask(null);
 			rFlashs.add(r);
 			handler.post(r);
+
 		}
 	}
 
@@ -1269,7 +1286,8 @@ public class _MainActivity extends Fragment {
 		resizeActionbar(0);
 	}
 	
-	float _ActionBarOriginalTextSize[] = {0f,0f,0f,0f,0f};
+	float _ActionBarOriginalTextSize = 0f;
+	int _OriginalWidth = 0;
 	public void resizeActionbar(int width) {
 		/*
 		View tb = this.findViewById(R.id.action_bar);
@@ -1325,28 +1343,29 @@ public class _MainActivity extends Fragment {
 		TextView t = _txtStatus;
 		Paint p = new Paint();
 		if (width == 0)	width = mainView.getWidth();
-		if (width == 0) return;
-		if (_ActionBarOriginalTextSize[0] == 0 )
+		if (width == 0 && _OriginalWidth==0) return;
+		if (width == 0) width = _OriginalWidth;
+		_OriginalWidth = width;
+		if (_ActionBarOriginalTextSize == 0 )
 		{
-			_ActionBarOriginalTextSize[0] = t.getTextSize();
+			_ActionBarOriginalTextSize = t.getTextSize();
 		}
 		else
 		{
-			t.setTextSize(TypedValue.COMPLEX_UNIT_PX,_ActionBarOriginalTextSize[0]);
+			t.setTextSize(TypedValue.COMPLEX_UNIT_PX,_ActionBarOriginalTextSize);
 		}
 		if (t.getText() instanceof SpannedString) {
 			p.setTextSize(t.getTextSize());
 			SpannedString s = (SpannedString) t.getText();
-			width = width  - lib.dpToPx(50);
+			width = width  - lib.dpToPx(70);
 			float measuredWidth = p.measureText(s.toString());
 			if (measuredWidth != width)
 			{
 				float scaleA = (float)width / (float)measuredWidth;
 				if (scaleA < .5f) scaleA = .5f;
 				if (scaleA>2.0f) scaleA = 2.0f;
-				t.setTextSize(
-						TypedValue.COMPLEX_UNIT_PX,
-						(float) (t.getTextSize() * (scaleA)));
+				float size = t.getTextSize();
+				t.setTextSize(TypedValue.COMPLEX_UNIT_PX,size * scaleA);
 			}
 			
 		}

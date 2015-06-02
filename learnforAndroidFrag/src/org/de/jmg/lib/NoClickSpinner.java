@@ -40,5 +40,18 @@ public class NoClickSpinner extends Spinner {
 		}
 
 	}
+	
+	@Override
+	public void onLayout(boolean changed, int l,int t, int r, int b) 
+	{
+		try
+		{
+			super.onLayout(changed, l, t, r, b);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 
 }

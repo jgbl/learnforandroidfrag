@@ -113,6 +113,11 @@ public class MainActivity extends AppCompatActivity {
                     						if (fPA.fragSettings!=null)
                     							{
                     								fPA.fragSettings.saveResultsAndFinish(true);
+                    								if (lib.NookSimpleTouch()) 
+                    									{
+                    										getSupportFragmentManager().beginTransaction().remove(fPA.fragSettings).commit();
+                    										fPA.fragSettings=null;
+                    									}
                     							}
                     					}
                     			} catch (Exception e) {
@@ -229,6 +234,10 @@ public class MainActivity extends AppCompatActivity {
 						vok.setURI(uri);
 						vok.setCardMode(CardMode);
 						vok.aend = savedInstanceState.getBoolean("aend", true);
+						if (fPA.fragMain!=null)
+						{
+							fPA.fragMain.getVokabel(false, false);
+						}
 					}
 					if (fPA.fragSettings!=null)
 					{
@@ -1671,7 +1680,7 @@ public class MainActivity extends AppCompatActivity {
 		if (fPA.fragMain!=null) fPA.fragMain.setTextColors();
 		libLearn.gStatus = "getVokabel";
 		if (fPA.fragMain!=null) fPA.fragMain.getVokabel(false, false);
-	
+		
 
 	}
 

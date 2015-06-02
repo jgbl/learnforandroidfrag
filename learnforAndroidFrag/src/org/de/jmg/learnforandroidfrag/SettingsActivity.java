@@ -84,6 +84,7 @@ public class SettingsActivity extends Fragment
 	public SharedPreferences prefs;
 	private View mainView;
 	private Intent intent = new Intent();
+	private boolean blnLayouted = false;
 	MainActivity _main;
 
 	
@@ -116,6 +117,14 @@ public class SettingsActivity extends Fragment
 			Bundle savedInstanceState) {
 		if (lib.NookSimpleTouch())
 		{
+			if (blnLayouted)
+			{
+				//SettingsView = inflater.inflate(R.layout.activity_settings_nook, container,false);
+			}
+			else
+			{
+				blnLayouted = true;
+			}
 			SettingsView = inflater.inflate(R.layout.activity_settings_nook, container,false);
 			
 		}
@@ -195,6 +204,7 @@ public class SettingsActivity extends Fragment
 			else
 			{
 				//resize(1.8f);
+				mScale = 1.0f;
 			}
 			_blnInitialized = true;
 		}
@@ -409,15 +419,16 @@ public class SettingsActivity extends Fragment
 			spnSounds = (org.de.jmg.lib.NoClickSpinner) findViewById(R.id.spnSounds);
 			
 			if (spnAbfragebereich.getAdapter()!= null && spnAbfragebereich.getAdapter().getCount()>0) return; 
-			
-			Colors = new ColorsArrayAdapter(_main,
-					android.R.layout.simple_spinner_item);
-			Colors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
-			Sounds = new SoundsArrayAdapter(_main,
-					android.R.layout.simple_spinner_item);
-			Sounds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
+			if (Colors == null || Colors != null)
+			{
+				Colors = new ColorsArrayAdapter(_main,
+						android.R.layout.simple_spinner_item);
+				Colors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				
+				Sounds = new SoundsArrayAdapter(_main,
+						android.R.layout.simple_spinner_item);
+				Sounds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			}
 			
 			spnASCII.getBackground().setColorFilter(Color.BLACK,
 					PorterDuff.Mode.SRC_ATOP);
@@ -503,13 +514,15 @@ public class SettingsActivity extends Fragment
 				
 			});
 
+			
 			ScaledArrayAdapter<String> adapterASCII = new ScaledArrayAdapter<String>(
 					_main, android.R.layout.simple_spinner_item);
 			// adapterASCII.addAll(Charset.availableCharsets().values());
-
+			ArrayList<String>charsets = new ArrayList<String>();
 			for (Charset c : Charset.availableCharsets().values()) {
-				adapterASCII.add(c.name());
+				charsets.add(c.name());
 			}
+			adapterASCII.addAll(charsets);
 			// Specify the layout to use when the list of choices appears
 			adapterASCII
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
