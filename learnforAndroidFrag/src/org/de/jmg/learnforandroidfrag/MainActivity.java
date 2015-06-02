@@ -809,7 +809,7 @@ public class MainActivity extends AppCompatActivity {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
-					lib.ShowException(this, e);
+					lib.ShowMessage(this, e.getMessage(),null);
 					// lib.ShowMessage(this, "CopyAssets");
 					successful = false;
 				}

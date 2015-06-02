@@ -31,16 +31,25 @@ public class ScaledArrayAdapter<T> extends AbstractScaledArrayAdapter<T> {
 	}
 
 	@Override
+	public int getCount()
+	{
+		int count = super.getCount();
+		return count;
+	}
+	
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		boolean blnNew = (convertView == null);
 		View V = null;
-		try
+		int count = super.getCount();
+		if(position<0 && count>0) position = 0;
+		if (position>=0)
 		{
 			V = super.getView(position, convertView, parent);
 		}
-		catch (Exception ex)
+		else
 		{
-			ex.printStackTrace();
+			V = convertView;
 		}
 		if (V != null)
 		{
