@@ -176,6 +176,7 @@ public class _MainActivity extends Fragment {
 	private boolean _isSmallDevice = false;
 	private void resize() {
 		// _firstFocus = true;
+		if (scale != 1) return;
 		Resources resources = context.getResources();
 		DisplayMetrics metrics = resources.getDisplayMetrics();
 		int height = metrics.heightPixels;
@@ -206,8 +207,9 @@ public class _MainActivity extends Fragment {
 					(float) (_txtMeaning2.getTextSize() * scale));
 			_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					(float) (_txtMeaning3.getTextSize() * scale));
-			_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					(float) (_txtWord.getTextSize() * scale));
+			float size = _txtWord.getTextSize();
+			size *= scale;
+			_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
 			_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					(float) (_txtKom.getTextSize() * scale));
 			_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,

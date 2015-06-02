@@ -127,7 +127,7 @@ public class SettingsActivity extends Fragment
 		_blnInitialized=false;
 		mainView = SettingsView;
 		if (_main == null) _main=(MainActivity)getActivity();
-		if (_Intent==null && _main!=null)_Intent=_main.getSettingsIntent();
+		if (_main!=null)_Intent=_main.getSettingsIntent();
 		init();
 		return SettingsView;
 	}
@@ -166,13 +166,6 @@ public class SettingsActivity extends Fragment
 			Thread.setDefaultUncaughtExceptionHandler(ErrorHandler);
 			prefs = _main.getPreferences(Context.MODE_PRIVATE);
 			
-			Colors = new ColorsArrayAdapter(_main,
-					android.R.layout.simple_spinner_item);
-			Colors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
-			Sounds = new SoundsArrayAdapter(_main,
-					android.R.layout.simple_spinner_item);
-			Sounds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					
 			TextView txtSettings = (TextView) findViewById(R.id.txtSettings);
 			SpannableString Settings = new SpannableString(txtSettings.getText());
@@ -414,7 +407,18 @@ public class SettingsActivity extends Fragment
 			spnLanguages = (Spinner) findViewById(R.id.spnLanguages);
 			spnColors = (org.de.jmg.lib.NoClickSpinner) findViewById(R.id.spnColors);
 			spnSounds = (org.de.jmg.lib.NoClickSpinner) findViewById(R.id.spnSounds);
-
+			
+			if (spnAbfragebereich.getAdapter()!= null && spnAbfragebereich.getAdapter().getCount()>0) return; 
+			
+			Colors = new ColorsArrayAdapter(_main,
+					android.R.layout.simple_spinner_item);
+			Colors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			
+			Sounds = new SoundsArrayAdapter(_main,
+					android.R.layout.simple_spinner_item);
+			Sounds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			
+			
 			spnASCII.getBackground().setColorFilter(Color.BLACK,
 					PorterDuff.Mode.SRC_ATOP);
 			spnStep.getBackground().setColorFilter(Color.BLACK,
@@ -441,7 +445,7 @@ public class SettingsActivity extends Fragment
 							android.R.layout.simple_spinner_item);
 			// Specify the layout to use when the list of choices appears
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch()) adapter.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapter.Scale = 1.8f;
 			// Apply the adapter to the spinner
 			spnAbfragebereich.setAdapter(adapter);
 			spnAbfragebereich.setSelection(getIntent().getShortExtra(
@@ -474,7 +478,7 @@ public class SettingsActivity extends Fragment
 			adapterStep
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			// Apply the adapter to the spinner
-			if (lib.NookSimpleTouch()) adapterStep.Scale = 1.8f;
+			if (lib.NookSimpleTouch()&& mScale==1) adapterStep.Scale = 1.8f;
 			spnStep.setAdapter(adapterStep);
 			spnStep.setSelection(adapterStep.getPosition(""
 					+ getIntent().getShortExtra("Step", (short) 5)));
@@ -510,7 +514,7 @@ public class SettingsActivity extends Fragment
 			adapterASCII
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			// Apply the adapter to the spinner
-			if (lib.NookSimpleTouch()) adapterASCII.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapterASCII.Scale = 1.8f;
 			spnASCII.setAdapter(adapterASCII);
 			String CharsetASCII = getIntent().getStringExtra("CharsetASCII");
 			if (!libString.IsNullOrEmpty(CharsetASCII)) {
@@ -551,7 +555,7 @@ public class SettingsActivity extends Fragment
 			// Specify the layout to use when the list of choices appears
 			adapterDDWord
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch()) adapterDDWord.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapterDDWord.Scale = 1.8f;
 			// Apply the adapter to the spinner
 			spnDisplayDurationWord.setAdapter(adapterDDWord);
 			String strDD = ""
@@ -587,7 +591,7 @@ public class SettingsActivity extends Fragment
 			// Specify the layout to use when the list of choices appears
 			adapterDDBed
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch()) adapterDDBed.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapterDDBed.Scale = 1.8f;
 			// Apply the adapter to the spinner
 			spnDisplayDurationBed.setAdapter(adapterDDBed);
 			strDD = "" + getIntent().getFloatExtra("DisplayDurationBed", 2.5f);
@@ -622,7 +626,7 @@ public class SettingsActivity extends Fragment
 			// Specify the layout to use when the list of choices appears
 			adapterPaukRepetitions
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch()) adapterPaukRepetitions.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapterPaukRepetitions.Scale = 1.8f;
 			spnPaukRepetitions.setAdapter(adapterPaukRepetitions);
 			Pos = getIntent().getIntExtra("PaukRepetitions", 3) - 1;
 			spnPaukRepetitions.setSelection(Pos);
@@ -654,7 +658,7 @@ public class SettingsActivity extends Fragment
 			// Specify the layout to use when the list of choices appears
 			adapterProbabilityFactor
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch()) adapterProbabilityFactor.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapterProbabilityFactor.Scale = 1.8f;
 			spnProbabilityFactor.setAdapter(adapterProbabilityFactor);
 			float ProbabilityFactor = getIntent().getFloatExtra(
 					"ProbabilityFactor", -1f);
@@ -707,7 +711,7 @@ public class SettingsActivity extends Fragment
 			// Specify the layout to use when the list of choices appears
 			adapterLanguages
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch()) adapterLanguages.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) adapterLanguages.Scale = 1.8f;
 			spnLanguages.setAdapter(adapterLanguages);
 			int Language = getIntent().getIntExtra(
 					"Language", org.de.jmg.learn.vok.Vokabel.EnumSprachen.undefiniert.ordinal());
@@ -732,7 +736,7 @@ public class SettingsActivity extends Fragment
 						
 					});
 
-			if (lib.NookSimpleTouch()) Colors.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) Colors.Scale = 1.8f;
 			spnColors.setAdapter(Colors);
 			spnColors
 					.setOnLongClickListener(new android.widget.AdapterView.OnLongClickListener() {
@@ -758,7 +762,7 @@ public class SettingsActivity extends Fragment
 						}
 					});
 			
-			if (lib.NookSimpleTouch()) Sounds.Scale = 1.8f;
+			if (lib.NookSimpleTouch() && mScale==1) Sounds.Scale = 1.8f;
 			spnSounds.setAdapter(Sounds);
 			spnSounds
 					.setOnLongClickListener(new android.widget.AdapterView.OnLongClickListener() {
@@ -869,10 +873,11 @@ public class SettingsActivity extends Fragment
 		if (!blnDontSetCurrentItem) _main.mPager.setCurrentItem(_MainActivity.fragID);
 	}
 
-	public float scale = 1;
+	public float mScale = 1;
 
 	private void resize(float scale) {
 		
+		//if (scale == 0 && mScale!=1) return;
 		Resources resources = _main.getResources();
 		DisplayMetrics metrics = resources.getDisplayMetrics();
 		@SuppressWarnings("unused")
@@ -904,6 +909,7 @@ public class SettingsActivity extends Fragment
 				scale = (scale1 < scale2) ? scale1 : scale2;
 				scale = (scale3 < scale) ? scale3 : scale;
 			}
+			mScale = scale;
 			
 			ViewGroup Settings = (ViewGroup) findViewById(R.id.layoutSettings);
 			libLearn.gStatus = "Enumerating ChildViews";
