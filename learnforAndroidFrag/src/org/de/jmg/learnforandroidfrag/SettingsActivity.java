@@ -102,6 +102,10 @@ public class SettingsActivity extends Fragment
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
+		if (lib.NookSimpleTouch()) 
+		{
+			_main.RemoveFragSettings();
+		}
 		super.onSaveInstanceState(outState);
 		try {
 			saveResultsAndFinish(true);
@@ -441,11 +445,11 @@ public class SettingsActivity extends Fragment
 			if (Colors == null || Colors != null)
 			{
 				Colors = new ColorsArrayAdapter(_main,
-						android.R.layout.simple_spinner_item);
+						R.layout.spinnerrow);
 				Colors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				
 				Sounds = new SoundsArrayAdapter(_main,
-						android.R.layout.simple_spinner_item);
+						R.layout.soundsspinnerrow);
 				Sounds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			}
 			
@@ -1095,7 +1099,7 @@ public class SettingsActivity extends Fragment
 
 	private void ShowColorDialog() {
 		spnColors.blnDontCallOnClick = true;
-		ColorSetting item = Colors.getItem(spnColors
+		final ColorSetting item = Colors.getItem(spnColors
 				.getSelectedItemPosition());
 		AmbilWarnaDialog dialog = new AmbilWarnaDialog(_main, item.ColorValue,
 				new OnAmbilWarnaListener() {
@@ -1103,8 +1107,8 @@ public class SettingsActivity extends Fragment
 					@Override
 					public void onOk(AmbilWarnaDialog dialog, int color) {
 						// TODO Auto-generated method stub
-						ColorSetting item = Colors
-								.getItem(spnColors.getSelectedItemPosition());
+						//ColorSetting item = Colors
+						//		.getItem(spnColors.getSelectedItemPosition());
 						item.ColorValue = color;
 						Editor editor = prefs.edit();
 						editor.putInt(item.ColorItem.name(), item.ColorValue);
@@ -1112,7 +1116,18 @@ public class SettingsActivity extends Fragment
 						intent.putExtra("OK","OK");
 						
 						editor.commit();
-						Colors.notifyDataSetChanged();
+						if (lib.NookSimpleTouch())
+						{
+							int pos = spnColors.getSelectedItemPosition();
+							spnColors.setAdapter(null);
+							spnColors.setAdapter(Colors);
+							spnColors.setSelection(pos);
+						}
+						else
+						{
+							Colors.notifyDataSetChanged();
+						}
+						
 						spnColors.blnDontCallOnClick = false;
 					}
 

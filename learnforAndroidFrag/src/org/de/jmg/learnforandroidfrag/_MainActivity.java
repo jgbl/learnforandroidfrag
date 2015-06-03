@@ -195,7 +195,7 @@ public class _MainActivity extends Fragment {
 	private void resize() 
 	{
 		RelativeLayout.LayoutParams params;
-		if (scale == 1)
+		if (true)
 		{	
 			Resources resources = context.getResources();
 			DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -221,22 +221,67 @@ public class _MainActivity extends Fragment {
 	
 				lib.ShowToast(_main, "Scaling font by " + scale + " Screenheight = "
 						+ height);
-				_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-						(float) (_txtMeaning1.getTextSize() * scale));
-				_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-						(float) (_txtMeaning2.getTextSize() * scale));
-				_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-						(float) (_txtMeaning3.getTextSize() * scale));
-				float size = _txtWord.getTextSize();
-				size *= scale;
-				_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
-				_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-						(float) (_txtKom.getTextSize() * scale));
-				_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-						(float) (_txtedWord.getTextSize() * scale));
-				_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-						(float) (_txtedKom.getTextSize() * scale));
 				
+				if (_vok!= null && _vok.getCardMode())
+				{
+					SetViewsToCardmode();
+				}
+				else
+				{
+					
+					if (_txtMeaning1.getTextSize()==40)
+					{
+						_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+								(float) (_txtMeaning1.getTextSize() * scale));
+						params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning1
+								.getLayoutParams();
+						params.topMargin = (int) (params.topMargin * scale);
+						_txtMeaning1.setLayoutParams(params);
+					}
+					
+					if (_txtMeaning2.getTextSize()==40)
+					{
+						_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							(float) (_txtMeaning2.getTextSize() * scale));
+						params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
+								.getLayoutParams();
+						params.topMargin = (int) (params.topMargin * scale);
+						_txtMeaning2.setLayoutParams(params);
+					}
+					
+					if (_txtMeaning3.getTextSize()==40)
+					{
+						_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							(float) (_txtMeaning3.getTextSize() * scale));
+						params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
+								.getLayoutParams();
+						params.topMargin = (int) (params.topMargin * scale);
+						_txtMeaning3.setLayoutParams(params);
+					}
+					
+					float size = _txtWord.getTextSize();
+					if (size == 60)
+					{
+						size *= scale;
+						_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
+					}
+					if (_txtKom.getTextSize()==35)
+					{
+						_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							(float) (_txtKom.getTextSize() * scale));
+					}
+					if (_txtedWord.getTextSize()==60)
+					{
+						_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+								(float) (_txtedWord.getTextSize() * scale));
+					}
+					if (_txtedKom.getTextSize()==35)
+					{
+						_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+								(float) (_txtedKom.getTextSize() * scale));
+					}
+					SetViewsToVokMode();
+				}
 	
 				/*
 				 * _txtMeaning1.setOnFocusChangeListener(new
@@ -249,20 +294,8 @@ public class _MainActivity extends Fragment {
 	
 					
 				
-				params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning1
-						.getLayoutParams();
-				params.topMargin = (int) (params.topMargin * scale);
-				_txtMeaning1.setLayoutParams(params);
 				
-				params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
-						.getLayoutParams();
-				params.topMargin = (int) (params.topMargin * scale);
-				_txtMeaning2.setLayoutParams(params);
 				
-				params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
-						.getLayoutParams();
-				params.topMargin = (int) (params.topMargin * scale);
-				_txtMeaning3.setLayoutParams(params);
 				
 				
 						
@@ -426,6 +459,7 @@ public class _MainActivity extends Fragment {
 
 	private View findViewById(int id) {
 		// TODO Auto-generated method stub
+		if (mainView == null) return null;
 		return this.mainView.findViewById(id);
 	}
 	public void getVokabel(boolean showBeds, boolean LoadNext) {
@@ -993,7 +1027,7 @@ public class _MainActivity extends Fragment {
 		_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 				(float) (60 * scale));
 		_txtWord.setHorizontallyScrolling(false);
-
+		
 		// _txtKom.setMaxLines(3);
 		// _txtKom.setLines(2);
 		_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -1010,12 +1044,16 @@ public class _MainActivity extends Fragment {
 		_txtMeaning2.setVisibility(View.VISIBLE);
 		_txtMeaning2.setLines(1);
 		_txtMeaning2.setSingleLine();
+		_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (40 * scale));
 		_txtMeaning2.setMaxLines(3);
 		_txtMeaning2.setHorizontallyScrolling(false);
 
 		_txtMeaning3.setVisibility(View.VISIBLE);
 		_txtMeaning3.setLines(1);
 		_txtMeaning3.setSingleLine();
+		_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				(float) (40 * scale));
 		_txtMeaning3.setMaxLines(3);
 		_txtMeaning3.setHorizontallyScrolling(false);
 
@@ -1236,6 +1274,7 @@ public class _MainActivity extends Fragment {
 	}
 
 	public void SetActionBarTitle() throws Exception {
+		if (mainView == null) return;
 		if (_vok.getGesamtzahl() > 0) {
 			String FName = "";
 			if (! libString.IsNullOrEmpty(_vok.getFileName()))
@@ -1273,7 +1312,8 @@ public class _MainActivity extends Fragment {
 					spnRight.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 			spnWrong.setSpan(new ForegroundColorSpan(Color.RED), 0,
 					spnWrong.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-			((TextView)(findViewById(R.id.txtStatus))).setText(TextUtils.concat(spnTitle, spnRight, spnWrong));
+			TextView txtStatus = (TextView)(findViewById(R.id.txtStatus)); 
+			if (txtStatus != null) txtStatus.setText(TextUtils.concat(spnTitle, spnRight, spnWrong));
 			//getSupportActionBar().setTitle(
 			//		TextUtils.concat(spnTitle, spnRight, spnWrong));
 
@@ -1352,6 +1392,7 @@ public class _MainActivity extends Fragment {
 
 		}
 		*/
+		if (mainView == null) return;
 		TextView t = _txtStatus;
 		Paint p = new Paint();
 		if (width == 0)	width = mainView.getWidth();

@@ -87,28 +87,33 @@ public class ColorsArrayAdapter extends
 		
 		View row;
 
-		if (convertView == null) {
+		if (convertView == null) 
+		{
 			row = inflater.inflate(R.layout.spinnerrow, parent, false);
 			blnNew = true;
-		} else {
+		} 
+		else 
+		{
 			row = convertView;
-			if (row.getTag() == null)
-				blnNew = true;
+			if (row.getTag() == null) blnNew = true;
 		}
 
 		TextView label = (TextView) row.findViewById(R.id.txtColors);
 		if (blnNew)
-			label.setTextSize(TypedValue.COMPLEX_UNIT_PX, label.getTextSize()
-					* super.Scale);
+		{
+			label.setTextSize(TypedValue.COMPLEX_UNIT_PX, label.getTextSize() * super.Scale);
+		}
+
 		label.setText(ColorItem.ColorName);
 
 		TextView icon = (TextView) row.findViewById(R.id.txtColors2);
 		if (blnNew)
-			icon.setTextSize(TypedValue.COMPLEX_UNIT_PX, icon.getTextSize()
-					* super.Scale);
+		{
+			icon.setTextSize(TypedValue.COMPLEX_UNIT_PX, icon.getTextSize() * super.Scale);
+		}
+					
 		icon.setBackgroundColor(ColorItem.ColorValue);
-		if (Scale != 1.0f)
-			row.setTag(true);
+		if (Scale != 1.0f)	row.setTag(true);
 		return row;
 	}
 

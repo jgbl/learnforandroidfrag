@@ -107,20 +107,27 @@ public class MainActivity extends AppCompatActivity {
                         super.onPageSelected(position);
                         if (LastPosition == SettingsActivity.fragID)
                         {
-                        		try {
-                    				if(fPA!=null)
+                        		try 
+                        		{
+                    				if(fPA!=null && fPA.fragSettings!=null)
+                    				{
+                    					try
                     					{
-                    						if (fPA.fragSettings!=null)
-                    							{
-                    								fPA.fragSettings.saveResultsAndFinish(true);
-                    								if (lib.NookSimpleTouch()) 
-                    									{
-                    										getSupportFragmentManager().beginTransaction().remove(fPA.fragSettings).commit();
-                    										fPA.fragSettings=null;
-                    									}
-                    							}
+                    						fPA.fragSettings.saveResultsAndFinish(true);
                     					}
-                    			} catch (Exception e) {
+                    					catch (Exception ex)
+                    					{
+                    						Log.e("fragSettings.saveResultsAndFinish",ex.getMessage(),ex);
+                    					}
+                    					if (lib.NookSimpleTouch()) 
+                    					{
+                    						RemoveFragSettings();
+                    					}
+                    				}
+                    				
+                    			} 
+                        		catch (Exception e) 
+                        		{
                     				// TODO Auto-generated catch block
                     				lib.ShowException(MainActivity.this, e);
                     			}
@@ -349,6 +356,24 @@ public class MainActivity extends AppCompatActivity {
         
 
     }
+	
+	public void RemoveFragSettings()
+	{
+		if (fPA.fragSettings != null && mPager.getCurrentItem() != SettingsActivity.fragID)
+		{
+			try
+			{
+				libLearn.gStatus = "getSupportFragmentmanager remove fragment";	
+				getSupportFragmentManager().beginTransaction().remove(fPA.fragSettings).commit();
+			}
+			catch (IllegalStateException ex2)
+			{
+				Log.e(libLearn.gStatus, ex2.getMessage(),ex2);
+			}
+			fPA.fragSettings=null;
+		}
+		
+	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -1184,15 +1209,23 @@ public class MainActivity extends AppCompatActivity {
 				}
 				
 			} else if (id == R.id.mnuAddWord) {
-				fPA.fragMain.EndEdit();
-				vok.AddVokabel();
-				fPA.fragMain.getVokabel(true, false);
-				fPA.fragMain.StartEdit();
+				mPager.setCurrentItem(_MainActivity.fragID);
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
+				{
+					fPA.fragMain.EndEdit();
+					vok.AddVokabel();
+					fPA.fragMain.getVokabel(true, false);
+					fPA.fragMain.StartEdit();
+				}
+				
 			} else if (id == R.id.mnuFileOpenASCII) {
 				LoadFile(false);
 			} else if (id == R.id.mnuConvMulti) {
-				vok.ConvertMulti();
-				fPA.fragMain.getVokabel(false, false);
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
+				{
+					vok.ConvertMulti();
+					fPA.fragMain.getVokabel(false, false);
+				}
 			} else if (id == R.id.mnuFileSave) {
 				saveVok(false);
 			} else if (id == R.id.mnuSaveAs) {
@@ -1202,13 +1235,19 @@ public class MainActivity extends AppCompatActivity {
 			} 
 			else if (id == R.id.mnuDelete) 
 			{
-				vok.DeleteVokabel();
-				fPA.fragMain.EndEdit2();
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
+				{
+					vok.DeleteVokabel();
+					fPA.fragMain.EndEdit2();
+				}
 			} 
 			else if (id == R.id.mnuReverse) 
 			{
-				vok.revert();
-				fPA.fragMain.getVokabel(false, false);
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
+				{
+					vok.revert();
+					fPA.fragMain.getVokabel(false, false);
+				}
 			} else if (id == R.id.mnuReset) {
 				if (lib.ShowMessageYesNo(this,
 						this.getString(R.string.ResetVocabulary),"")==yesnoundefined.yes) {
@@ -1351,6 +1390,7 @@ public class MainActivity extends AppCompatActivity {
 		try {
 			if ((requestCode == FILE_CHOOSER)
 					&& (resultCode == Activity.RESULT_OK)) {
+				mPager.setCurrentItem(_MainActivity.fragID);
 				String fileSelected = data.getStringExtra("fileSelected");
 				_blnUniCode = data.getBooleanExtra("blnUniCode", true);
 				LoadVokabel(fileSelected, null, 1, null, 0, false);
@@ -1368,19 +1408,20 @@ public class MainActivity extends AppCompatActivity {
 				final boolean blnNew = data.getBooleanExtra("blnNew",false);
 				if (!libString.IsNullOrEmpty(fileSelected)) 
 				{
+					mPager.setCurrentItem(_MainActivity.fragID);
 					String value = fileSelected;
 					value = value.replace("\n", "");
 					try {
 						if (vok.getCardMode())
 						{
-							if (!lib.ExtensionMatch(value, "k??"))
+							if (!lib.ExtensionMatch(value, "k??") && !lib.ExtensionMatch(value, "v??"))
 							{
 								value += ".kar";
 							}
 						}
 						else
 						{
-							if (!lib.ExtensionMatch(value, "v??"))
+							if (!lib.ExtensionMatch(value, "v??") && !lib.ExtensionMatch(value, "k??"))
 							{
 								value += ".vok";
 							}
@@ -1394,15 +1435,18 @@ public class MainActivity extends AppCompatActivity {
 							File ParentDir = F.getParentFile();
 							if (!ParentDir.exists())
 								ParentDir.mkdirs();
-							
+							libLearn.gStatus = "onActivityResult SaveFile";
 							vok.SaveFile(F.getPath(), vok.getURI(),
 									_blnUniCode, false);
+							libLearn.gStatus = "onActivityResult SaveFilePrefs";
 							saveFilePrefs(false);
 							if (blnNew)
 							{
 								newvok();
 							}
-							fPA.fragMain.SetActionBarTitle();
+							libLearn.gStatus = "onActivityResult SetActionbarTitle";
+							if(fPA.fragMain!=null && fPA.fragMain.mainView!=null) 
+								fPA.fragMain.SetActionBarTitle();
 						}
 
 					} catch (Exception e) {
@@ -1512,7 +1556,7 @@ public class MainActivity extends AppCompatActivity {
 
 			}
 
-						else if (resultCode == RESULT_OK && requestCode == lib.SELECT_FILE && data!=null) 
+			else if (resultCode == RESULT_OK && requestCode == lib.SELECT_FILE && data!=null) 
 			{
 				Uri selectedUri = data.getData();
 				String strUri = selectedUri.toString();
@@ -1520,6 +1564,7 @@ public class MainActivity extends AppCompatActivity {
 				if(path.contains(":")) path = path.split(":")[0];
 				if (lib.RegexMatchVok(path) || lib.ShowMessageYesNo(this, getString(R.string.msgWrongExtLoad),"")==yesnoundefined.yes)
 				{
+					mPager.setCurrentItem(_MainActivity.fragID);
 					LoadVokabel(null,selectedUri, 1, null, 0, false);
 					takePersistableUri(selectedUri,false);
 					prefs.edit().putString("defaultURI",strUri).commit();
@@ -1554,12 +1599,13 @@ public class MainActivity extends AppCompatActivity {
 				
 				if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),"")==yesnoundefined.yes)
 				{
+					mPager.setCurrentItem(_MainActivity.fragID);
 					takePersistableUri(selectedUri,false);
 					vok.SaveFile(null, selectedUri,
 							_blnUniCode, false);
 					saveFilePrefs(false);
 					//if (blnNew) newvok();
-					fPA.fragMain.SetActionBarTitle();
+					if (fPA.fragMain!=null&&fPA.fragMain.mainView!=null)fPA.fragMain.SetActionBarTitle();
 					prefs.edit().putString("defaultURI",strUri).commit();
 				}
 			}
@@ -1594,12 +1640,13 @@ public class MainActivity extends AppCompatActivity {
 					
 					if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),"")==yesnoundefined.yes)
 					{
+						mPager.setCurrentItem(_MainActivity.fragID);
 						takePersistableUri(selectedUri,false);
 						vok.SaveFile(null, selectedUri,
 								_blnUniCode, false);
 						saveFilePrefs(false);
 						//if (blnNew) newvok();
-						fPA.fragMain.SetActionBarTitle();
+						if(fPA.fragMain!=null&&fPA.fragMain.mainView!=null)fPA.fragMain.SetActionBarTitle();
 						prefs.edit().putString("defaultURI",strUri).commit();
 					}
 				}
