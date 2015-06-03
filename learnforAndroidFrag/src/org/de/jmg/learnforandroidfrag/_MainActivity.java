@@ -138,6 +138,13 @@ public class _MainActivity extends Fragment {
 	}
 	
 	@Override
+	public void onDestroyView ()
+	{
+		super.onDestroyView();
+		mainView = null;
+	}
+	
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mainView=null;
@@ -154,6 +161,11 @@ public class _MainActivity extends Fragment {
 		super.onSaveInstanceState(outState);
 		outState.putInt("lastIsWrongVokID", _lastIsWrongVokID);
 		if (lib.YesNoHandler!=null) lib.YesNoHandler.sendMessage(lib.YesNoHandler.obtainMessage());
+		removeCallbacks();
+	}
+	
+	public void removeCallbacks()
+	{
 		handler.removeCallbacks(runnableFalse);
 		if (rFlashs!=null)
 		{

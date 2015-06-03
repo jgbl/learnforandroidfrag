@@ -125,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
                     				lib.ShowException(MainActivity.this, e);
                     			}
                     	}
+                        else if (LastPosition == _MainActivity.fragID)
+                        {
+                        	if (fPA!=null && fPA.fragMain!=null)
+                        	{
+                        		fPA.fragMain.removeCallbacks();
+                        	}
+                        }
                         LastPosition=position;
                         
                         if (position == fragFileChooser.fragID)
@@ -208,10 +215,12 @@ public class MainActivity extends AppCompatActivity {
 				boolean CardMode = false;
 				if (savedInstanceState != null) 
 				{
-					if (fPA.fragMain!=null)
+					/*
+					if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
 					{
 						fPA.fragMain.onCreateView(LayoutInflater.from(this), Layout, null);
 					}
+					*/
 					libLearn.gStatus = "onCreate Load SavedInstanceState";
 					String filename = savedInstanceState.getString("vokpath");
 					Uri uri = null;
@@ -234,15 +243,20 @@ public class MainActivity extends AppCompatActivity {
 						vok.setURI(uri);
 						vok.setCardMode(CardMode);
 						vok.aend = savedInstanceState.getBoolean("aend", true);
-						if (fPA.fragMain!=null)
+						/*
+						if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
 						{
 							fPA.fragMain.getVokabel(false, false);
 						}
+						*/
 					}
+					
+					/*
 					if (fPA.fragSettings!=null)
 					{
 						fPA.fragSettings.onCreateView(LayoutInflater.from(this), Layout, null);
 					}
+					*/
 					
 					//mPager.setCurrentItem(savedInstanceState.getInt("SelFragID", 0));
 				} 
@@ -552,7 +566,7 @@ public class MainActivity extends AppCompatActivity {
 		try 
 		{
 			if (uri==null) saveVok(false);
-			if (fPA.fragMain!=null)fPA.fragMain.setBtnsEnabled(false);
+			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.setBtnsEnabled(false);
 			try 
 			{
 				vok.LoadFile(this, fileSelected, uri, false, false, _blnUniCode);
@@ -573,11 +587,11 @@ public class MainActivity extends AppCompatActivity {
 			}
 
 			if (vok.getCardMode() || CardMode) {
-				if (fPA.fragMain!=null)fPA.fragMain.SetViewsToCardmode();
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.SetViewsToCardmode();
 			} 
 			else 
 			{
-				if (fPA.fragMain!=null)fPA.fragMain.SetViewsToVokMode();
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.SetViewsToVokMode();
 			}
 
 			// if (index >0 ) vok.setIndex(index);
@@ -587,13 +601,13 @@ public class MainActivity extends AppCompatActivity {
 				vok.setLernIndex((short) Lernindex);
 			if (vok.getGesamtzahl() > 0)
 				{
-				if (fPA.fragMain!=null)fPA.fragMain.setBtnsEnabled(true);
+				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.setBtnsEnabled(true);
 				}
-			if (fPA.fragMain!=null) fPA.fragMain.getVokabel(false, false);
+			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null) fPA.fragMain.getVokabel(false, false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			lib.ShowException(this, e);
-			if (fPA.fragMain!=null) fPA.fragMain.getVokabel(true, true);
+			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null) fPA.fragMain.getVokabel(true, true);
 		}
 	}
 	
@@ -601,7 +615,7 @@ public class MainActivity extends AppCompatActivity {
 	private Handler handlerbackpressed = new Handler();
 
 	private synchronized boolean saveVok(boolean dontPrompt) throws Exception {
-		if (fPA.fragMain!=null)fPA.fragMain.EndEdit();
+		if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.EndEdit();
 		if (vok.aend) 
 		{
 			if (!dontPrompt) 
@@ -1344,7 +1358,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 			else if (requestCode == SettingsActivity.FILE_CHOOSERSOUND)
 			{
-				if (fPA.fragSettings!=null)
+				if (fPA.fragSettings!=null && fPA.fragSettings.SettingsView!=null)
 					fPA.fragSettings.onActivityResult(requestCode, resultCode, data);
 			}
 			else if ((requestCode == FILE_CHOOSERADV)
@@ -1612,75 +1626,77 @@ public class MainActivity extends AppCompatActivity {
 
 	void processSettingsIntent(Intent data) throws Exception
 	{
-		libLearn.gStatus = "getting values from intent";
-		int oldAbfrage = vok.getAbfragebereich();
-		vok.setAbfragebereich(data.getExtras().getShort(
-				"Abfragebereich"));
-		if (oldAbfrage != vok.getAbfragebereich())
-			vok.ResetAbfrage();
-		short Schrittweite = data.getExtras().getShort("Step");
-		if (Schrittweite != vok.getSchrittweite()) {
-			vok.setSchrittweite(Schrittweite);
-			vok.InitAbfrage();
-		}
-		vok.CharsetASCII = (data.getExtras().getString("CharsetASCII"));
-		DisplayDurationWord = data.getExtras().getFloat(
-				"DisplayDurationWord");
-		DisplayDurationBed = data.getExtras().getFloat(
-				"DisplayDurationBed");
-		PaukRepetitions = data.getExtras().getInt("PaukRepetitions");
-		vok.ProbabilityFactor = data.getExtras().getFloat(
-				"ProbabilityFactor");
-		vok.setAbfrageZufaellig(data.getExtras().getBoolean("Random"));
-		vok.setAskAll(data.getExtras().getBoolean("AskAll"));
-		int Language = data.getExtras().getInt("Language",Vokabel.EnumSprachen.undefiniert.ordinal());
-		for (int i = 0; i < Vokabel.EnumSprachen.values().length; i++)
+		if (data.getStringExtra("OK")=="OK")
 		{
-			if (Vokabel.EnumSprachen.values()[i].ordinal() == Language)
-			{
-				vok.setSprache(Vokabel.EnumSprachen.values()[i]);
-				break;
+			libLearn.gStatus = "getting values from intent";
+			int oldAbfrage = vok.getAbfragebereich();
+			vok.setAbfragebereich(data.getExtras().getShort(
+					"Abfragebereich"));
+			if (oldAbfrage != vok.getAbfragebereich())
+				vok.ResetAbfrage();
+			short Schrittweite = data.getExtras().getShort("Step");
+			if (Schrittweite != vok.getSchrittweite()) {
+				vok.setSchrittweite(Schrittweite);
+				vok.InitAbfrage();
 			}
+			vok.CharsetASCII = (data.getExtras().getString("CharsetASCII"));
+			DisplayDurationWord = data.getExtras().getFloat(
+					"DisplayDurationWord");
+			DisplayDurationBed = data.getExtras().getFloat(
+					"DisplayDurationBed");
+			PaukRepetitions = data.getExtras().getInt("PaukRepetitions");
+			vok.ProbabilityFactor = data.getExtras().getFloat(
+					"ProbabilityFactor");
+			vok.setAbfrageZufaellig(data.getExtras().getBoolean("Random"));
+			vok.setAskAll(data.getExtras().getBoolean("AskAll"));
+			int Language = data.getExtras().getInt("Language",Vokabel.EnumSprachen.undefiniert.ordinal());
+			for (int i = 0; i < Vokabel.EnumSprachen.values().length; i++)
+			{
+				if (Vokabel.EnumSprachen.values()[i].ordinal() == Language)
+				{
+					vok.setSprache(Vokabel.EnumSprachen.values()[i]);
+					break;
+				}
+			}
+			lib.sndEnabled = data.getExtras().getBoolean("Sound");
+			Colors = getColorsFromIntent(data);
+			colSounds = getSoundsFromIntent(data);
+			final String keyProvider = "ShowAlwaysDocumentProvider";
+			int ShowAlwaysDocumentProvider = data.getExtras().getInt(keyProvider, 999);
+			final String keyURIMessage = "DontShowPersistableURIMessage";
+			int DontShowPersistableURIMessage = data.getExtras().getInt(keyURIMessage, 999);
+			final String key = "AlwaysStartExternalProgram";
+			int AlwaysStartExternalProgram = data.getExtras().getInt(key, 999);
+			libLearn.gStatus = "writing values to prefs";
+			Editor editor = prefs.edit();
+			editor.putInt("Schrittweite", vok.getSchrittweite());
+			editor.putString("CharsetASCII", vok.CharsetASCII);
+			editor.putInt("Abfragebereich", vok.getAbfragebereich());
+			editor.putFloat("DisplayDurationWord", DisplayDurationWord);
+			editor.putFloat("DisplayDurationBed", DisplayDurationBed);
+			editor.putInt("PaukRepetitions", PaukRepetitions);
+			editor.putFloat("ProbabilityFactor", vok.ProbabilityFactor);
+			editor.putBoolean("Random", vok.getAbfrageZufaellig());
+			editor.putBoolean("AskAll", vok.getAskAll());
+			editor.putBoolean("Sound", lib.sndEnabled);
+			editor.putInt(keyProvider, ShowAlwaysDocumentProvider);
+			editor.putInt(keyURIMessage, DontShowPersistableURIMessage);
+			editor.putInt(key, AlwaysStartExternalProgram);
+			
+			for (ColorItems item : Colors.keySet()) {
+				editor.putInt(item.name(), Colors.get(item).ColorValue);
+			}
+	
+			for (Sounds item : colSounds.keySet()) {
+				editor.putString(item.name(), colSounds.get(item).SoundPath);
+			}
+	
+			editor.commit();
+			libLearn.gStatus = "setTextColors";
+			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null) fPA.fragMain.setTextColors();
+			libLearn.gStatus = "getVokabel";
+			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null) fPA.fragMain.getVokabel(false, false);
 		}
-		lib.sndEnabled = data.getExtras().getBoolean("Sound");
-		Colors = getColorsFromIntent(data);
-		colSounds = getSoundsFromIntent(data);
-		final String keyProvider = "ShowAlwaysDocumentProvider";
-		int ShowAlwaysDocumentProvider = data.getExtras().getInt(keyProvider, 999);
-		final String keyURIMessage = "DontShowPersistableURIMessage";
-		int DontShowPersistableURIMessage = data.getExtras().getInt(keyURIMessage, 999);
-		final String key = "AlwaysStartExternalProgram";
-		int AlwaysStartExternalProgram = data.getExtras().getInt(key, 999);
-		libLearn.gStatus = "writing values to prefs";
-		Editor editor = prefs.edit();
-		editor.putInt("Schrittweite", vok.getSchrittweite());
-		editor.putString("CharsetASCII", vok.CharsetASCII);
-		editor.putInt("Abfragebereich", vok.getAbfragebereich());
-		editor.putFloat("DisplayDurationWord", DisplayDurationWord);
-		editor.putFloat("DisplayDurationBed", DisplayDurationBed);
-		editor.putInt("PaukRepetitions", PaukRepetitions);
-		editor.putFloat("ProbabilityFactor", vok.ProbabilityFactor);
-		editor.putBoolean("Random", vok.getAbfrageZufaellig());
-		editor.putBoolean("AskAll", vok.getAskAll());
-		editor.putBoolean("Sound", lib.sndEnabled);
-		editor.putInt(keyProvider, ShowAlwaysDocumentProvider);
-		editor.putInt(keyURIMessage, DontShowPersistableURIMessage);
-		editor.putInt(key, AlwaysStartExternalProgram);
-		
-		for (ColorItems item : Colors.keySet()) {
-			editor.putInt(item.name(), Colors.get(item).ColorValue);
-		}
-
-		for (Sounds item : colSounds.keySet()) {
-			editor.putString(item.name(), colSounds.get(item).SoundPath);
-		}
-
-		editor.commit();
-		libLearn.gStatus = "setTextColors";
-		if (fPA.fragMain!=null) fPA.fragMain.setTextColors();
-		libLearn.gStatus = "getVokabel";
-		if (fPA.fragMain!=null) fPA.fragMain.getVokabel(false, false);
-		
 
 	}
 

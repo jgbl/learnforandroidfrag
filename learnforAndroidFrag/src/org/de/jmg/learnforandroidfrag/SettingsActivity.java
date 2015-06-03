@@ -83,7 +83,7 @@ public class SettingsActivity extends Fragment
 	public SoundsArrayAdapter Sounds;
 	public SharedPreferences prefs;
 	private View mainView;
-	private Intent intent = new Intent();
+	private Intent intent;
 	private boolean blnLayouted = false;
 	MainActivity _main;
 
@@ -136,9 +136,20 @@ public class SettingsActivity extends Fragment
 		_blnInitialized=false;
 		mainView = SettingsView;
 		if (_main == null) _main=(MainActivity)getActivity();
-		if (_main!=null)_Intent=_main.getSettingsIntent();
+		if (_main!=null)
+		{
+			_Intent=_main.getSettingsIntent();
+			intent = new Intent();
+		}
 		init();
 		return SettingsView;
+	}
+	
+	@Override
+	public void onDestroyView ()
+	{
+		super.onDestroyView();
+		SettingsView = null;
 	}
 	
 
@@ -255,6 +266,7 @@ public class SettingsActivity extends Fragment
 					boolean isChecked) {
 				// TODO Auto-generated method stub
 				intent.putExtra("Random", isChecked);
+				intent.putExtra("OK","OK");
 			}
 
 		});
@@ -270,6 +282,7 @@ public class SettingsActivity extends Fragment
 					boolean isChecked) {
 				// TODO Auto-generated method stub
 				intent.putExtra("AskAll", isChecked);
+				intent.putExtra("OK","OK");
 			}
 
 		});
@@ -285,6 +298,7 @@ public class SettingsActivity extends Fragment
 					boolean isChecked) {
 				// TODO Auto-generated method stub
 				intent.putExtra("Sound", isChecked);
+				intent.putExtra("OK","OK");
 			}
 
 		});
@@ -334,7 +348,7 @@ public class SettingsActivity extends Fragment
 						}
 					}
 					intent.putExtra(keyProvider, ShowAlwaysDocumentProvider);
-					
+					intent.putExtra("OK","OK");
 				}
 			});
 			
@@ -360,6 +374,7 @@ public class SettingsActivity extends Fragment
 					// TODO Auto-generated method stub
 					int DontShowPersistableURIMessage = isChecked?-1:0;
 					intent.putExtra(keyURIMessage, DontShowPersistableURIMessage);
+					intent.putExtra("OK","OK");
 				}
 			});
 		}
@@ -396,7 +411,7 @@ public class SettingsActivity extends Fragment
 					}
 				}
 				intent.putExtra(key, AlwaysStartExternalProgram);
-				
+				intent.putExtra("OK","OK");
 			}
 		});
 		
@@ -471,7 +486,7 @@ public class SettingsActivity extends Fragment
 							// TODO Auto-generated method stub
 							intent.putExtra("Abfragebereich",
 									(short) (position - 1));
-
+							intent.putExtra("OK","OK");
 						}
 
 						@Override
@@ -502,7 +517,7 @@ public class SettingsActivity extends Fragment
 					intent.putExtra("Step", (short) (Integer
 							.parseInt((String) parent
 									.getItemAtPosition(position))));
-
+					intent.putExtra("OK","OK");
 				}
 
 				@Override
@@ -550,7 +565,7 @@ public class SettingsActivity extends Fragment
 					// TODO Auto-generated method stub
 					intent.putExtra("CharsetASCII",
 							((String) (parent.getSelectedItem())));
-
+					intent.putExtra("OK","OK");
 				}
 
 				@Override
@@ -586,7 +601,7 @@ public class SettingsActivity extends Fragment
 							intent.putExtra("DisplayDurationWord", (Float
 									.parseFloat((String) parent
 											.getItemAtPosition(position))));
-
+							intent.putExtra("OK","OK");
 						}
 
 						@Override
@@ -621,7 +636,7 @@ public class SettingsActivity extends Fragment
 							intent.putExtra("DisplayDurationBed", (Float
 									.parseFloat((String) parent
 											.getItemAtPosition(position))));
-
+							intent.putExtra("OK","OK");
 						}
 
 						@Override
@@ -653,7 +668,7 @@ public class SettingsActivity extends Fragment
 							intent.putExtra("PaukRepetitions", (Integer
 									.parseInt((String) parent
 											.getItemAtPosition(position))));
-
+							intent.putExtra("OK","OK");
 						}
 
 						@Override
@@ -707,7 +722,7 @@ public class SettingsActivity extends Fragment
 								strDD = "-1";
 							intent.putExtra("ProbabilityFactor",
 									(Float.parseFloat(strDD)));
-
+							intent.putExtra("OK","OK");
 						}
 
 						@Override
@@ -737,7 +752,7 @@ public class SettingsActivity extends Fragment
 						public void onItemSelected(AdapterView<?> parent,
 								View view, int position, long id) {
 							intent.putExtra("Language", position);
-
+							intent.putExtra("OK","OK");
 						}
 
 						@Override
@@ -882,7 +897,10 @@ public class SettingsActivity extends Fragment
 			intent.putExtra(Sounds.getItem(i).Sound.name(),
 					Sounds.getItem(i).SoundPath);
 		}
-		_main.processSettingsIntent(intent);
+		if (intent.getStringExtra("OK") == "OK")
+		{
+			_main.processSettingsIntent(intent);
+		}
 		if (!blnDontSetCurrentItem) _main.mPager.setCurrentItem(_MainActivity.fragID);
 	}
 
@@ -1069,7 +1087,8 @@ public class SettingsActivity extends Fragment
 						Editor editor = prefs.edit();
 						editor.putInt(item.ColorItem.name(), item.ColorValue);
 						intent.putExtra(item.ColorItem.name(), item.ColorValue);
-						;
+						intent.putExtra("OK","OK");
+						
 						editor.commit();
 						Colors.notifyDataSetChanged();
 						spnColors.blnDontCallOnClick = false;
@@ -1132,7 +1151,7 @@ public class SettingsActivity extends Fragment
 				Editor editor = prefs.edit();
 				editor.putString(item.Sound.name(), item.SoundPath);
 				intent.putExtra(item.Sound.name(), item.SoundName);
-				;
+				intent.putExtra("OK","OK");
 				editor.commit();
 				Sounds.notifyDataSetChanged();
 				spnSounds.blnDontCallOnClick = false;
