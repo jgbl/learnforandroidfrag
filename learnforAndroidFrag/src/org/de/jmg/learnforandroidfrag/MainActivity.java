@@ -1633,7 +1633,9 @@ public class MainActivity extends AppCompatActivity {
 			vok.setAbfragebereich(data.getExtras().getShort(
 					"Abfragebereich"));
 			if (oldAbfrage != vok.getAbfragebereich())
+			{
 				vok.ResetAbfrage();
+			}
 			short Schrittweite = data.getExtras().getShort("Step");
 			if (Schrittweite != vok.getSchrittweite()) {
 				vok.setSchrittweite(Schrittweite);

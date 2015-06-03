@@ -197,11 +197,14 @@ public class SettingsActivity extends Fragment
 			initButtons();
 			if (!(lib.NookSimpleTouch()))
 			{
-				SettingsView.getViewTreeObserver().addOnGlobalLayoutListener(
-						new ViewTreeObserver.OnGlobalLayoutListener() {
+				SettingsView.getViewTreeObserver().addOnGlobalLayoutListener
+				(
+						new ViewTreeObserver.OnGlobalLayoutListener() 
+						{
 
 							@Override
-							public void onGlobalLayout() {
+							public void onGlobalLayout() 
+							{
 								// Ensure you call it only once :
 								lib.removeLayoutListener(SettingsView.getViewTreeObserver(), this);
 								
@@ -209,7 +212,8 @@ public class SettingsActivity extends Fragment
 								resize(0);
 								//lib.ShowToast(_main, "Resize End");
 							}
-						});
+						}
+				);
 
 			}
 			else
@@ -931,12 +935,12 @@ public class SettingsActivity extends Fragment
 					
 				float scale1 = width
 						/ (float) ((findViewById(R.id.txtCharsetASCII)).getWidth()
-								+ spnASCII.getWidth() + width / 50);
+								+ spnASCII.getWidth() + width / 30);
 				float scale2 = width
 						/ (float) ((findViewById(R.id.txtSounds)).getWidth()
-								+ spnSounds.getWidth() + width / 50);
+								+ spnSounds.getWidth() + width / 30);
 				float scale3 = width / (float)((findViewById(R.id.txtCharsetASCII)).getWidth()
-						+ spnASCII.getWidth() + width / 50);
+						+ spnASCII.getWidth() + width / 30);
 				scale = (scale1 < scale2) ? scale1 : scale2;
 				scale = (scale3 < scale) ? scale3 : scale;
 			}
@@ -1058,6 +1062,24 @@ public class SettingsActivity extends Fragment
 			b.setLayoutParams(params);
 			b.setTextSize(TypedValue.COMPLEX_UNIT_PX, b.getTextSize() * scale);
 			*/
+			SettingsView.getViewTreeObserver().addOnGlobalLayoutListener
+			(
+					new ViewTreeObserver.OnGlobalLayoutListener() 
+					{
+
+						@Override
+						public void onGlobalLayout() 
+						{
+							// Ensure you call it only once :
+							lib.removeLayoutListener(SettingsView.getViewTreeObserver(), this);
+							int pos = spnASCII.getSelectedItemPosition();
+							spnASCII.setSelection(-1);
+							spnASCII.setSelection(pos);
+						}
+					}
+			);
+
+			
 		}
 		catch (Exception ex)
 		{
