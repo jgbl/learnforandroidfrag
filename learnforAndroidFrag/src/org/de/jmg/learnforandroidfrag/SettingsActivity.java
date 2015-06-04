@@ -132,6 +132,11 @@ public class SettingsActivity extends Fragment
 			SettingsView = inflater.inflate(R.layout.activity_settings_nook, container,false);
 			
 		}
+		else if (_main.isSmallDevice)
+		{
+			SettingsView = inflater.inflate(R.layout.activity_settings_wear, container,false);
+			
+		}
 		else
 		{
 			SettingsView = inflater.inflate(R.layout.activity_settings, container,false);

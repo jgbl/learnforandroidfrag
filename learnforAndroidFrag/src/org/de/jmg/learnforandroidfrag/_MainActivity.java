@@ -207,6 +207,7 @@ public class _MainActivity extends Fragment {
 			if (scale < .5f) 
 			{
 				_isSmallDevice = true;
+				_main.isSmallDevice = true;
 				scale = .5f;
 			}
 			/*

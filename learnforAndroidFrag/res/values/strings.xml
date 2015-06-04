@@ -52,7 +52,9 @@
         <string name="spnSelect">select ...</string>
         <string name="txtSettings">settings</string>
         <string name="txtAbfragebereich">asking range:</string>
+        <string name="txtAbfragebereich_wear">range:</string>
         <string name="txtCharsetASCII">charset ascii:</string>
+        <string name="txtCharsetASCII_wear">ascii:</string>
         <string name="btnOK">OK</string>
         <string name="btnCancel">Cancel</string>
         <string name="txtStep">step:</string>
@@ -69,6 +71,7 @@
             <item >20</item>
         </string-array>
             <string name="txtAnzeigedauerWord">display duration word</string>
+            <string name="txtAnzeigedauerWord_wear">dd word</string>
             <string name="spnAnzeigedauerWord">display duration</string>
             <string name="spnAnzeigedauerWordDescription">display duration of word if wrong</string>
             <string name="txtAnzeigedauerBed">display duration of meaning</string>

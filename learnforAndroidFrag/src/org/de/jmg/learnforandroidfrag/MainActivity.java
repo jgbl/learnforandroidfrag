@@ -797,6 +797,8 @@ public class MainActivity extends AppCompatActivity {
 
 		
 	public String JMGDataDirectory;
+	public boolean isSmallDevice = false;
+	
 	private void CopyAssets() {
 		libLearn.gStatus = "Copy Assets";
 		File F = android.os.Environment.getExternalStorageDirectory();
