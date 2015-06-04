@@ -39,10 +39,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtCharsetASCII"
-	            
-	            
 	            android:contentDescription="@string/spnASCIIFontDescription"
-	            
 	            android:prompt="@string/spnASCIIFont" />
 	        
 	        <TextView
@@ -52,7 +49,6 @@
 	            android:layout_below="@+id/spnASCII"
 	            android:text="@string/txtAbfragebereich"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	
             
@@ -63,10 +59,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtAbfragebereich"
-	            
-	            
 	            android:contentDescription="@string/spnAbfragebereichDescription"
-	            
 	            android:prompt="@string/spnAbfragebereich" />
 	
 	        
@@ -78,7 +71,6 @@
 	            android:layout_below="@+id/spnAbfragebereich"
 	            android:text="@string/txtStep"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -88,10 +80,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtStep"
-	            
-	            
 	            android:contentDescription="@string/spnStepDescriptions"
-	            
 	            android:prompt="@string/spnStep" />
 	        
 	        <TextView
@@ -101,7 +90,6 @@
 	            android:layout_below="@+id/spnStep"
 	            android:text="@string/txtAnzeigedauerWord"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -111,10 +99,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtAnzeigedauerWord"
-	            
-	            
 	            android:contentDescription="@string/spnAnzeigedauerWordDescription"
-	            
 	            android:prompt="@string/spnAnzeigedauerWord" />
 	        
 	        <TextView
@@ -124,7 +109,6 @@
 	            android:layout_below="@+id/spnAnzeigedauerWord"
 	            android:text="@string/txtAnzeigedauerBed"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -134,10 +118,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtAnzeigedauerBed"
-	            
-	            
 	            android:contentDescription="@string/spnAnzeigedauerBedDescription"
-	            
 	            android:prompt="@string/spnAnzeigedauerBed" />
 	        
 	        <TextView
@@ -147,7 +128,6 @@
 	            android:layout_below="@+id/spnAnzeigedauerBed"
 	            android:text="@string/txtRepetitions"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -157,11 +137,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtRepetitions"
-	            
-	            
 	            android:contentDescription="@string/spnRepetitionsDescription"
 	            android:entries="@array/spnRepetitions"
-	            
 	            android:prompt="@string/spnRepetions" />
 	        
 	        <TextView
@@ -171,7 +148,6 @@
 	            android:layout_below="@+id/spnRepetitions"
 	            android:text="@string/txtProbabilityFactor"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -181,10 +157,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtProbabilityFactor"
-	            
-	            
 	            android:entries="@array/spnProbabilityFactors"
-	            
 	            android:prompt="@string/spnProbabilityFactor" />
 	        
 	        <TextView
@@ -194,7 +167,6 @@
 	            android:layout_below="@+id/spnProbabilityFactor"
 	            android:text="@string/txtLanguage"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -203,9 +175,6 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/txtLanguage"
-	            
-	            
-	            
 	            android:prompt="@string/spnLanguage" />
 	        
 	        <TextView
@@ -216,7 +185,6 @@
 	            android:layout_marginTop="0dp"
 	            android:text="@string/txtColors"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <org.de.jmg.lib.NoClickSpinner
@@ -233,10 +201,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnColors"
-	            android:layout_marginTop="35dp"
 	            android:text="@string/txtSounds"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <org.de.jmg.lib.NoClickSpinner
@@ -255,14 +221,13 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_alignParentLeft="true"
-		            android:layout_below="@+id/txtSounds"
+		            android:layout_below="@+id/spnSounds"
 		            android:layout_marginBottom="0dp"
 		            android:layout_marginTop="60dp"
 		            android:checked="false"
 		            android:hint="@string/chkRandomHint"
 		            android:text="@string/chkRandom"
 		            android:textSize="18sp"
-		            
 		            android:typeface="normal" />
 		        
 		        <CheckBox
@@ -274,7 +239,6 @@
 		            android:hint="@string/chkAskAllHint"
 		            android:text="@string/chkAskAll"
 		            android:textSize="18sp"
-		            
 		            android:typeface="normal" />
 		        
 		        <CheckBox
@@ -282,12 +246,10 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_below="@id/chkAskAll"
-		            
 		            android:checked="false"
 		            android:hint="@string/chkSoundHint"
 		            android:text="@string/chkSound"
 		            android:textSize="18sp"
-		            
 		            android:typeface="normal" />
 		        
 		        <CheckBox
@@ -304,7 +266,6 @@
 		            android:hint="@string/hintProvider"
 		            android:text="@string/TakeDocumentProvider"
 		            android:textSize="18sp"
-		            
 		            android:typeface="normal" />
 		        
 		        <CheckBox
@@ -334,7 +295,6 @@
 		             android:hint="@string/hintStartExternalProgram"
 		             android:text="@string/chkAlwaysStartExternalProgram"
 		             android:textSize="18sp"
-		             
 		             android:typeface="normal" />
 		        
 		    

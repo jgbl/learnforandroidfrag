@@ -204,7 +204,7 @@ public class SettingsActivity extends Fragment
 			initSpinners();
 			initCheckBoxes();
 			initButtons();
-			if (!(lib.NookSimpleTouch()))
+			if (!(lib.NookSimpleTouch()) && !_main.isSmallDevice)
 			{
 				SettingsView.getViewTreeObserver().addOnGlobalLayoutListener
 				(
@@ -920,7 +920,6 @@ public class SettingsActivity extends Fragment
 	public float mScale = 1;
 
 	private void resize(float scale) {
-		
 		//if (scale == 0 && mScale!=1) return;
 		Resources resources = _main.getResources();
 		DisplayMetrics metrics = resources.getDisplayMetrics();

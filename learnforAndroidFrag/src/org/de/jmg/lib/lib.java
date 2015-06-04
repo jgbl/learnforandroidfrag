@@ -47,6 +47,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -1026,6 +1027,15 @@ public class lib {
 			context.startActivityForResult(chooser, SELECT_FILE);
 		}
 	}
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	public static void removewfcListener(ViewTreeObserver observer,
+			OnWindowFocusChangeListener wfcListener) {
+		// TODO Auto-generated method stub
+		if (Build.VERSION.SDK_INT>=18)
+		{
+			observer.removeOnWindowFocusChangeListener(wfcListener);
+		}
+	}
 	
 	public static void removeLayoutListener(ViewTreeObserver observer,
 			OnGlobalLayoutListener listener)
@@ -1200,5 +1210,8 @@ public class lib {
 		return new SpannedString(txt);
 
 	}
+
+
+	
 
 }

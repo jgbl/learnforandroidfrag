@@ -15,6 +15,7 @@ import org.de.jmg.lib.ColorSetting.ColorItems;
 import org.de.jmg.lib.lib.Sounds;
 import org.de.jmg.lib.lib.libString;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -37,6 +38,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -67,6 +70,8 @@ public class _MainActivity extends Fragment {
 	private BorderedEditText _txtMeaning1;
 	private BorderedEditText _txtMeaning2;
 	private BorderedEditText _txtMeaning3;
+	private ScrollView _scrollView; //= (ScrollView) findViewById(R.id.layoutMain);
+	
 	private double scale = 1;
 	private Drawable _MeaningBG;
 	Handler handler = new Handler();
@@ -328,7 +333,7 @@ public class _MainActivity extends Fragment {
 					widthButtons=320;
 					blnWrongWidth = true;
 				}
-				ScaleWidth = (width - 20)/(double)widthButtons;
+				ScaleWidth = (width - 50)/(double)widthButtons;
 				if (ScaleWidth<.5d) ScaleWidth=.5d;
 				ScaleTextButtons = ((scale > ScaleWidth)?scale:ScaleWidth);
 			}
@@ -581,15 +586,42 @@ public class _MainActivity extends Fragment {
 				_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 				_txtMeaning3.setImeOptions(EditorInfo.IME_ACTION_DONE);
 			}
-			_txtWord.requestFocus();
+			_txtMeaning1.requestFocus();
 			SetActionBarTitle();
-			hideKeyboard();
-
+			_scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() 
+			{
+				
+				@Override
+				public void onGlobalLayout() {
+					// TODO Auto-generated method stub
+					lib.removeLayoutListener(_scrollView.getViewTreeObserver(), this);
+					hideKeyboard();
+					_scrollView.fullScroll(View.FOCUS_UP);
+				}
+			});
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			lib.ShowException(_main, e);
 		}
 
+	}
+	
+	@SuppressLint("NewApi")
+	private class wfcListener implements OnWindowFocusChangeListener
+	{
+
+		@Override
+		public void onWindowFocusChanged(boolean hasFocus) {
+			// TODO Auto-generated method stub
+			if (hasFocus) {
+				lib.removewfcListener(_scrollView.getViewTreeObserver(), this);
+				hideKeyboard();
+				_scrollView.fullScroll(View.FOCUS_UP);
+	        }
+		}
+		
 	}
 	
 	private int _lastIsWrongVokID;
@@ -744,6 +776,7 @@ public class _MainActivity extends Fragment {
 		_txtedKom = (BorderedEditText) findViewById(R.id.edComment);
 		_txtKom = (BorderedTextView) findViewById(R.id.Comment);
 		_txtStatus = (BorderedTextView) findViewById(R.id.txtStatus);
+		_scrollView = (ScrollView) findViewById(R.id.layoutMain);
 		setBtnsEnabled(false);
 		setTextColors();
 	}
@@ -1429,6 +1462,8 @@ public class _MainActivity extends Fragment {
 			
 		}
 	}
+
+	
 	
 	
 
