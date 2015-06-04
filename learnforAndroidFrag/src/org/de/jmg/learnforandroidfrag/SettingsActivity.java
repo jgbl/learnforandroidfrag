@@ -943,12 +943,12 @@ public class SettingsActivity extends Fragment
 				libLearn.gStatus="Calculating Scale";
 					
 				float scale1 = width
-						/ (float) ((findViewById(R.id.txtCharsetASCII)).getWidth()
+						/ (float) (_main.isSmallDevice?0:(findViewById(R.id.txtCharsetASCII)).getWidth()
 								+ spnASCII.getWidth() + width / 30);
 				float scale2 = width
-						/ (float) ((findViewById(R.id.txtSounds)).getWidth()
+						/ (float) (_main.isSmallDevice?0:(findViewById(R.id.txtSounds)).getWidth()
 								+ spnSounds.getWidth() + width / 30);
-				float scale3 = width / (float)((findViewById(R.id.txtCharsetASCII)).getWidth()
+				float scale3 = width / (float)(_main.isSmallDevice?0:(findViewById(R.id.txtCharsetASCII)).getWidth()
 						+ spnASCII.getWidth() + width / 30);
 				scale = (scale1 < scale2) ? scale1 : scale2;
 				scale = (scale3 < scale) ? scale3 : scale;

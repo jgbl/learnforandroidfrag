@@ -771,11 +771,18 @@ public class lib {
 		if (!sndEnabled)
 			return;
 		AssetFileDescriptor afd = assets.openFd(name);
-		MediaPlayer player = new MediaPlayer();
-		player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
-				afd.getLength());
-		player.prepare();
-		player.start();
+		try
+		{
+			MediaPlayer player = new MediaPlayer();
+			player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
+					afd.getLength());
+			player.prepare();
+			player.start();
+		}
+		catch (Exception ex)
+		{
+			Log.e("Error", "log.playSound", ex);
+		}
 	}
 
 	public static Sounds getSoundByNumber(int Zaehler) {
@@ -824,10 +831,17 @@ public class lib {
 	public static void playSound(File F) throws IOException {
 		if (!sndEnabled)
 			return;
-		MediaPlayer player = new MediaPlayer();
-		player.setDataSource(F.getPath());
-		player.prepare();
-		player.start();
+		try
+		{
+			MediaPlayer player = new MediaPlayer();
+			player.setDataSource(F.getPath());
+			player.prepare();
+			player.start();
+		}
+		catch (Exception ex)
+		{
+			Log.e("Error", "playSound File " + F.getPath(), ex);
+		}
 	}
 
 	public static Drawable scaleImage(Context context, Drawable image,

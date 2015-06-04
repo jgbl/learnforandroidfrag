@@ -330,8 +330,13 @@ public class _MainActivity extends Fragment {
 				}
 				ScaleWidth = (width - 20)/(double)widthButtons;
 				if (ScaleWidth<.5d) ScaleWidth=.5d;
+				ScaleTextButtons = ((scale > ScaleWidth)?scale:ScaleWidth);
 			}
-			ScaleTextButtons = ((scale < ScaleWidth)?scale:ScaleWidth);
+			else
+			{
+				ScaleTextButtons = ((scale < ScaleWidth)?scale:ScaleWidth);
+				
+			}
 			
 			_btnRight.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					(float) (_btnRight.getTextSize() * ScaleTextButtons));
@@ -576,7 +581,7 @@ public class _MainActivity extends Fragment {
 				_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 				_txtMeaning3.setImeOptions(EditorInfo.IME_ACTION_DONE);
 			}
-			_txtMeaning1.requestFocus();
+			_txtWord.requestFocus();
 			SetActionBarTitle();
 			hideKeyboard();
 
