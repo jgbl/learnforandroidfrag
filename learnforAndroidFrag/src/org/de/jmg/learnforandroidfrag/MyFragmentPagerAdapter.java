@@ -124,6 +124,15 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 		super.setPrimaryItem(container, position, object);
 	}
 
+	@Override
+	public void destroyItem(ViewGroup container, int position, Object object) 
+	{		
+		super.destroyItem(container, position, object);
+		if (lib.NookSimpleTouch() && object == fragSettings) 
+		{
+			main.RemoveFragSettings();
+		}
+	}
 
 	
 }

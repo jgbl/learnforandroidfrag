@@ -118,10 +118,12 @@ public class MainActivity extends AppCompatActivity {
                     					{
                     						Log.e("fragSettings.saveResultsAndFinish",ex.getMessage(),ex);
                     					}
+                    					/*
                     					if (lib.NookSimpleTouch()) 
                     					{
                     						RemoveFragSettings();
                     					}
+                    					*/
                     				}
                     				
                     			} 
@@ -363,14 +365,12 @@ public class MainActivity extends AppCompatActivity {
 			try
 			{
 				libLearn.gStatus = "getSupportFragmentmanager remove fragment";	
-				getSupportFragmentManager().beginTransaction().detach(fPA.fragSettings).commitAllowingStateLoss();
 				getSupportFragmentManager().beginTransaction().remove(fPA.fragSettings).commitAllowingStateLoss();
 			}
 			catch (IllegalStateException ex2)
 			{
 				Log.e(libLearn.gStatus, ex2.getMessage(),ex2);
 			}
-			fPA.destroyItem((ViewGroup)this.mainView, SettingsActivity.fragID, fPA.fragSettings);
 			fPA.fragSettings=null;
 		}
 		

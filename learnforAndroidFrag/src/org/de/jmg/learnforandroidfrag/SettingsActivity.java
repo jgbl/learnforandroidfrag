@@ -101,11 +101,13 @@ public class SettingsActivity extends Fragment
 	}
 	
 	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		if (lib.NookSimpleTouch()) 
+	public void onSaveInstanceState(Bundle outState) 
+	{
+		/*		
 		{
 			_main.RemoveFragSettings();
 		}
+		*/
 		super.onSaveInstanceState(outState);
 		try {
 			saveResultsAndFinish(true);
