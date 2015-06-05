@@ -36,6 +36,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -766,21 +767,39 @@ public class _MainActivity extends Fragment {
 
 			
         });
+		_txtMeaning1.setOnLongClickListener(textlongclicklistener);
 		_MeaningBG = _txtMeaning1.getBackground();
 		_txtMeaning1.setBackgroundResource(0);
 		_txtMeaning2 = (BorderedEditText) findViewById(R.id.txtMeaning2);
+		_txtMeaning2.setOnLongClickListener(textlongclicklistener);
 		_txtMeaning2.setBackgroundResource(0);
 		_txtMeaning3 = (BorderedEditText) findViewById(R.id.txtMeaning3);
+		_txtMeaning3.setOnLongClickListener(textlongclicklistener);
 		_txtMeaning3.setBackgroundResource(0);
 		_txtWord = (BorderedTextView) findViewById(R.id.word);
+		_txtWord.setOnLongClickListener(textlongclicklistener);
 		_txtedWord= (BorderedEditText) findViewById(R.id.edword);
+		_txtedWord.setOnLongClickListener(textlongclicklistener);
 		_txtedKom = (BorderedEditText) findViewById(R.id.edComment);
+		_txtedKom.setOnLongClickListener(textlongclicklistener);
 		_txtKom = (BorderedTextView) findViewById(R.id.Comment);
+		_txtKom.setOnLongClickListener(textlongclicklistener);
 		_txtStatus = (BorderedTextView) findViewById(R.id.txtStatus);
 		_scrollView = (ScrollView) findViewById(R.id.layoutMain);
 		setBtnsEnabled(false);
 		setTextColors();
 	}
+	
+	OnLongClickListener textlongclicklistener = new OnLongClickListener() {
+		
+		@Override
+		public boolean onLongClick(View v) {
+			// TODO Auto-generated method stub
+			TextView txt = (TextView)v;
+			_main.startSearch(txt.getText().toString(), true, null, true);
+			return false;
+		}
+	};
 	
 	void StartEdit() throws Exception
 	{
