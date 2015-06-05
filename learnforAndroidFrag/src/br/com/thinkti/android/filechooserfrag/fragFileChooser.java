@@ -1,5 +1,7 @@
 package br.com.thinkti.android.filechooserfrag;
-import org.de.jmg.learnforandroidfrag.*;
+import org.de.jmg.learn.*;
+import org.de.jmg.learn.R;
+
 import br.com.thinkti.android.filechooser.FileArrayAdapter;
 import br.com.thinkti.android.filechooser.Option;
 
@@ -94,7 +96,7 @@ public class fragFileChooser extends ListFragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		_main = (org.de.jmg.learnforandroidfrag.MainActivity)getActivity();
+		_main = (org.de.jmg.learn.MainActivity)getActivity();
 		_blnInitialized = false;
 		_chooserView = null;
 	}

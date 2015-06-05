@@ -1,6 +1,6 @@
 package org.de.jmg.learn.vok;
 
-import org.de.jmg.learnforandroidfrag.libLearn;
+import org.de.jmg.learn.libLearn;
 
 public class clsVok {
 	// Learn For All New Version

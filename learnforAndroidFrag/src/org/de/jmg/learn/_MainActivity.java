@@ -1,4 +1,4 @@
-package org.de.jmg.learnforandroidfrag;
+package org.de.jmg.learn;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.de.jmg.learn.vok.Vokabel;
 import org.de.jmg.learn.vok.Vokabel.Bewertung;
 import org.de.jmg.learn.vok.Vokabel.EnumSprachen;
+import org.de.jmg.learn.R;
 import org.de.jmg.lib.BorderedEditText;
 import org.de.jmg.lib.BorderedTextView;
 import org.de.jmg.lib.lib;

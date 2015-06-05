@@ -1,4 +1,4 @@
-package org.de.jmg.learnforandroidfrag;
+package org.de.jmg.learn;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,6 +44,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import br.com.thinkti.android.filechooser.FileChooser;
 
+import org.de.jmg.learn.R;
 import org.de.jmg.lib.AbstractScaledArrayAdapter;
 import org.de.jmg.lib.ColorsArrayAdapter;
 import org.de.jmg.lib.ScaledArrayAdapter;

@@ -2,7 +2,7 @@ package org.de.jmg.lib;
 
 import java.io.File;
 
-import org.de.jmg.learnforandroidfrag.R;
+import org.de.jmg.learn.R;
 import org.de.jmg.lib.lib.Sounds;
 
 import android.app.Activity;

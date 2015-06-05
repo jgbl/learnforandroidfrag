@@ -35,7 +35,7 @@ public class BorderedEditText extends EditText {
 	public void setShowBorders(boolean showBorders, int BackColor) {
 		this.showBorders = showBorders;
 		if (showBorders) {
-			this.setBackgroundResource(org.de.jmg.learnforandroidfrag.R.layout.roundedbox);
+			this.setBackgroundResource(org.de.jmg.learn.R.layout.roundedbox);
 			GradientDrawable drawable = (GradientDrawable) this.getBackground();
 			drawable.setColor(BackColor);
 		} else {

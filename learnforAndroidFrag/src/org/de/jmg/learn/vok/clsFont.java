@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-import org.de.jmg.learnforandroidfrag.libLearn;
+import org.de.jmg.learn.libLearn;
 import org.de.jmg.lib.RefSupport;
 import org.de.jmg.lib.lib.libString;
 

@@ -1,4 +1,4 @@
-package org.de.jmg.learnforandroidfrag;
+package org.de.jmg.learn;
 
 import org.de.jmg.lib.lib;
 

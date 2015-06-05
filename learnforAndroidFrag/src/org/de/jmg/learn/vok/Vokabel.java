@@ -19,7 +19,8 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.widget.TextView;
 
-import org.de.jmg.learnforandroidfrag.*;
+import org.de.jmg.learn.*;
+import org.de.jmg.learn.R;
 import org.de.jmg.lib.WindowsBufferedReader;
 import org.de.jmg.lib.RefSupport;
 import org.de.jmg.lib.lib;

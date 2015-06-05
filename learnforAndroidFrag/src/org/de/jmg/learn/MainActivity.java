@@ -1,4 +1,4 @@
-package org.de.jmg.learnforandroidfrag;
+package org.de.jmg.learn;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,9 +9,10 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.de.jmg.learnforandroidfrag.libLearn;
+import org.de.jmg.learn.R;
+import org.de.jmg.learn.MyFragmentPagerAdapter;
+import org.de.jmg.learn.libLearn;
 import org.de.jmg.learn.vok.Vokabel;
-import org.de.jmg.learnforandroidfrag.MyFragmentPagerAdapter;
 import org.de.jmg.lib.ColorSetting;
 import org.de.jmg.lib.Path;
 import org.de.jmg.lib.SoundSetting;

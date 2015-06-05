@@ -9,9 +9,9 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
 
-import org.de.jmg.learnforandroidfrag.MainActivity;
-import org.de.jmg.learnforandroidfrag.libLearn;
-import org.de.jmg.learnforandroidfrag.R;
+import org.de.jmg.learn.MainActivity;
+import org.de.jmg.learn.libLearn;
+import org.de.jmg.learn.R;
 
 
 //import com.microsoft.live.*;
@@ -1163,7 +1163,7 @@ public class lib {
 			}
 			
 			
-			//container.grantUriPermission("org.de.jmg.learnforandroidfrag", uri , Flags);
+			//container.grantUriPermission("org.de.jmg.learn", uri , Flags);
 		}
 		catch (Exception ex)
 		{
@@ -1172,7 +1172,7 @@ public class lib {
 				Log.e("lib.GrantAllPermissions", ex.getMessage(), ex);
 				int Flags = Intent.FLAG_GRANT_READ_URI_PERMISSION 
 					| Intent.FLAG_GRANT_WRITE_URI_PERMISSION; 
-				//container.grantUriPermission("org.de.jmg.learnforandroidfrag", uri , Flags);
+				//container.grantUriPermission("org.de.jmg.learn", uri , Flags);
 				if (Build.VERSION.SDK_INT>= 19)
 				{
 					container.getContentResolver().takePersistableUriPermission(uri, Flags);

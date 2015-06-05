@@ -41,7 +41,7 @@ import org.achartengine.chart.BarChart.Type;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
-import org.de.jmg.learnforandroidfrag.MainActivity;
+import org.de.jmg.learn.MainActivity;
 import org.de.jmg.learn.vok.Vokabel;
 import org.de.jmg.lib.lib;
 import org.de.jmg.lib.lib.libString;

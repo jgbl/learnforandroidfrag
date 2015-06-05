@@ -1,6 +1,6 @@
 package org.de.jmg.lib;
 
-import org.de.jmg.learnforandroidfrag.R;
+import org.de.jmg.learn.R;
 import org.de.jmg.lib.ColorSetting.ColorItems;
 
 import android.app.Activity;
