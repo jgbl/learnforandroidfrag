@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 	
@@ -74,7 +75,8 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 				return fragMain;
 				
 			case fragFileChooser.fragID:
-			try {
+			try 
+			{
 				if (fragChooser==null) 
 				{
 					fragChooser=new fragFileChooser();
@@ -116,6 +118,12 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
 	public int getCount() {		
 		return PAGE_COUNT;
 	}
+	@Override
+	public void setPrimaryItem(ViewGroup container, int position, Object object) 
+	{		
+		super.setPrimaryItem(container, position, object);
+	}
+
 
 	
 }
