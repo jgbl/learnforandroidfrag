@@ -798,11 +798,48 @@ public class _MainActivity extends Fragment {
 		public boolean onLongClick(View v) {
 			// TODO Auto-generated method stub
 			TextView txt = (TextView)v;
-			//_main.startSearch(txt.getText().toString(), true, null, true);
-			Intent i = new Intent(Intent.ACTION_SEARCH);
-			i.putExtra(SearchManager.QUERY, txt.getText().toString());
-			_main.startActivity(i);
 			
+			
+			try
+			{
+				Intent intent = new Intent("com.ngc.fora.action.LOOKUP");
+				 
+				if (intent.resolveActivity(context.getPackageManager()) != null) 
+				{ 
+					// parameters are optional
+					intent.putExtra("HEADWORD", txt.getText().toString());
+					//intent.putExtra(EXTRA_DICID, 1);
+					_main.startActivity(intent);
+				}
+				  else
+				  {
+					  	final String SEARCH_ACTION = "nghs.intent.action.SEARCH";
+						final String EXTRA_QUERY   = "EXTRA_QUERY";
+						//final String EXTRA_DICID   = "dicID";
+						 
+						intent = new Intent(SEARCH_ACTION);
+						 
+						if (intent.resolveActivity(context.getPackageManager()) != null) 
+						{ 
+							// parameters are optional
+							intent.putExtra(EXTRA_QUERY, txt.getText().toString());
+							//intent.putExtra(EXTRA_DICID, 1);
+							_main.startActivity(intent);
+						}
+						else
+						{
+						//_main.startSearch(txt.getText().toString(), true, null, true);
+							intent = new Intent(Intent.ACTION_SEARCH);
+							intent.putExtra(SearchManager.QUERY, txt.getText().toString());
+							_main.startActivity(intent);
+						}
+				  }
+			}
+			catch(Exception e)
+			{
+			   e.printStackTrace();
+			}
+					
 			return false;
 		}
 	};
