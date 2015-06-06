@@ -798,13 +798,27 @@ public class _MainActivity extends Fragment {
 		public boolean onLongClick(View v) {
 			// TODO Auto-generated method stub
 			TextView txt = (TextView)v;
-			
+			Intent intent = null;
 			
 			try
 			{
-				Intent intent = new Intent("com.ngc.fora.action.LOOKUP");
-				 
-				if (intent.resolveActivity(context.getPackageManager()) != null) 
+				if (_main.prefs.getBoolean("translate", true) == true)
+				{
+					intent = new Intent();
+					intent.setAction(Intent.ACTION_SEND);
+		            intent.setType("text/plain");
+		            intent.setPackage("com.google.android.apps.translate");
+				}
+				if (intent != null && intent.resolveActivity(context.getPackageManager()) != null) 
+				{ 
+					intent.putExtra(Intent.EXTRA_TEXT, txt.getText().toString());
+					_main.startActivity(intent);
+				}
+				else if (_main.prefs.getBoolean("fora", true) == true)
+				{
+					intent = new Intent("com.ngc.fora.action.LOOKUP");
+				}
+				if (intent != null && intent.resolveActivity(context.getPackageManager()) != null) 
 				{ 
 					// parameters are optional
 					intent.putExtra("HEADWORD", txt.getText().toString());
@@ -816,10 +830,12 @@ public class _MainActivity extends Fragment {
 					  	final String SEARCH_ACTION = "nghs.intent.action.SEARCH";
 						final String EXTRA_QUERY   = "EXTRA_QUERY";
 						//final String EXTRA_DICID   = "dicID";
+						if (_main.prefs.getBoolean("nghs", true)) 
+						{
+							intent = new Intent(SEARCH_ACTION);
+						}
 						 
-						intent = new Intent(SEARCH_ACTION);
-						 
-						if (intent.resolveActivity(context.getPackageManager()) != null) 
+						if (intent != null && intent.resolveActivity(context.getPackageManager()) != null) 
 						{ 
 							// parameters are optional
 							intent.putExtra(EXTRA_QUERY, txt.getText().toString());

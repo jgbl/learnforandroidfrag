@@ -332,7 +332,7 @@
 		             android:layout_alignParentLeft="true"
 		             android:layout_below="@+id/chkDontShowPersistableURIMessage"
 		             android:layout_marginBottom="0dp"
-		             android:layout_marginTop="-30dp"
+		             android:layout_marginTop="0dp"
 		             android:checked="false"
 		             android:gravity="center_vertical"
 		             android:hint="@string/hintStartExternalProgram"
@@ -340,6 +340,55 @@
 		             android:textSize="27sp"
 		             android:textStyle="bold"
 		             android:typeface="normal" />
+		        
+		        <CheckBox
+		             android:id="@+id/chkFora"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content"
+		             android:layout_alignParentLeft="true"
+		             android:layout_below="@+id/chkAlwaysStartExternalProgram"
+		             android:layout_marginBottom="0dp"
+		             android:layout_marginTop="0dp"
+		             android:checked="false"
+		             android:gravity="center_vertical"
+		             android:hint="@string/hintFora"
+		             android:text="@string/chkFora"
+		             android:textSize="27sp"
+		             android:textStyle="bold"
+		             android:typeface="normal" />
+		         
+		         <CheckBox
+		             android:id="@+id/chkNGHS"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content"
+		             android:layout_alignParentLeft="true"
+		             android:layout_below="@+id/chkFora"
+		             android:layout_marginBottom="0dp"
+		             android:layout_marginTop="0dp"
+		             android:checked="false"
+		             android:gravity="center_vertical"
+		             android:hint="@string/hintNGHS"
+		             android:text="@string/chkNGHS"
+		             android:textSize="27sp"
+		             android:textStyle="bold"
+		             android:typeface="normal" />
+		         
+		         <CheckBox
+		             android:id="@+id/chkTranslate"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content"
+		             android:layout_alignParentLeft="true"
+		             android:layout_below="@+id/chkNGHS"
+		             android:layout_marginBottom="0dp"
+		             android:layout_marginTop="0dp"
+		             android:checked="false"
+		             android:gravity="center_vertical"
+		             android:hint="@string/hintTranslate"
+		             android:text="@string/chkTranslate"
+		             android:textSize="27sp"
+		             android:textStyle="bold"
+		             android:typeface="normal" />
+		        
 		        
 		    
 	    </RelativeLayout>

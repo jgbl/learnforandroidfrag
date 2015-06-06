@@ -79,6 +79,9 @@ public class SettingsActivity extends Fragment
 	public CheckBox chkSound;
 	public CheckBox chkDocumentProvider;
 	public CheckBox chkDontShowPersistableURIMessage;
+	public CheckBox chkFora;
+	public CheckBox chkNGHS;
+	public CheckBox chkTranslate;
 	CheckBox chkAlwaysStartExternalProgram;
 	public ColorsArrayAdapter Colors;
 	public SoundsArrayAdapter Sounds;
@@ -271,7 +274,60 @@ public class SettingsActivity extends Fragment
 		chkDocumentProvider = (CheckBox) findViewById(R.id.chkDocumentProvider);
 		chkDontShowPersistableURIMessage = (CheckBox) findViewById(R.id.chkDontShowPersistableURIMessage);
 		chkAlwaysStartExternalProgram = (CheckBox) findViewById(R.id.chkAlwaysStartExternalProgram);
-		boolean checked = getIntent().getBooleanExtra("Random", false);
+		chkNGHS = (CheckBox) findViewById(R.id.chkNGHS);
+		chkFora = (CheckBox) findViewById(R.id.chkFora);
+		chkTranslate = (CheckBox) findViewById(R.id.chkTranslate);
+		
+		boolean checked = getIntent().getBooleanExtra("nghs", true);
+		chkNGHS.setChecked(checked);
+		intent.putExtra("nghs", checked);
+
+		chkNGHS.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				intent.putExtra("nghs", isChecked);
+				intent.putExtra("OK","OK");
+			}
+
+		});
+		
+		checked = getIntent().getBooleanExtra("fora", true);
+		chkFora.setChecked(checked);
+		intent.putExtra("fora", checked);
+
+		chkFora.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				intent.putExtra("fora", isChecked);
+				intent.putExtra("OK","OK");
+			}
+
+		});
+
+		checked = getIntent().getBooleanExtra("translate", true);
+		chkTranslate.setChecked(checked);
+		intent.putExtra("translate", checked);
+
+		chkTranslate.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				intent.putExtra("translate", isChecked);
+				intent.putExtra("OK","OK");
+			}
+
+		});
+
+		
+		checked = getIntent().getBooleanExtra("Random", false);
 		chkRandom.setChecked(checked);
 		intent.putExtra("Random", checked);
 

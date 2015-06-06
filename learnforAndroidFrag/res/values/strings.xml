@@ -225,5 +225,11 @@
 	            <string name="Error">Error</string>
 	            <string name="chkAlwaysStartExternalProgram">always start external program</string>
 	            <string name="hintStartExternalProgram">Start external program for opening and saving files</string>
+	            <string name="chkFora">enable Fora Dictionary</string>
+	            <string name="hintFora">enable Fora dictionary for searching for vocabulary on long press</string>
+	            <string name="chkNGHS">enable NGHS offline dictionaries</string>
+	            <string name="hintNGHS">enable NGHS offline dictionaries on long click</string>
+	            <string name="chkTranslate">enable Google translate</string>
+	            <string name="hintTranslate">enable Google translate on long click</string>
         
 </resources>

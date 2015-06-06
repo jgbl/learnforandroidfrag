@@ -1304,6 +1304,9 @@ public class MainActivity extends AppCompatActivity {
 		key = "AlwaysStartExternalProgram";
 		int AlwaysStartExternalProgram = prefs.getInt(key, 999);
 		intent.putExtra(key, AlwaysStartExternalProgram);
+		intent.putExtra("nghs", prefs.getBoolean("nghs", true));
+		intent.putExtra("fora", prefs.getBoolean("fora", true));
+		intent.putExtra("translate", prefs.getBoolean("translate", true));
 		//fPA.fragSettings.init(intent, Settings_Activity);
 		return intent;
 	}
@@ -1735,6 +1738,9 @@ public class MainActivity extends AppCompatActivity {
 			editor.putInt(keyProvider, ShowAlwaysDocumentProvider);
 			editor.putInt(keyURIMessage, DontShowPersistableURIMessage);
 			editor.putInt(key, AlwaysStartExternalProgram);
+			editor.putBoolean("nghs", data.getExtras().getBoolean("nghs"));
+			editor.putBoolean("fora", data.getExtras().getBoolean("fora"));
+			editor.putBoolean("translate", data.getExtras().getBoolean("translate"));
 			
 			for (ColorItems item : Colors.keySet()) {
 				editor.putInt(item.name(), Colors.get(item).ColorValue);
