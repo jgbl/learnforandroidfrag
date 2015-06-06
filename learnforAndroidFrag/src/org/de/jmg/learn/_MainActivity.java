@@ -18,6 +18,7 @@ import org.de.jmg.lib.lib.libString;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -796,7 +797,11 @@ public class _MainActivity extends Fragment {
 		public boolean onLongClick(View v) {
 			// TODO Auto-generated method stub
 			TextView txt = (TextView)v;
-			_main.startSearch(txt.getText().toString(), true, null, true);
+			//_main.startSearch(txt.getText().toString(), true, null, true);
+			Intent i = new Intent(Intent.ACTION_SEARCH);
+			i.putExtra("QUERY", txt.getText().toString());
+			context.startActivity(i);
+			
 			return false;
 		}
 	};
