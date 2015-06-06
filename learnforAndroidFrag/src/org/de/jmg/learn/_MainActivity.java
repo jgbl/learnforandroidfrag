@@ -17,6 +17,7 @@ import org.de.jmg.lib.lib.Sounds;
 import org.de.jmg.lib.lib.libString;
 
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -799,8 +800,8 @@ public class _MainActivity extends Fragment {
 			TextView txt = (TextView)v;
 			//_main.startSearch(txt.getText().toString(), true, null, true);
 			Intent i = new Intent(Intent.ACTION_SEARCH);
-			i.putExtra("QUERY", txt.getText().toString());
-			context.startActivity(i);
+			i.putExtra(SearchManager.QUERY, txt.getText().toString());
+			_main.startActivity(i);
 			
 			return false;
 		}
