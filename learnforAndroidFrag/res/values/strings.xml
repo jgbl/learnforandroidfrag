@@ -231,5 +231,6 @@
 	            <string name="hintNGHS">enable NGHS offline dictionaries on long click</string>
 	            <string name="chkTranslate">enable Google translate</string>
 	            <string name="hintTranslate">enable Google translate on long click</string>
+	            <string name="mnuHome">home</string>
         
 </resources>

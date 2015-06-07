@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.de.jmg.learn.MainActivity" >
 
-    <item android:id="@+id/mnuFileOpen" 
+    <item android:id="@+id/mnuHome" 
+        android:title="@string/mnuHome"
+        compat:showAsAction="always"  
+        android:icon="@drawable/ic_menu_home">
+        
+    </item><item android:id="@+id/mnuFileOpen" 
         android:title="@string/mnuFileOpen" 
         compat:showAsAction="always" 
         android:icon="@drawable/ic_menu_archive">
@@ -19,7 +24,7 @@
     <item android:id="@+id/mnuAddWord" android:title="@string/mnuAddWord" compat:showAsAction="always" android:icon="@drawable/ic_menu_add" />
     <item android:id="@+id/mnuExtras" 
         android:title="@string/mnuExtras" 
-        compat:showAsAction="always" 
+        compat:showAsAction="never" 
         android:icon="@drawable/ic_menu_more" >
         <menu>
             <item android:id="@+id/mnuNew" android:title="@string/mnuNew" /><item android:id="@+id/mnuFileOpenASCII" android:title="@string/mnuFileOpenASCII"></item>
@@ -36,4 +41,5 @@
        android:title="@string/action_settings"
        android:icon="@drawable/ic_menu_preferences"
     />
+    
  </menu>

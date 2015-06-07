@@ -1187,10 +1187,18 @@ public class MainActivity extends AppCompatActivity {
 		try {
 			if (id == R.id.action_settings) {
 				mPager.setCurrentItem(SettingsActivity.fragID);
-			} else if (id == R.id.mnuFileOpen) {
+			} 
+			else if (id == R.id.mnuFileOpen) 
+			{
 				mPager.setCurrentItem(fragFileChooser.fragID);
 				//LoadFile(true);
-			} else if (id == R.id.mnuOpenUri) {
+			} 
+			else if (id == R.id.mnuHome)
+			{
+				mPager.setCurrentItem(_MainActivity.fragID);
+			}
+			else if (id == R.id.mnuOpenUri) 
+			{
 				if (saveVok(false))
 				{
 					String defaultURI = prefs.getString("defaultURI", "");
