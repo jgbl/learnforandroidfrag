@@ -6,7 +6,7 @@
  * License:
  * http://www.gnu.org/licenses/gpl.html
  *
- * Copyright (c) 2015 GPL by J.M.Goebel. All rights reserved.
+ * Copyright (c) 2015 GPL by J.M.Goebel. Distributed under the GNU GPL v3.
  * 
  * 08.06.2015
  * 
