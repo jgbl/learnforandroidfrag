@@ -819,7 +819,11 @@ public class _MainActivity extends Fragment {
 			// TODO Auto-generated method stub
 			TextView txt = (TextView)v;
 			Intent intent = null;
-			
+			if (libString.IsNullOrEmpty(txt.getText().toString())
+					|| _txtedWord.getVisibility()==View.VISIBLE)
+			{
+				return false;
+			}
 			try
 			{
 				if (_main.prefs.getBoolean("translate", true) == true)
@@ -915,6 +919,7 @@ public class _MainActivity extends Fragment {
 			_txtMeaning2.setSingleLine();
 			_txtMeaning3.setLines(1);
 			_txtMeaning3.setSingleLine();
+			
 			
 		}
 		else

@@ -71,6 +71,7 @@ public class BorderedEditText extends EditText {
 		paint.setStrokeWidth(4);
 
 	}
+	
 	/*
 	 * @Override protected void onDraw(Canvas canvas) { //this.setPadding(5, 5,
 	 * 5, 5);
