@@ -555,7 +555,7 @@ public class _MainActivity extends Fragment {
 			t = (TextView) v;
 			if (!libString.IsNullOrEmpty(_vok.getBedeutung2()))
 				t.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-			t.setText((showBeds ? _vok.getBedeutung1() : Vokabel.getComment(_vok
+			t.setText((showBeds ? lib.getSpanned(_vok.getBedeutung1()) : Vokabel.getComment(_vok
 					.getBedeutung1())));
 			if (_vok.getFontBed().getName() == "Cardo") {
 				t.setTypeface(_vok.TypefaceCardo);

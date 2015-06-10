@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.de.jmg.learn.MainActivity;
@@ -60,8 +61,10 @@ import android.os.Looper;
 import android.os.Message;
 //import android.runtime.*;
 import android.provider.*;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
+import android.text.style.URLSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -138,8 +141,18 @@ public class lib {
 	
 	public static boolean RegexMatchVok(String FileName)
 	{
-		if (FileName.matches(".+\\.((?i)v.{1}.{1})|((?i)k.{1}.{1})$")) return true;
+		String ext = lib.getExtension(FileName);
+		if (!libString.IsNullOrEmpty(ext))
+		{
+			ext = ext.toLowerCase();
+			if (ext.startsWith(".k")||ext.startsWith(".v")) return true;
+		}
 		return false;
+		/*
+		if (FileName.toLowerCase().matches(".+\\.(v.{2})|(k.{2})$")) return true;
+		if (FileName.toLowerCase().matches("\\/.+\\.(v.{2})|(k.{2})$")) return true;
+		return false;
+		*/
 	}
 	
 	public static final boolean NookSimpleTouch()
@@ -1226,6 +1239,75 @@ public class lib {
 			// JavaSourceConversionOptions.getDefault());
 			// return Html.fromHtml(txt);
 			// return new SpannedString(stripRtf(txt));
+		}
+		else if (txt.contains("http://") || txt.contains("https://"))
+		{
+			/*
+			int found = 0;
+			int found1 = 0;
+			int found2 = 0;
+			//final String reg_exUrl = "\\b(?:(?:https?|ftp|file)://|www\\.|ftp\\.)(?:\\([-A-Z0-9+&@#/%=~_|$?!:,.]*\\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\\([-A-Z0-9+&@#/%=~_|$?!:,.]*\\)|[A-Z0-9+&@#/%=~_|$])";
+			//Pattern p = Pattern.compile(reg_exUrl);  // insert your pattern here
+			//Matcher m = p.matcher(txt);
+			found1 = txt.indexOf("http://");
+			found2 = txt.indexOf("https://");
+			if ((found1>-1 && found1<found2) || found2 == -1 )
+			{
+				found = found1;
+			}
+			else
+			{
+				found = found2;
+			}
+			SpannableString span = new SpannableString(txt);
+			txt = txt.replace("\r", " ");
+			txt = txt.replace("\n", " ");
+			while (found!=-1)
+			{	
+				int start = found;
+				int end = txt.indexOf(" ",found+1);
+				if (end == -1 || txt.indexOf(")",found+1)<end) end = txt.indexOf(")",found+1);
+				if (end != -1)
+				{
+					String url = txt.substring(start,end);
+					span.setSpan(new URLSpan(url), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+					found1 = txt.indexOf("http://",end+1);
+					found2 = txt.indexOf("https://",end+1);
+					if ((found1>-1 && found1<found2) || found2 == -1 )
+					{
+						found = found1;
+					}
+					else
+					{
+						found = found2;
+					}
+				}
+				else
+				{
+					found = end;
+				}
+			}
+			return span;
+			*/
+			Pattern pattern = Pattern.compile(
+		            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
+		            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" + 
+		            "|mil|biz|info|mobi|name|aero|jobs|museum" + 
+		            "|travel|[a-z]{2}))(:[\\d]{1,5})?" + 
+		            "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" + 
+		            "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
+		            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" + 
+		            "(&(?:[-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
+		            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)*)*" + 
+		            "(#([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)?\\b");
+
+		        Matcher matcher = pattern.matcher(txt);
+		        SpannableString span = new SpannableString(txt);
+				
+		        while (matcher.find()) {
+		        	String url = txt.substring(matcher.start(),matcher.end());
+					span.setSpan(new URLSpan(url), matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		        }
 		}
 		return new SpannedString(txt);
 

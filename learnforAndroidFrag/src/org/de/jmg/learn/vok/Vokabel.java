@@ -2313,7 +2313,7 @@ public class Vokabel {
 				{
 					String path = lib.dumpUriMetaData(Container, uri);
 					if (path.contains(":")) path = path.split(":")[0];
-					if (path.lastIndexOf(".k")>path.length()-5 )
+					if (path.toLowerCase().lastIndexOf(".k")>path.length()-5 )
 					{
 						_cardmode = true;
 					}
