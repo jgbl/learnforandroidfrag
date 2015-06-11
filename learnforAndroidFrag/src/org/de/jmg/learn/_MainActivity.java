@@ -959,7 +959,7 @@ public class _MainActivity extends Fragment {
 		
 	}
 	
-	void EndEdit2()
+	void EndEdit2() throws Exception
 	{
 		if (_txtedWord==null)return;
 		if (_txtedWord.getVisibility()== View.VISIBLE)
@@ -967,20 +967,18 @@ public class _MainActivity extends Fragment {
 			_txtWord.setVisibility(View.VISIBLE);
 			_txtKom.setVisibility(View.VISIBLE);
 			_txtedWord.setVisibility(View.GONE);
-			_txtWord.setText(_txtedWord.getText());
+			_txtWord.setText(lib.getSpanned(_txtedWord.getText().toString()));
 			View LayWord = findViewById(R.id.LayWord);
 			RelativeLayout.LayoutParams params = 
 					(RelativeLayout.LayoutParams) LayWord.getLayoutParams();
 			params.width = LayoutParams.WRAP_CONTENT;
 			LayWord.setLayoutParams(params);
 			_txtedKom.setVisibility(View.GONE);
-			_txtKom.setText(_txtedKom.getText());
+			_txtKom.setText(lib.getSpanned(_txtedKom.getText().toString()));
 			_txtedWord.setImeOptions(EditorInfo.IME_ACTION_NONE);
 			_txtedKom.setImeOptions(EditorInfo.IME_ACTION_NONE);
 			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_DONE);
-			_txtMeaning2.setVisibility(View.VISIBLE);
 			_txtMeaning2.setImeOptions(EditorInfo.IME_ACTION_DONE);
-			_txtMeaning3.setVisibility(View.VISIBLE);
 			_txtMeaning3.setImeOptions(EditorInfo.IME_ACTION_DONE);
 			_txtMeaning1.setBackgroundResource(0);
 			_txtMeaning2.setBackgroundResource(0);
@@ -991,8 +989,10 @@ public class _MainActivity extends Fragment {
 				_txtMeaning1.setSingleLine();
 				_txtMeaning2.setLines(1);
 				_txtMeaning2.setSingleLine();
+				_txtMeaning2.setVisibility(View.VISIBLE);
 				_txtMeaning3.setLines(1);
 				_txtMeaning3.setSingleLine();
+				_txtMeaning3.setVisibility(View.VISIBLE);
 			}
 			else
 			{

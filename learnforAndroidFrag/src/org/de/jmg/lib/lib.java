@@ -64,6 +64,7 @@ import android.provider.*;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
+import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
 import android.util.TypedValue;
@@ -1287,6 +1288,10 @@ public class lib {
 					found = end;
 				}
 			}
+			URLSpan[] urls = span.getSpans(0, txt.length(), URLSpan.class);   
+	        for(URLSpan urlspan : urls) {
+	            makeLinkClickable(span, urlspan);
+	        }
 			return span;
 			
 			/*
@@ -1313,6 +1318,21 @@ public class lib {
 		}
 		return new SpannedString(txt);
 
+	}
+	
+	protected static void makeLinkClickable(SpannableString strBuilder, final URLSpan span)
+	{
+	    int start = strBuilder.getSpanStart(span);
+	    int end = strBuilder.getSpanEnd(span);
+	    int flags = strBuilder.getSpanFlags(span);
+	    ClickableSpan clickable = new ClickableSpan() {
+	          public void onClick(View view) {
+	              Log.d("Link", span.getURL());
+	        	  // Do something with span.getURL() to handle the link click...
+	          }
+	    };
+	    strBuilder.setSpan(clickable, start, end, flags);
+	    strBuilder.removeSpan(span);
 	}
 
 
