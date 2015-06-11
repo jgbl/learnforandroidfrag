@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.de.jmg.learn.MainActivity;
@@ -145,7 +144,7 @@ public class lib {
 		String ext = lib.getExtension(FileName);
 		if (!libString.IsNullOrEmpty(ext))
 		{
-			ext = ext.toLowerCase();
+			ext = ext.toLowerCase(Locale.getDefault());
 			if (ext.startsWith(".k")||ext.startsWith(".v")) return true;
 		}
 		return false;
@@ -1288,10 +1287,12 @@ public class lib {
 					found = end;
 				}
 			}
+			/*
 			URLSpan[] urls = span.getSpans(0, txt.length(), URLSpan.class);   
 	        for(URLSpan urlspan : urls) {
 	            makeLinkClickable(span, urlspan);
 	        }
+	        */
 			return span;
 			
 			/*
@@ -1299,7 +1300,8 @@ public class lib {
 		            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
 		            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" + 
 		            "|mil|biz|info|mobi|name|aero|jobs|museum" + 
-		            "|travel|[a-z]{2}))(:[\\d]{1,5})?" + 
+		            "|travel|[a-z]{2}))_txtMeaning1.setMovementMethod(LinkMovementMethod.getInstance());
+		(:[\\d]{1,5})?" + 
 		            "(((\\/([-\\w~!$+|.,=]|%[a-f\\d]{2})+)+|\\/)+|\\?|#)?" + 
 		            "((\\?([-\\w~!$+|.,*:]|%[a-f\\d{2}])+=?" + 
 		            "([-\\w~!$+|.,*:=]|%[a-f\\d]{2})*)" + 

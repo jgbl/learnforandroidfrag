@@ -612,8 +612,12 @@ public class MainActivity extends AppCompatActivity {
 			int Lernindex, boolean CardMode) {
 		try 
 		{
+			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
+			{
+				fPA.fragMain.setBtnsEnabled(false);
+				fPA.fragMain.EndEdit();
+			}
 			if (uri==null) saveVok(false);
-			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.setBtnsEnabled(false);
 			try 
 			{
 				vok.LoadFile(this, fileSelected, uri, false, false, _blnUniCode);
