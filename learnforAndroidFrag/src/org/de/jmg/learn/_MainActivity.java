@@ -48,6 +48,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.SpannedString;
 import android.text.TextUtils;
@@ -927,6 +928,7 @@ public class _MainActivity extends Fragment {
 			lib.setBgEditText(_txtMeaning1,_MeaningBG);
 			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_DONE);
 		}
+		//_txtMeaning1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 		_txtMeaning1.setText(_vok.getBedeutung1());
 		_txtedWord.requestFocus();
 		setBtnsEnabled(false);
@@ -991,6 +993,10 @@ public class _MainActivity extends Fragment {
 				_txtMeaning2.setSingleLine();
 				_txtMeaning3.setLines(1);
 				_txtMeaning3.setSingleLine();
+			}
+			else
+			{
+				//_txtMeaning1.setInputType(InputType.TYPE_NULL);
 			}
 		}
 		getVokabel(false, false);
@@ -1183,6 +1189,7 @@ public class _MainActivity extends Fragment {
 				(float) (40 * scale));
 		_txtMeaning1.setMaxLines(3);
 		_txtMeaning1.setHorizontallyScrolling(false);
+		//_txtMeaning1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
 		_txtMeaning2.setVisibility(View.VISIBLE);
 		_txtMeaning2.setLines(1);
@@ -1218,6 +1225,7 @@ public class _MainActivity extends Fragment {
 		_txtMeaning1.setLines(16);
 		_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 				(float) (20 * scale));
+		//_txtMeaning1.setInputType(InputType.TYPE_NULL);
 		// _txtMeaning1.setImeOptions(EditorInfo.IME_NULL);
 		// _txtMeaning1.setImeActionLabel(null, KeyEvent.KEYCODE_ENTER);
 		// _txtMeaning1.setImeActionLabel("Custom text",

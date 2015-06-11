@@ -1242,7 +1242,7 @@ public class lib {
 		}
 		else if (txt.contains("http://") || txt.contains("https://"))
 		{
-			/*
+			
 			int found = 0;
 			int found1 = 0;
 			int found2 = 0;
@@ -1288,7 +1288,8 @@ public class lib {
 				}
 			}
 			return span;
-			*/
+			
+			/*
 			Pattern pattern = Pattern.compile(
 		            "\\b(((ht|f)tp(s?)\\:\\/\\/|~\\/|\\/)|www.)" + 
 		            "(\\w+:\\w+@)?(([-\\w]+\\.)+(com|org|net|gov" + 
@@ -1308,6 +1309,7 @@ public class lib {
 		        	String url = txt.substring(matcher.start(),matcher.end());
 					span.setSpan(new URLSpan(url), matcher.start(), matcher.end(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		        }
+		        */
 		}
 		return new SpannedString(txt);
 
