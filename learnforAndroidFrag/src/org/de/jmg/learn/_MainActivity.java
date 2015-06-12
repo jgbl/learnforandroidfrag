@@ -54,6 +54,7 @@ import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -510,6 +511,7 @@ public class _MainActivity extends Fragment {
 			if ((e.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
             {
                 _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+                if (oldMeaning1MovementMethod!=null) _txtMeaning1.setMovementMethod(oldMeaning1MovementMethod);
             }
 			return false;
 		}
@@ -630,6 +632,7 @@ public class _MainActivity extends Fragment {
 					}
 				}
 			});
+			t.scrollTo(0, 0);
 
 			v = findViewById(R.id.txtMeaning2);
 			t = (TextView) v;
@@ -706,7 +709,8 @@ public class _MainActivity extends Fragment {
 	}
 	
 	private int _lastIsWrongVokID;
-
+	MovementMethod oldMeaning1MovementMethod; 
+	
 	private void InitButtons() throws Exception {
 		View v = findViewById(R.id.btnRight);
 		Button b = (Button) v;
@@ -834,11 +838,20 @@ public class _MainActivity extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (v.getId() == R.id.txtMeaning1 && v.getVisibility()==View.VISIBLE && _txtMeaning1.getLineCount()>3) {
-                    detectorMeaning1.onTouchEvent(event);
+                	if (_txtMeaning1.getMovementMethod()!=ScrollingMovementMethod.getInstance())
+                	{
+                		oldMeaning1MovementMethod = _txtMeaning1.getMovementMethod();
+                	}
+                	final MovementMethod old = _txtMeaning1.getMovementMethod();
+                	_txtMeaning1.setMovementMethod(android.text.method.ScrollingMovementMethod.getInstance());
+                	_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
+                	detectorMeaning1.onTouchEvent(event);
                     if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
                     {
                         _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+                        if (oldMeaning1MovementMethod!=null) _txtMeaning1.setMovementMethod(oldMeaning1MovementMethod);
                     }
+                    
                 }
                 
                 return false;
@@ -957,6 +970,10 @@ public class _MainActivity extends Fragment {
 		_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,_txtKom.getTextSize());
 		_txtedWord.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 		_txtedKom.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		_txtedWord.setSingleLine(false);
+		_txtedWord.setMaxLines(3);
+		_txtedKom.setSingleLine(false);
+		_txtedKom.setMaxLines(3);
 		if (!_vok.getCardMode())
 		{
 			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -1294,7 +1311,7 @@ public class _MainActivity extends Fragment {
 		_txtMeaning1.setMaxLines(200);
 		_txtMeaning1.setLines(16);
 		_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-				(float) (20 * scale));
+				(float) (25 * scale));
 		_originalMovementmethod = _txtMeaning1.getMovementMethod();
 		//_txtMeaning1.setAutoLinkMask(Linkify.ALL);
 		_txtMeaning1.setMovementMethod(LinkMovementMethod.getInstance());
