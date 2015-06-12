@@ -72,21 +72,36 @@ public class BorderedEditText extends EditText {
 		
 	}
 	
-	boolean _ScrollBottomOrTopReached = false;
-	public boolean getScrollBottomOrTopReached()
+	public enum BottomOrTop
+	{
+		undefined, between, bottom, top;
+	}
+	public BottomOrTop getScrollBottomOrTopReached()
 	
 	{
 		
 		if (getLineCount()>0)
 		{
-			if(getScrollY() == getLayout().getLineTop(0) || getScrollY() + getHeight() >= getLayout().getLineTop(getLineCount()-1))
+			int Top = getLayout().getLineTop(0);
+			int Bottom = getLayout().getLineBottom(getLineCount()-1);
+			int ScrollY = getScrollY();
+			if(ScrollY <= Top)  
 			{
-				_ScrollBottomOrTopReached = true;
+				return BottomOrTop.top;
+			}
+			else if (ScrollY + getHeight() >= Bottom)
+			{
+				return BottomOrTop.bottom;
+			}
+			else
+			{
+				return BottomOrTop.between;
 			}
 		}
-		return _ScrollBottomOrTopReached;
+		return BottomOrTop.undefined;
 	}
 	
+	/*
 	@Override
 	public void onScrollChanged(int horiz, int vert, int oldHoriz, int oldVert)
 	{
@@ -110,7 +125,7 @@ public class BorderedEditText extends EditText {
 			_ScrollBottomOrTopReached = true;
 		}
 	}
-	
+	*/
 	/*
 	 * @Override protected void onDraw(Canvas canvas) { //this.setPadding(5, 5,
 	 * 5, 5);

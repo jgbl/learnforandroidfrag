@@ -30,6 +30,7 @@ import org.de.jmg.learn.vok.Vokabel.Bewertung;
 import org.de.jmg.learn.vok.Vokabel.EnumSprachen;
 import org.de.jmg.learn.R;
 import org.de.jmg.lib.BorderedEditText;
+import org.de.jmg.lib.BorderedEditText.BottomOrTop;
 import org.de.jmg.lib.BorderedTextView;
 import org.de.jmg.lib.lib;
 import org.de.jmg.lib.ColorSetting.ColorItems;
@@ -56,6 +57,7 @@ import android.text.method.MovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -499,6 +501,59 @@ public class _MainActivity extends Fragment {
 		if (mainView == null) return null;
 		return this.mainView.findViewById(id);
 	}
+	
+	GestureDetector detectorMeaning1 = new GestureDetector(_main, new GestureDetector.OnGestureListener() {
+		
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			
+			if ((e.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
+            {
+                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+            }
+			return false;
+		}
+		
+		@Override
+		public void onShowPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+				float distanceY) {
+			_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
+            if ((_txtMeaning1.getScrollBottomOrTopReached() == BottomOrTop.top 
+            		&& distanceY <= 0)
+            		|| (_txtMeaning1.getScrollBottomOrTopReached() == BottomOrTop.bottom
+            		&& distanceY >= 0)) 
+            {
+                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+            }
+			return false;
+		}
+		
+		@Override
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	});
+	
 	public void getVokabel(boolean showBeds, boolean LoadNext) {
 		try {
 			if (_btnRight == null) return;
@@ -779,17 +834,15 @@ public class _MainActivity extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (v.getId() == R.id.txtMeaning1 && v.getVisibility()==View.VISIBLE && _txtMeaning1.getLineCount()>3) {
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MASK
-                    		|| _txtMeaning1.getScrollBottomOrTopReached()) 
+                    detectorMeaning1.onTouchEvent(event);
+                    if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
                     {
-                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
                     }
                 }
+                
                 return false;
             }
-
-			
         });
 	
 		_txtMeaning1.setOnLongClickListener(textlongclicklistener);
