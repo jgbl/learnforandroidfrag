@@ -69,7 +69,46 @@ public class BorderedEditText extends EditText {
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setColor(Color.BLACK);
 		paint.setStrokeWidth(4);
-
+		
+	}
+	
+	boolean _ScrollBottomOrTopReached = false;
+	public boolean getScrollBottomOrTopReached()
+	
+	{
+		
+		if (getLineCount()>0)
+		{
+			if(getScrollY() == getLayout().getLineTop(0) || getScrollY() + getHeight() >= getLayout().getLineTop(getLineCount()-1))
+			{
+				_ScrollBottomOrTopReached = true;
+			}
+		}
+		return _ScrollBottomOrTopReached;
+	}
+	
+	@Override
+	public void onScrollChanged(int horiz, int vert, int oldHoriz, int oldVert)
+	{
+		super.onScrollChanged(horiz, vert, oldHoriz, oldVert);
+		if (getLineCount() > 0)
+		{
+			int firstLine = getLayout().getLineTop(0);
+			int lastLine = getLayout().getLineBottom(getLineCount()-1);
+			int ScrollPos = getScrollY();
+			if (vert == firstLine || vert >= lastLine) 
+			{
+				_ScrollBottomOrTopReached = true;
+			}
+			else
+			{
+				_ScrollBottomOrTopReached = false;
+			}
+		}
+		else
+		{
+			_ScrollBottomOrTopReached = true;
+		}
 	}
 	
 	/*

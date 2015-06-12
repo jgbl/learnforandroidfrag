@@ -780,10 +780,10 @@ public class _MainActivity extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (v.getId() == R.id.txtMeaning1 && v.getVisibility()==View.VISIBLE && _txtMeaning1.getLineCount()>3) {
                     v.getParent().requestDisallowInterceptTouchEvent(true);
-                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_UP:
+                    if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MASK
+                    		|| _txtMeaning1.getScrollBottomOrTopReached()) 
+                    {
                         v.getParent().requestDisallowInterceptTouchEvent(false);
-                        break;
                     }
                 }
                 return false;
@@ -791,6 +791,7 @@ public class _MainActivity extends Fragment {
 
 			
         });
+	
 		_txtMeaning1.setOnLongClickListener(textlongclicklistener);
 		_MeaningBG = _txtMeaning1.getBackground();
 		_txtMeaning1.setBackgroundResource(0);
