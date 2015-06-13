@@ -1005,6 +1005,8 @@ public class _MainActivity extends Fragment {
 			{
 				_txtMeaning1.setMovementMethod(_originalMovementmethod);
 			}
+			InputMethodManager Imn = (InputMethodManager) _main.getSystemService(Context.INPUT_METHOD_SERVICE);
+			Imn.showSoftInputFromInputMethod(_txtMeaning1.getWindowToken(), 0);
 		}
 		//_txtMeaning1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 		_txtMeaning1.setText(_vok.getBedeutung1());
@@ -1078,6 +1080,8 @@ public class _MainActivity extends Fragment {
 				//_txtMeaning1.setAutoLinkMask(Linkify.ALL);
 				_txtMeaning1.setMovementMethod(LinkMovementMethod.getInstance());
 				//_txtMeaning1.setInputType(InputType.TYPE_NULL);
+				InputMethodManager Imn = (InputMethodManager) _main.getSystemService(Context.INPUT_METHOD_SERVICE);
+				Imn.hideSoftInputFromInputMethod(_txtMeaning1.getWindowToken(), 0);
 			}
 		}
 		getVokabel(false, false);
@@ -1275,7 +1279,9 @@ public class _MainActivity extends Fragment {
 		{
 			_txtMeaning1.setMovementMethod(_originalMovementmethod);
 		}
-		
+		InputMethodManager Imn = (InputMethodManager) _main.getSystemService(Context.INPUT_METHOD_SERVICE);
+		Imn.showSoftInputFromInputMethod(_txtMeaning1.getWindowToken(), 0);
+	
 		//_txtMeaning1.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 
 		_txtMeaning2.setVisibility(View.VISIBLE);
@@ -1312,6 +1318,8 @@ public class _MainActivity extends Fragment {
 		_txtMeaning1.setLines(16);
 		_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 				(float) (25 * scale));
+		InputMethodManager Imn = (InputMethodManager) _main.getSystemService(Context.INPUT_METHOD_SERVICE);
+		Imn.hideSoftInputFromInputMethod(_txtMeaning1.getWindowToken(), 0);
 		_originalMovementmethod = _txtMeaning1.getMovementMethod();
 		//_txtMeaning1.setAutoLinkMask(Linkify.ALL);
 		_txtMeaning1.setMovementMethod(LinkMovementMethod.getInstance());
