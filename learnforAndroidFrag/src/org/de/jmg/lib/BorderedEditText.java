@@ -76,7 +76,7 @@ public class BorderedEditText extends EditText {
 	{
 		undefined, between, bottom, top;
 	}
-	public BottomOrTop getScrollBottomOrTopReached()
+	public BottomOrTop getScrollBottomOrTopReached() throws Exception
 	
 	{
 		

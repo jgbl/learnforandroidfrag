@@ -249,72 +249,68 @@ public class _MainActivity extends Fragment {
 			 * "\nbtnRight.Top: " + _btnRight.getTop() + "\nDisplayHeight: " +
 			 * height);
 			 */
-			if (scale != 1) {
-	
-				
-				
-	
+			if (scale != 1) 
+			{
 				lib.ShowToast(_main, "Scaling font by " + scale + " Screenheight = "
 						+ height);
 				
+				if (_txtMeaning1.getTextSize()==40)
+				{
+					_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							(float) (_txtMeaning1.getTextSize() * scale));
+					params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning1
+							.getLayoutParams();
+					params.topMargin = (int) (params.topMargin * scale);
+					_txtMeaning1.setLayoutParams(params);
+				}
+				
+				if (_txtMeaning2.getTextSize()==40)
+				{
+					_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtMeaning2.getTextSize() * scale));
+					params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
+							.getLayoutParams();
+					params.topMargin = (int) (params.topMargin * scale);
+					_txtMeaning2.setLayoutParams(params);
+				}
+				
+				if (_txtMeaning3.getTextSize()==40)
+				{
+					_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtMeaning3.getTextSize() * scale));
+					params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
+							.getLayoutParams();
+					params.topMargin = (int) (params.topMargin * scale);
+					_txtMeaning3.setLayoutParams(params);
+				}
+				
+				float size = _txtWord.getTextSize();
+				if (size == 60)
+				{
+					size *= scale;
+					_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
+				}
+				if (_txtKom.getTextSize()==35)
+				{
+					_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+						(float) (_txtKom.getTextSize() * scale));
+				}
+				if (_txtedWord.getTextSize()==60)
+				{
+					_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							(float) (_txtedWord.getTextSize() * scale));
+				}
+				if (_txtedKom.getTextSize()==35)
+				{
+					_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							(float) (_txtedKom.getTextSize() * scale));
+				}
 				if (_vok!= null && _vok.getCardMode())
 				{
 					SetViewsToCardmode();
 				}
 				else
 				{
-					
-					if (_txtMeaning1.getTextSize()==40)
-					{
-						_txtMeaning1.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-								(float) (_txtMeaning1.getTextSize() * scale));
-						params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning1
-								.getLayoutParams();
-						params.topMargin = (int) (params.topMargin * scale);
-						_txtMeaning1.setLayoutParams(params);
-					}
-					
-					if (_txtMeaning2.getTextSize()==40)
-					{
-						_txtMeaning2.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-							(float) (_txtMeaning2.getTextSize() * scale));
-						params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning2
-								.getLayoutParams();
-						params.topMargin = (int) (params.topMargin * scale);
-						_txtMeaning2.setLayoutParams(params);
-					}
-					
-					if (_txtMeaning3.getTextSize()==40)
-					{
-						_txtMeaning3.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-							(float) (_txtMeaning3.getTextSize() * scale));
-						params = (android.widget.RelativeLayout.LayoutParams) _txtMeaning3
-								.getLayoutParams();
-						params.topMargin = (int) (params.topMargin * scale);
-						_txtMeaning3.setLayoutParams(params);
-					}
-					
-					float size = _txtWord.getTextSize();
-					if (size == 60)
-					{
-						size *= scale;
-						_txtWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
-					}
-					if (_txtKom.getTextSize()==35)
-					{
-						_txtKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-							(float) (_txtKom.getTextSize() * scale));
-					}
-					if (_txtedWord.getTextSize()==60)
-					{
-						_txtedWord.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-								(float) (_txtedWord.getTextSize() * scale));
-					}
-					if (_txtedKom.getTextSize()==35)
-					{
-						_txtedKom.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-								(float) (_txtedKom.getTextSize() * scale));
-					}
 					SetViewsToVokMode();
 				}
 	
@@ -503,58 +499,7 @@ public class _MainActivity extends Fragment {
 		return this.mainView.findViewById(id);
 	}
 	
-	GestureDetector detectorMeaning1 = new GestureDetector(_main, new GestureDetector.OnGestureListener() {
-		
-		@Override
-		public boolean onSingleTapUp(MotionEvent e) {
-			
-			if ((e.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
-            {
-                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
-                if (oldMeaning1MovementMethod!=null) _txtMeaning1.setMovementMethod(oldMeaning1MovementMethod);
-            }
-			return false;
-		}
-		
-		@Override
-		public void onShowPress(MotionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-				float distanceY) {
-			_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
-            if ((_txtMeaning1.getScrollBottomOrTopReached() == BottomOrTop.top 
-            		&& distanceY <= 0)
-            		|| (_txtMeaning1.getScrollBottomOrTopReached() == BottomOrTop.bottom
-            		&& distanceY >= 0)) 
-            {
-                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
-            }
-			return false;
-		}
-		
-		@Override
-		public void onLongPress(MotionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public boolean onDown(MotionEvent e) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	});
+	
 	
 	public void getVokabel(boolean showBeds, boolean LoadNext) {
 		try {
@@ -834,23 +779,36 @@ public class _MainActivity extends Fragment {
 		});
 
 		_txtMeaning1 = (BorderedEditText) findViewById(R.id.txtMeaning1);
+		//int bottom = (_txtMeaning1.getPaddingBottom() == 0 ? 5 : _txtMeaning1.getPaddingBottom());
+		_txtMeaning1.setPadding(_txtMeaning1.getPaddingLeft()
+				, 0
+				, _txtMeaning1.getPaddingRight()
+				, 0);
 		_txtMeaning1.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (v.getId() == R.id.txtMeaning1 && v.getVisibility()==View.VISIBLE && _txtMeaning1.getLineCount()>3) {
-                	if (_txtMeaning1.getMovementMethod()!=ScrollingMovementMethod.getInstance())
-                	{
-                		oldMeaning1MovementMethod = _txtMeaning1.getMovementMethod();
-                	}
-                	_txtMeaning1.setMovementMethod(android.text.method.ScrollingMovementMethod.getInstance());
-                	_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
-                	detectorMeaning1.onTouchEvent(event);
-                    if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
-                    {
-                        _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
-                        if (oldMeaning1MovementMethod!=null) _txtMeaning1.setMovementMethod(oldMeaning1MovementMethod);
-                    }
-                    
+                try
+                {
+	            	if (v.getId() == R.id.txtMeaning1 && v.getVisibility()==View.VISIBLE && _txtMeaning1.getLineCount()>3) 
+	                {
+	                	if (_txtMeaning1.getMovementMethod()!=ScrollingMovementMethod.getInstance())
+	                	{
+	                		oldMeaning1MovementMethod = _txtMeaning1.getMovementMethod();
+	                	}
+	                	_txtMeaning1.setMovementMethod(android.text.method.ScrollingMovementMethod.getInstance());
+	                	_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
+	                	detectorMeaning1.onTouchEvent(event);
+	                    if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
+	                    {
+	                        _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+	                        if (oldMeaning1MovementMethod!=null) _txtMeaning1.setMovementMethod(oldMeaning1MovementMethod);
+	                    }
+	                    
+	                }
+                }
+                catch(Exception ex)
+                {
+                	lib.ShowException(_main, ex);
                 }
                 
                 return false;
@@ -879,6 +837,75 @@ public class _MainActivity extends Fragment {
 		setBtnsEnabled(false);
 		setTextColors();
 	}
+	
+	GestureDetector detectorMeaning1 = new GestureDetector(_main, new GestureDetector.OnGestureListener() {
+		
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			try
+			{
+				if ((e.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) 
+	            {
+	                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+	                if (oldMeaning1MovementMethod!=null) _txtMeaning1.setMovementMethod(oldMeaning1MovementMethod);
+	            }
+			}
+			catch (Exception ex)
+			{
+				lib.ShowException(_main, ex);
+			}
+			return false;
+		}
+		
+		@Override
+		public void onShowPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+				float distanceY) {
+			if (e1 ==null||e2==null)return false;
+			try
+			{
+				_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
+	            BottomOrTop pos = _txtMeaning1.getScrollBottomOrTopReached();
+	            float dist = e2.getY()-e1.getY();
+				if ((pos == BottomOrTop.top 
+	            		&& dist >= 0)
+	            		|| (pos == BottomOrTop.bottom
+	            		&& dist <= 0)) 
+	            {
+	                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
+	            }
+			}
+			catch (Exception ex)
+			{
+				lib.ShowException(_main, ex);
+			}
+			return false;
+		}
+		
+		@Override
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	});
 	
 	OnLongClickListener textlongclicklistener = new OnLongClickListener() {
 		
