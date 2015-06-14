@@ -808,7 +808,8 @@ public class _MainActivity extends Fragment {
                 }
                 catch(Exception ex)
                 {
-                	lib.ShowException(_main, ex);
+                	ex.printStackTrace();
+                	//lib.ShowException(_main, ex);
                 }
                 
                 return false;
@@ -852,7 +853,8 @@ public class _MainActivity extends Fragment {
 			}
 			catch (Exception ex)
 			{
-				lib.ShowException(_main, ex);
+				ex.printStackTrace();
+				//lib.ShowException(_main, ex);
 			}
 			return false;
 		}
@@ -882,7 +884,8 @@ public class _MainActivity extends Fragment {
 			}
 			catch (Exception ex)
 			{
-				lib.ShowException(_main, ex);
+				ex.printStackTrace();
+				//lib.ShowException(_main, ex);
 			}
 			return false;
 		}
