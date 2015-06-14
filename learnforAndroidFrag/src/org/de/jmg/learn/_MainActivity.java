@@ -842,7 +842,6 @@ public class _MainActivity extends Fragment {
                 	{
                 		oldMeaning1MovementMethod = _txtMeaning1.getMovementMethod();
                 	}
-                	final MovementMethod old = _txtMeaning1.getMovementMethod();
                 	_txtMeaning1.setMovementMethod(android.text.method.ScrollingMovementMethod.getInstance());
                 	_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
                 	detectorMeaning1.onTouchEvent(event);
@@ -1281,7 +1280,7 @@ public class _MainActivity extends Fragment {
 		{
 			_txtMeaning1.setMovementMethod(_originalMovementmethod);
 		}
-		_txtMeaning1.setVerticalScrollBarEnabled(false);
+		//_txtMeaning1.setVerticalScrollBarEnabled(false);
 		
 		//_txtMeaning1.requestFocus();
 		//InputMethodManager Imn = (InputMethodManager) _main.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1329,7 +1328,7 @@ public class _MainActivity extends Fragment {
 		_originalMovementmethod = _txtMeaning1.getMovementMethod();
 		//_txtMeaning1.setAutoLinkMask(Linkify.ALL);
 		_txtMeaning1.setMovementMethod(LinkMovementMethod.getInstance());
-		_txtMeaning1.setVerticalScrollBarEnabled(true);
+		//_txtMeaning1.setVerticalScrollBarEnabled(true);
 		//_txtMeaning1.setInputType(InputType.TYPE_NULL);
 		// _txtMeaning1.setImeOptions(EditorInfo.IME_NULL);
 		// _txtMeaning1.setImeActionLabel(null, KeyEvent.KEYCODE_ENTER);
