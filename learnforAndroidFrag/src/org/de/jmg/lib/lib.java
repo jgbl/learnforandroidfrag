@@ -1234,13 +1234,48 @@ public class lib {
 		}
 	}
 	public static Spanned getSpanned(String txt) throws IOException {
-		if (txt.startsWith("{\\rtf1\\")) {
+		//final Pattern pattern = Pattern.compile("/<a[^>]+href=[\"']?([^'\"> ]+)[\"']?[^>]*>/i");
+		//Matcher matcher = pattern.matcher(txt);
+        if (txt.startsWith("{\\rtf1\\")) {
 			// txt = Java2Html.convertToHtml(txt,
 			// JavaSourceConversionOptions.getDefault());
 			// return Html.fromHtml(txt);
 			// return new SpannedString(stripRtf(txt));
 		}
-		else if (txt.contains("http://") || txt.contains("https://"))
+        SpannableString span = null;
+		if (txt.contains("<link://"))
+		{
+			ArrayList<String> urls = new ArrayList<String>();
+			ArrayList<String> links = new ArrayList<String>();
+			int found = -1;
+			while (txt.indexOf("<link://",found+1)> -1) 
+			{
+	        	found = txt.indexOf("<link://", found +1);
+	        	int Start = found + 8;
+	        	int End = txt.indexOf(">",Start);
+	        	String repl = txt.substring(found,End+1);
+	        	if (End>0)
+	        	{
+	        		String Link = txt.substring(Start,End);
+	        		String Links[]= Link.split(" ");
+	        		if (Links.length==2)
+	        		{
+	        			urls.add(Links[0]);
+	    				links.add(Links[1]);
+	    				txt = txt.replace(repl, Links[1]);
+	        		}
+	        	}
+			}
+	        span = new SpannableString(txt);
+			for (int i = 0 ; i < links.size(); i++)
+			{
+				int Start = txt.indexOf(links.get(i));
+				int End = Start + links.get(i).length();
+				span.setSpan(new URLSpan(urls.get(i)), Start, 
+						End, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		    }
+		}
+		if (txt.contains("http://") || txt.contains("https://"))
 		{
 			
 			int found = 0;
@@ -1259,7 +1294,7 @@ public class lib {
 			{
 				found = found2;
 			}
-			SpannableString span = new SpannableString(txt);
+			if (span == null) span = new SpannableString(txt);
 			txt = txt.replace("\r", " ");
 			txt = txt.replace("\n", " ");
 			while (found!=-1)
@@ -1318,8 +1353,8 @@ public class lib {
 		        }
 		        */
 		}
-		return new SpannedString(txt);
-
+		if (span == null) return new SpannedString(txt);
+		else return span;
 	}
 	
 	protected static void makeLinkClickable(SpannableString strBuilder, final URLSpan span)
