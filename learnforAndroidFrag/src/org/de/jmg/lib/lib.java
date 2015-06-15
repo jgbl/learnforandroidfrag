@@ -1247,6 +1247,7 @@ public class lib {
 		{
 			ArrayList<String> urls = new ArrayList<String>();
 			ArrayList<String> links = new ArrayList<String>();
+			ArrayList<Integer> positions = new ArrayList<Integer>();
 			int found = -1;
 			while (txt.indexOf("<link://",found+1)> -1) 
 			{
@@ -1264,6 +1265,7 @@ public class lib {
 	        			urls.add(url);
 	        			String linkText = Link.substring(LinkEnd+1,Link.length()); 
 	    				links.add(linkText);
+	    				positions.add(found);
 	    				txt = txt.replace(repl, linkText);
 	        		}
 	        	}
@@ -1271,7 +1273,7 @@ public class lib {
 	        span = new SpannableString(txt);
 			for (int i = 0 ; i < links.size(); i++)
 			{
-				int Start = txt.indexOf(links.get(i));
+				int Start = positions.get(i);
 				int End = Start + links.get(i).length();
 				span.setSpan(new URLSpan(urls.get(i)), Start, 
 						End, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
