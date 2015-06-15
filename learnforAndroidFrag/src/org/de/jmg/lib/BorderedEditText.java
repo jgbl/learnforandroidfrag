@@ -74,7 +74,7 @@ public class BorderedEditText extends EditText {
 	
 	public enum BottomOrTop
 	{
-		undefined, between, bottom, top;
+		undefined, between, bottom, top, both;
 	}
 	public BottomOrTop getScrollBottomOrTopReached() throws Exception
 	
@@ -85,7 +85,11 @@ public class BorderedEditText extends EditText {
 			int Top = getLayout().getLineTop(0);
 			int Bottom = getLayout().getLineBottom(getLineCount()-1);
 			int ScrollY = getScrollY();
-			if(ScrollY <= Top)  
+			if (ScrollY <= Top && ScrollY + getHeight() >= Bottom)
+			{
+				return BottomOrTop.both;
+			}
+			else if(ScrollY <= Top)  
 			{
 				return BottomOrTop.top;
 			}

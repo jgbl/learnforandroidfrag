@@ -874,7 +874,7 @@ public class _MainActivity extends Fragment {
 				_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
 	            BottomOrTop pos = _txtMeaning1.getScrollBottomOrTopReached();
 	            float dist = e2.getY()-e1.getY();
-				if ((pos == BottomOrTop.top 
+				if (pos == BottomOrTop.both || (pos == BottomOrTop.top 
 	            		&& dist >= 0)
 	            		|| (pos == BottomOrTop.bottom
 	            		&& dist <= 0)) 
