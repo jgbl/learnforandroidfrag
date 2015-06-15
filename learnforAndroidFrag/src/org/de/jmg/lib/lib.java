@@ -1252,17 +1252,19 @@ public class lib {
 			{
 	        	found = txt.indexOf("<link://", found +1);
 	        	int Start = found + 8;
-	        	int End = txt.indexOf(">",Start);
-	        	String repl = txt.substring(found,End+1);
+	        	int End = txt.indexOf("/>",Start);
+	        	String repl = txt.substring(found,End+2);
 	        	if (End>0)
 	        	{
 	        		String Link = txt.substring(Start,End);
-	        		String Links[]= Link.split(" ");
-	        		if (Links.length==2)
+	        		int LinkEnd = Link.indexOf(" ");
+	        		if (LinkEnd > -1)
 	        		{
-	        			urls.add(Links[0]);
-	    				links.add(Links[1]);
-	    				txt = txt.replace(repl, Links[1]);
+	        			String url = Link.substring(0,LinkEnd);
+	        			urls.add(url);
+	        			String linkText = Link.substring(LinkEnd+1,Link.length()); 
+	    				links.add(linkText);
+	    				txt = txt.replace(repl, linkText);
 	        		}
 	        	}
 			}
