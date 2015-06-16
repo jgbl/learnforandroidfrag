@@ -70,6 +70,17 @@
             <item >15</item>
             <item >20</item>
         </string-array>
+        <string-array name="spnRestartInterval">
+            <item >auto</item>
+            <item >5</item>
+            <item >6</item>
+            <item >7</item>
+            <item >8</item>
+            <item >9</item>
+            <item >10</item>
+            <item >15</item>
+            <item >20</item>
+        </string-array>
             <string name="txtAnzeigedauerWord">display duration word</string>
             <string name="txtAnzeigedauerWord_wear">dd word</string>
             <string name="spnAnzeigedauerWord">display duration</string>
@@ -232,5 +243,7 @@
 	            <string name="chkTranslate">enable Google translate</string>
 	            <string name="hintTranslate">enable Google translate on long click</string>
 	            <string name="mnuHome">home</string>
+	            <string name="txtRestartInterval">restart interval</string>
+	            <string name="spnRestartInterval">interval</string>
         
 </resources>

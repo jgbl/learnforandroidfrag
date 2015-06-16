@@ -161,10 +161,28 @@
 	            android:prompt="@string/spnProbabilityFactor" />
 	        
 	        <TextView
-	            android:id="@+id/txtLanguage"
+	            android:id="@+id/txtRestartInterval"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnProbabilityFactor"
+	            android:text="@string/txtRestartInterval"
+	            android:textSize="18sp"
+	            android:typeface="normal" />
+	        
+	        <Spinner
+	            android:id="@+id/spnRestartInterval"
+	            style="?android:attr/spinnerItemStyle"
+	            android:textSize="18sp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/txtRestartInterval"
+	            android:prompt="@string/spnRestartInterval" />
+	        
+	        <TextView
+	            android:id="@+id/txtLanguage"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/spnRestartInterval"
 	            android:text="@string/txtLanguage"
 	            android:textSize="18sp"
 	            android:typeface="normal" />

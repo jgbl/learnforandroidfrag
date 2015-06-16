@@ -1324,6 +1324,7 @@ public class MainActivity extends AppCompatActivity {
 		intent.putExtra("PaukRepetitions", PaukRepetitions);
 		float ProbFact = vok.ProbabilityFactor;
 		intent.putExtra("ProbabilityFactor", ProbFact);
+		intent.putExtra("RestartInterval", vok.RestartInterval);
 		intent.putExtra("Random", vok.getAbfrageZufaellig());
 		intent.putExtra("AskAll", vok.getAskAll());
 		intent.putExtra("Sound", lib.sndEnabled);

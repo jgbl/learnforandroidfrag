@@ -91,6 +91,7 @@ public class SettingsActivity extends Fragment
 	public Spinner spnPaukRepetitions;
 	public Spinner spnProbabilityFactor;
 	public Spinner spnLanguages;
+	public Spinner spnRestartInterval;
 	public org.de.jmg.lib.NoClickSpinner spnColors;
 	public org.de.jmg.lib.NoClickSpinner spnSounds;
 	public Button btnColors;
@@ -521,6 +522,7 @@ public class SettingsActivity extends Fragment
 			spnDisplayDurationBed = (Spinner) findViewById(R.id.spnAnzeigedauerBed);
 			spnPaukRepetitions = (Spinner) findViewById(R.id.spnRepetitions);
 			spnProbabilityFactor = (Spinner) findViewById(R.id.spnProbabilityFactor);
+			spnRestartInterval = (Spinner) findViewById(R.id.spnRestartInterval);
 			spnLanguages = (Spinner) findViewById(R.id.spnLanguages);
 			spnColors = (org.de.jmg.lib.NoClickSpinner) findViewById(R.id.spnColors);
 			spnSounds = (org.de.jmg.lib.NoClickSpinner) findViewById(R.id.spnSounds);
@@ -550,6 +552,8 @@ public class SettingsActivity extends Fragment
 			spnPaukRepetitions.getBackground().setColorFilter(Color.BLACK,
 					PorterDuff.Mode.SRC_ATOP);
 			spnProbabilityFactor.getBackground().setColorFilter(Color.BLACK,
+					PorterDuff.Mode.SRC_ATOP);
+			spnRestartInterval.getBackground().setColorFilter(Color.BLACK,
 					PorterDuff.Mode.SRC_ATOP);
 			spnLanguages.getBackground().setColorFilter(Color.BLACK,
 					PorterDuff.Mode.SRC_ATOP);
@@ -788,7 +792,7 @@ public class SettingsActivity extends Fragment
 				strDD = "" + ProbabilityFactor;
 				strDD = strDD.replace(".0", "");
 			}
-
+			
 			ArrayAdapter<CharSequence> a1 = adapterProbabilityFactor;
 			if (a1 != null) {
 				try {
@@ -802,7 +806,8 @@ public class SettingsActivity extends Fragment
 			}
 
 			spnProbabilityFactor
-					.setOnItemSelectedListener(new OnItemSelectedListener() {
+					.setOnItemSelectedListener(new OnItemSelectedListener() 
+					{
 
 						@Override
 						public void onItemSelected(AdapterView<?> parent,
@@ -825,6 +830,61 @@ public class SettingsActivity extends Fragment
 
 						
 					});
+
+			
+			ScaledArrayAdapter<CharSequence> adapterRestartInterval = ScaledArrayAdapter
+					.createFromResource(_main, R.array.spnRestartInterval,
+							android.R.layout.simple_spinner_item);
+			// Specify the layout to use when the list of choices appears
+			adapterRestartInterval
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			if (lib.NookSimpleTouch() && mScale==1) adapterProbabilityFactor.Scale = 1.8f;
+			spnProbabilityFactor.setAdapter(adapterProbabilityFactor);
+			int RestartInterval = getIntent().getIntExtra(
+					"RestartInterval", -1);
+			if (RestartInterval == -1) {
+				strDD = "auto";
+			} else {
+				strDD = "" + RestartInterval;
+			}
+
+			a1 = adapterRestartInterval;
+			if (a1 != null) {
+				try {
+					libLearn.gStatus = "get Spinneradapter ProbabilityFactor";
+					Pos = (a1.getPosition(strDD));
+					spnRestartInterval.setSelection(Pos);
+				} catch (Exception ex) {
+					lib.ShowException(_main, ex);
+				}
+
+			}
+
+			spnRestartInterval
+					.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+						@Override
+						public void onItemSelected(AdapterView<?> parent,
+								View view, int position, long id) {
+							// TODO Auto-generated method stub
+							String strDD = (String) parent
+									.getItemAtPosition(position);
+							if (strDD.equalsIgnoreCase("auto"))
+								strDD = "-1";
+							intent.putExtra("ProbabilityFactor",
+									(Integer.parseInt(strDD)));
+							intent.putExtra("OK","OK");
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> parent) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						
+					});
+			
 			ScaledArrayAdapter<CharSequence> adapterLanguages = ScaledArrayAdapter
 					.createFromResource(_main, R.array.spnLanguages,
 							android.R.layout.simple_spinner_item);
