@@ -157,7 +157,7 @@ public class lib {
 	
 	public static final boolean NookSimpleTouch()
 	{
-		//return false;
+		//return true;
 		
 		String MANUFACTURER = getBuildField("MANUFACTURER");
 		@SuppressWarnings("unused")

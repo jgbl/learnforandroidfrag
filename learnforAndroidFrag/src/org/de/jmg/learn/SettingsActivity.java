@@ -815,7 +815,7 @@ public class SettingsActivity extends Fragment
 							// TODO Auto-generated method stub
 							String strDD = (String) parent
 									.getItemAtPosition(position);
-							if (strDD.equalsIgnoreCase("auto"))
+							if (strDD.equalsIgnoreCase(_main.getString(R.string.auto)))
 								strDD = "-1";
 							intent.putExtra("ProbabilityFactor",
 									(Float.parseFloat(strDD)));
@@ -838,12 +838,12 @@ public class SettingsActivity extends Fragment
 			// Specify the layout to use when the list of choices appears
 			adapterRestartInterval
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			if (lib.NookSimpleTouch() && mScale==1) adapterProbabilityFactor.Scale = 1.8f;
-			spnProbabilityFactor.setAdapter(adapterProbabilityFactor);
+			if (lib.NookSimpleTouch() && mScale==1) adapterRestartInterval.Scale = 1.8f;
+			spnRestartInterval.setAdapter(adapterRestartInterval);
 			int RestartInterval = getIntent().getIntExtra(
 					"RestartInterval", -1);
 			if (RestartInterval == -1) {
-				strDD = "auto";
+				strDD = _main.getString(R.string.off);
 			} else {
 				strDD = "" + RestartInterval;
 			}
@@ -869,9 +869,9 @@ public class SettingsActivity extends Fragment
 							// TODO Auto-generated method stub
 							String strDD = (String) parent
 									.getItemAtPosition(position);
-							if (strDD.equalsIgnoreCase("auto"))
+							if (strDD.equalsIgnoreCase(_main.getString(R.string.off)))
 								strDD = "-1";
-							intent.putExtra("ProbabilityFactor",
+							intent.putExtra("RestartInterval",
 									(Integer.parseInt(strDD)));
 							intent.putExtra("OK","OK");
 						}

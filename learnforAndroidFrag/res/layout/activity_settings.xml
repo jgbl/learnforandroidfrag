@@ -198,6 +198,7 @@
 	            android:layout_alignParentRight="true"
 	            android:layout_gravity="right"
 	            android:gravity="right"
+	            android:textSize="18sp"
 	            android:prompt="@string/spnRestartInterval" />
 	        
 	        <TextView

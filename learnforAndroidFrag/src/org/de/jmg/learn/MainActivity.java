@@ -224,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
 				vok.setAbfrageZufaellig(prefs.getBoolean("Random",
 						vok.getAbfrageZufaellig()));
 				vok.setAskAll(prefs.getBoolean("AskAll", vok.getAskAll()));
+				vok.RestartInterval = prefs.getInt("RestartInterval", 10);
 				lib.sndEnabled = prefs.getBoolean("Sound", lib.sndEnabled);
 				SoundDir = prefs.getString("SoundDir", Environment.getExternalStorageDirectory().getPath());
 				Colors = getColorsFromPrefs();
@@ -1734,6 +1735,7 @@ public class MainActivity extends AppCompatActivity {
 			DisplayDurationBed = data.getExtras().getFloat(
 					"DisplayDurationBed");
 			PaukRepetitions = data.getExtras().getInt("PaukRepetitions");
+			vok.RestartInterval = data.getExtras().getInt("RestartInterval");
 			vok.ProbabilityFactor = data.getExtras().getFloat(
 					"ProbabilityFactor");
 			vok.setAbfrageZufaellig(data.getExtras().getBoolean("Random"));
@@ -1774,7 +1776,7 @@ public class MainActivity extends AppCompatActivity {
 			editor.putBoolean("nghs", data.getExtras().getBoolean("nghs"));
 			editor.putBoolean("fora", data.getExtras().getBoolean("fora"));
 			editor.putBoolean("translate", data.getExtras().getBoolean("translate"));
-			
+			editor.putInt("RestartInterval", vok.RestartInterval);
 			for (ColorItems item : Colors.keySet()) {
 				editor.putInt(item.name(), Colors.get(item).ColorValue);
 			}

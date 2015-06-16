@@ -110,6 +110,7 @@ public class Vokabel {
 	public boolean varHebr;
 	public int AnzRichtig;
 	public float ProbabilityFactor = -1;
+	public int RestartInterval = 10;
 	public Typeface TypefaceCardo;
 	
 	public int AnzFalsch;
@@ -1312,6 +1313,10 @@ public class Vokabel {
 		aend = true;
 		AnzFalsch += 1;
 		lib.AntwWasRichtig = false;
+		if (RestartInterval>-1 && (AnzFalsch % RestartInterval) == 0)
+		{
+			restart();
+		}
 		// InitAbfrage
 		return;
 	}

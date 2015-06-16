@@ -71,7 +71,7 @@
             <item >20</item>
         </string-array>
         <string-array name="spnRestartInterval">
-            <item >auto</item>
+            <item >off</item>
             <item >5</item>
             <item >6</item>
             <item >7</item>
@@ -245,5 +245,7 @@
 	            <string name="mnuHome">home</string>
 	            <string name="txtRestartInterval">restart interval</string>
 	            <string name="spnRestartInterval">interval</string>
+	            <string name="auto">auto</string>
+	            <string name="off">off</string>
         
 </resources>
