@@ -232,6 +232,7 @@ public class SettingsActivity extends Fragment
 			initSpinners();
 			initCheckBoxes();
 			initButtons();
+			initHelp();
 			if (!(lib.NookSimpleTouch()) && !_main.isSmallDevice)
 			{
 				SettingsView.getViewTreeObserver().addOnGlobalLayoutListener
@@ -1112,11 +1113,13 @@ public class SettingsActivity extends Fragment
 				if (i>100)break;
 				libLearn.gStatus="getting view "+i;
 				View V = Settings.getChildAt(i);
+				/*
 				CharSequence cs = V.getContentDescription();
 				if (cs != null && cs.length()>0 )
 				{
 					V.setOnLongClickListener(ViewOnLongClickCD);
 				}
+				*/
 				RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) V
 						.getLayoutParams();
 
@@ -1256,7 +1259,22 @@ public class SettingsActivity extends Fragment
 		
 	}
 	
-	
+	private void initHelp()
+	{
+		ViewGroup Settings = (ViewGroup) findViewById(R.id.layoutSettings);
+		int ChildCount = Settings.getChildCount();
+		for (int i = 0; i < ChildCount; i++) {
+			if (i>100)break;
+			libLearn.gStatus="getting view "+i;
+			View V = Settings.getChildAt(i);
+			CharSequence cs = V.getContentDescription();
+			if (cs != null && cs.length()>0 )
+			{
+				V.setOnLongClickListener(ViewOnLongClickCD);
+			}
+		}
+
+	}
 	
 	private void ShowColorDialog() {
 		spnColors.blnDontCallOnClick = true;
