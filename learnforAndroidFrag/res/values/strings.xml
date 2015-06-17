@@ -51,13 +51,13 @@
         <string name="askingRange">asking range</string>
         <string name="spnSelect">select ...</string>
         <string name="txtSettings">settings</string>
-        <string name="txtAbfragebereich">asking range:</string>
-        <string name="txtAbfragebereich_wear">range:</string>
-        <string name="txtCharsetASCII">charset ascii:</string>
-        <string name="txtCharsetASCII_wear">ascii:</string>
+        <string name="txtAbfragebereich">asking range</string>
+        <string name="txtAbfragebereich_wear">range</string>
+        <string name="txtCharsetASCII">charset ascii</string>
+        <string name="txtCharsetASCII_wear">ascii</string>
         <string name="btnOK">OK</string>
         <string name="btnCancel">Cancel</string>
-        <string name="txtStep">step:</string>
+        <string name="txtStep">step</string>
         <string name="spnStep">step</string>
         <string name="spnStepDescriptions">enter the step used for repeating not known vocabulary</string>
         <string-array name="spnStepEntries">
@@ -247,5 +247,15 @@
 	            <string name="spnRestartInterval">interval</string>
 	            <string name="auto">auto</string>
 	            <string name="off">off</string>
+	            <string name="descCharSetASCII">Charset that is used to loading older files, which are not encoded in Unicode</string>
+	            <string name="descAbfragebereich">Range of words, the number correlates to how often the word has been answered right or wrong. Default is All.</string>
+	            <string name="descStep">Defines the step/chunk size after which not known words are repeated</string>
+	            <string name="descAnzeigedauerWord">Defines how long a word is displayed if it is wrong</string>
+	            <string name="descAnzeigedauerBed">Definines how long a meaning is displayed if wrong</string>
+	            <string name="descRepetitions">Defines how often words and meanings are shown if wrong</string>
+	            <string name="descProbabilityFactor">Defines the divisor for the probability with which known words are asked again</string>
+	            <string name="descRestartInterval">Defines how many wrong answers must be made, after which the program starts asking from the beginning again.</string>
+	            <string name="help">Help</string>
+	            <string name="close">Do you want to close the window?</string>
         
 </resources>

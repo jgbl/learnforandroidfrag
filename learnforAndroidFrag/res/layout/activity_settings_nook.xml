@@ -27,6 +27,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtSettings"
+	            android:contentDescription="@string/descCharSetASCII"
 	            android:text="@string/txtCharsetASCII"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -50,11 +51,11 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtCharsetASCII"
+	            android:contentDescription="@string/descAbfragebereich"
 	            android:text="@string/txtAbfragebereich"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
 	            android:typeface="normal" />
-	
             
 	        <Spinner
 	            android:id="@+id/spnAbfragebereich"
@@ -69,13 +70,12 @@
 	            android:gravity="right"
 	            android:prompt="@string/spnAbfragebereich" />
 	
-	        
-	        
 	        <TextView
 	            android:id="@+id/txtStep"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtAbfragebereich"
+	            android:contentDescription="@string/descStep"
 	            android:text="@string/txtStep"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -99,6 +99,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtStep"
+	            android:contentDescription="@string/descAnzeigedauerWord"
 	            android:text="@string/txtAnzeigedauerWord"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -122,6 +123,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtAnzeigedauerWord"
+	            android:contentDescription="@string/descAnzeigedauerBed"
 	            android:text="@string/txtAnzeigedauerBed"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -145,6 +147,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtAnzeigedauerBed"
+	            android:contentDescription="@string/descRepetitions"
 	            android:text="@string/txtRepetitions"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -169,6 +172,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtRepetitions"
+	            android:contentDescription="@string/descProbabilityFactor"
 	            android:text="@string/txtProbabilityFactor"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -192,6 +196,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtProbabilityFactor"
+	            android:contentDescription="@string/descRestartInterval"
 	            android:text="@string/txtRestartInterval"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -275,19 +280,19 @@
 	        />
 	        
 	        	<CheckBox
-		            android:id="@+id/chkRandom"
-		            android:layout_width="150dp"
-		            android:layout_height="60dp"
-		            android:layout_alignParentLeft="true"
-		            android:layout_below="@+id/txtSounds"
-		            android:layout_marginBottom="15dp"
-		            android:layout_marginTop="60dp"
-		            android:checked="false"
-		            android:hint="@string/chkRandomHint"
-		            android:text="@string/chkRandom"
-		            android:textSize="27sp"
-		            android:textStyle="bold"
-		            android:typeface="normal" />
+	        	    android:id="@+id/chkRandom"
+	        	    android:layout_width="150dp"
+	        	    android:layout_height="60dp"
+	        	    android:layout_alignParentLeft="true"
+	        	    android:layout_below="@+id/txtSounds"
+	        	    android:layout_marginBottom="15dp"
+	        	    android:layout_marginTop="60dp"
+	        	    android:checked="false"
+	        	    android:contentDescription="@string/chkRandomHint"
+	        	    android:text="@string/chkRandom"
+	        	    android:textSize="27sp"
+	        	    android:textStyle="bold"
+	        	    android:typeface="normal" />
 		        
 		        <CheckBox
 		            android:id="@+id/chkAskAll"
@@ -297,7 +302,7 @@
 		            android:layout_centerHorizontal="true"
 		            android:layout_centerInParent="false"
 		            android:checked="false"
-		            android:hint="@string/chkAskAllHint"
+		            android:contentDescription="@string/chkAskAllHint"
 		            android:text="@string/chkAskAll"
 		            android:textSize="27sp"
 		            android:textStyle="bold"
@@ -310,7 +315,7 @@
 		            android:layout_alignBaseline="@id/chkRandom"
 		            android:layout_alignParentRight="true"
 		            android:checked="false"
-		            android:hint="@string/chkSoundHint"
+		            android:contentDescription="@string/chkSoundHint"
 		            android:text="@string/chkSound"
 		            android:textSize="27sp"
 		            android:textStyle="bold"
@@ -326,8 +331,8 @@
 		            android:layout_marginBottom="0dp"
 		            android:layout_marginTop="0dp"
 		            android:checked="false"
+		            android:contentDescription="@string/hintProvider"
 		            android:gravity="center_vertical"
-		            android:hint="@string/hintProvider"
 		            android:text="@string/TakeDocumentProvider"
 		            android:textSize="27sp"
 		            android:textStyle="bold"
@@ -340,44 +345,44 @@
 		            android:layout_alignParentLeft="true"
 		            android:layout_below="@+id/chkDocumentProvider"
 		            android:checked="false"
+		            android:contentDescription="@string/hintShowWarning"
 		            android:gravity="center_vertical"
-		            android:hint="@string/hintShowWarning"
 		            android:text="@string/chkShowWarning"
 		            android:textSize="27sp"
 		            android:textStyle="bold"
 		            android:typeface="normal" />
 		        
 		        <CheckBox
-		             android:id="@+id/chkAlwaysStartExternalProgram"
-		             android:layout_width="wrap_content"
-		             android:layout_height="wrap_content"
-		             android:layout_alignParentLeft="true"
-		             android:layout_below="@+id/chkDontShowPersistableURIMessage"
-		             android:layout_marginBottom="0dp"
-		             android:layout_marginTop="0dp"
-		             android:checked="false"
-		             android:gravity="center_vertical"
-		             android:hint="@string/hintStartExternalProgram"
-		             android:text="@string/chkAlwaysStartExternalProgram"
-		             android:textSize="27sp"
-		             android:textStyle="bold"
-		             android:typeface="normal" />
+		            android:id="@+id/chkAlwaysStartExternalProgram"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+		            android:layout_below="@+id/chkDontShowPersistableURIMessage"
+		            android:layout_marginBottom="0dp"
+		            android:layout_marginTop="0dp"
+		            android:checked="false"
+		            android:contentDescription="@string/hintStartExternalProgram"
+		            android:gravity="center_vertical"
+		            android:text="@string/chkAlwaysStartExternalProgram"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
 		        
 		        <CheckBox
-		             android:id="@+id/chkFora"
-		             android:layout_width="wrap_content"
-		             android:layout_height="wrap_content"
-		             android:layout_alignParentLeft="true"
-		             android:layout_below="@+id/chkAlwaysStartExternalProgram"
-		             android:layout_marginBottom="0dp"
-		             android:layout_marginTop="0dp"
-		             android:checked="false"
-		             android:gravity="center_vertical"
-		             android:hint="@string/hintFora"
-		             android:text="@string/chkFora"
-		             android:textSize="27sp"
-		             android:textStyle="bold"
-		             android:typeface="normal" />
+		            android:id="@+id/chkFora"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+		            android:layout_below="@+id/chkAlwaysStartExternalProgram"
+		            android:layout_marginBottom="0dp"
+		            android:layout_marginTop="0dp"
+		            android:checked="false"
+		            android:contentDescription="@string/hintFora"
+		            android:gravity="center_vertical"
+		            android:text="@string/chkFora"
+		            android:textSize="27sp"
+		            android:textStyle="bold"
+		            android:typeface="normal" />
 		         
 		         <CheckBox
 		             android:id="@+id/chkNGHS"
@@ -388,8 +393,8 @@
 		             android:layout_marginBottom="0dp"
 		             android:layout_marginTop="0dp"
 		             android:checked="false"
+		             android:contentDescription="@string/hintNGHS"
 		             android:gravity="center_vertical"
-		             android:hint="@string/hintNGHS"
 		             android:text="@string/chkNGHS"
 		             android:textSize="27sp"
 		             android:textStyle="bold"
@@ -404,14 +409,12 @@
 		             android:layout_marginBottom="0dp"
 		             android:layout_marginTop="0dp"
 		             android:checked="false"
+		             android:contentDescription="@string/hintTranslate"
 		             android:gravity="center_vertical"
-		             android:hint="@string/hintTranslate"
 		             android:text="@string/chkTranslate"
 		             android:textSize="27sp"
 		             android:textStyle="bold"
 		             android:typeface="normal" />
-		        
-		        
 		    
 	    </RelativeLayout>
 

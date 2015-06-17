@@ -179,7 +179,7 @@ public class fragFileChooser extends ListFragment
 					        	fill(currentDir);
 							}
 						});
-				A.setMessage(getString(R.string.quit));
+				A.setMessage(getString(R.string.close));
 				A.setTitle("Question");
 				A.show();
 

@@ -27,9 +27,9 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtSettings"
+	            android:contentDescription="@string/descCharSetASCII"
 	            android:text="@string/txtCharsetASCII"
 	            android:textSize="18sp"
-	            
 	            android:typeface="normal" />
 	        
 	        <Spinner
@@ -47,10 +47,10 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnASCII"
+	            android:contentDescription="@string/descAbfragebereich"
 	            android:text="@string/txtAbfragebereich"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
-	
             
 	        <Spinner
 	            android:id="@+id/spnAbfragebereich"
@@ -62,13 +62,12 @@
 	            android:contentDescription="@string/spnAbfragebereichDescription"
 	            android:prompt="@string/spnAbfragebereich" />
 	
-	        
-	        
 	        <TextView
 	            android:id="@+id/txtStep"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnAbfragebereich"
+	            android:contentDescription="@string/descStep"
 	            android:text="@string/txtStep"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
@@ -88,6 +87,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnStep"
+	            android:contentDescription="@string/descAnzeigedauerWord"
 	            android:text="@string/txtAnzeigedauerWord"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
@@ -107,6 +107,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnAnzeigedauerWord"
+	            android:contentDescription="@string/descAnzeigedauerBed"
 	            android:text="@string/txtAnzeigedauerBed"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
@@ -126,6 +127,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnAnzeigedauerBed"
+	            android:contentDescription="@string/descRepetitions"
 	            android:text="@string/txtRepetitions"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
@@ -146,6 +148,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnRepetitions"
+	            android:contentDescription="@string/descProbabilityFactor"
 	            android:text="@string/txtProbabilityFactor"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
@@ -165,6 +168,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnProbabilityFactor"
+	            android:contentDescription="@string/descRestartInterval"
 	            android:text="@string/txtRestartInterval"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
@@ -243,7 +247,7 @@
 		            android:layout_marginBottom="0dp"
 		            android:layout_marginTop="60dp"
 		            android:checked="false"
-		            android:hint="@string/chkRandomHint"
+		            android:contentDescription="@string/chkRandomHint"
 		            android:text="@string/chkRandom"
 		            android:textSize="18sp"
 		            android:typeface="normal" />
@@ -254,7 +258,7 @@
 		            android:layout_height="wrap_content"
 		            android:layout_below="@id/chkRandom"
 		            android:checked="false"
-		            android:hint="@string/chkAskAllHint"
+		            android:contentDescription="@string/chkAskAllHint"
 		            android:text="@string/chkAskAll"
 		            android:textSize="18sp"
 		            android:typeface="normal" />
@@ -265,7 +269,7 @@
 		            android:layout_height="wrap_content"
 		            android:layout_below="@id/chkAskAll"
 		            android:checked="false"
-		            android:hint="@string/chkSoundHint"
+		            android:contentDescription="@string/chkSoundHint"
 		            android:text="@string/chkSound"
 		            android:textSize="18sp"
 		            android:typeface="normal" />
@@ -281,7 +285,7 @@
 		            android:layout_marginTop="0dp"
 		            android:checked="false"
 		            android:gravity="center_vertical"
-		            android:hint="@string/hintProvider"
+		            android:contentDescription="@string/hintProvider"
 		            android:text="@string/TakeDocumentProvider"
 		            android:textSize="18sp"
 		            android:typeface="normal" />
@@ -294,10 +298,9 @@
 		            android:layout_below="@+id/chkDocumentProvider"
 		            android:checked="false"
 		            android:gravity="center_vertical"
-		            android:hint="@string/hintShowWarning"
+		            android:contentDescription="@string/hintShowWarning"
 		            android:text="@string/chkShowWarning"
 		            android:textSize="18sp"
-		            
 		            android:typeface="normal" />
 		        
 		        <CheckBox
@@ -310,7 +313,7 @@
 		             android:layout_marginTop="0dp"
 		             android:checked="false"
 		             android:gravity="center_vertical"
-		             android:hint="@string/hintStartExternalProgram"
+		             android:contentDescription="@string/hintStartExternalProgram"
 		             android:text="@string/chkAlwaysStartExternalProgram"
 		             android:textSize="18sp"
 		             android:typeface="normal" />
@@ -325,7 +328,7 @@
 		             android:layout_marginTop="0dp"
 		             android:checked="false"
 		             android:gravity="center_vertical"
-		             android:hint="@string/hintFora"
+		             android:contentDescription="@string/hintFora"
 		             android:text="@string/chkFora"
 		             android:textSize="18sp"
 		             android:typeface="normal" />
@@ -340,7 +343,7 @@
 		             android:layout_marginTop="0dp"
 		             android:checked="false"
 		             android:gravity="center_vertical"
-		             android:hint="@string/hintNGHS"
+		             android:contentDescription="@string/hintNGHS"
 		             android:text="@string/chkNGHS"
 		             android:textSize="18sp"
 		             android:typeface="normal" />
@@ -355,7 +358,7 @@
 		             android:layout_marginTop="0dp"
 		             android:checked="false"
 		             android:gravity="center_vertical"
-		             android:hint="@string/hintTranslate"
+		             android:contentDescription="@string/hintTranslate"
 		             android:text="@string/chkTranslate"
 		             android:textSize="18sp"
 		             android:typeface="normal" />

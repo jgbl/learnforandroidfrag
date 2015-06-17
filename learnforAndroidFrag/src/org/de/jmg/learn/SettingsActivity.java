@@ -51,6 +51,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -1057,7 +1058,18 @@ public class SettingsActivity extends Fragment
 	}
 
 	public float mScale = 1;
-
+	private OnLongClickListener ViewOnLongClickCD = new View.OnLongClickListener() {
+		
+		@Override
+		public boolean onLongClick(View v) {
+			// TODO Auto-generated method stub
+			if ( v.getContentDescription()!=null && v.getContentDescription().length()>0)
+			{
+				lib.ShowMessage(_main, (String) v.getContentDescription(), _main.getString(R.string.help));
+			}
+			return false;
+		}
+	};
 	private void resize(float scale) {
 		//if (scale == 0 && mScale!=1) return;
 		Resources resources = _main.getResources();
@@ -1100,7 +1112,11 @@ public class SettingsActivity extends Fragment
 				if (i>100)break;
 				libLearn.gStatus="getting view "+i;
 				View V = Settings.getChildAt(i);
-				
+				CharSequence cs = V.getContentDescription();
+				if (cs != null && cs.length()>0 )
+				{
+					V.setOnLongClickListener(ViewOnLongClickCD);
+				}
 				RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) V
 						.getLayoutParams();
 
@@ -1239,7 +1255,9 @@ public class SettingsActivity extends Fragment
 		
 		
 	}
-
+	
+	
+	
 	private void ShowColorDialog() {
 		spnColors.blnDontCallOnClick = true;
 		final ColorSetting item = Colors.getItem(spnColors
