@@ -1213,6 +1213,17 @@ public class MainActivity extends AppCompatActivity {
 			if (id == R.id.action_settings) {
 				mPager.setCurrentItem(SettingsActivity.fragID);
 			} 
+			else if (id == R.id.mnuContact)
+			{
+				Intent intent = new Intent(Intent.ACTION_SEND, Uri.fromParts("mailto", "jhmgbl@gmail.com", null));
+				intent.setType("message/rfc822");
+				intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"jhmgbl@gmail.com"});
+				String versionName = context.getPackageManager()
+					    .getPackageInfo(context.getPackageName(), 0).versionName;
+				intent.putExtra(Intent.EXTRA_SUBJECT, "learnforandroid " + versionName);
+				intent.putExtra(Intent.EXTRA_TEXT, "Hallo");
+				this.startActivity(Intent.createChooser(intent, "Send mail..."));
+			}
 			else if (id == R.id.mnuFileOpen) 
 			{
 				mPager.setCurrentItem(fragFileChooser.fragID);

@@ -257,5 +257,6 @@
 	            <string name="descRestartInterval">Defines how many wrong answers must be made, after which the program starts asking from the beginning again.</string>
 	            <string name="help">Help</string>
 	            <string name="close">Do you want to close the window?</string>
+	            <string name="mnuContact">Contact</string>
         
 </resources>
