@@ -64,7 +64,7 @@ import android.provider.*;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.SpannedString;
+import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.util.Log;
@@ -1235,10 +1235,11 @@ public class lib {
 			//throw new RuntimeException("CheckPermissions", ex);
 		}
 	}
-	public static Spanned getSpanned(String txt) throws IOException {
-		final Pattern pattern = Pattern.compile("/<a.*?</a>/i");
-		Matcher matcher = pattern.matcher(txt);
-        if (txt.startsWith("{\\rtf1\\")) {
+	public static SpannableString getSpanableString(String txt) throws IOException {
+		final Pattern pattern = Pattern.compile("(?i)<a.*?</a>");
+		final Pattern patternLI = Pattern.compile("(?i)<li>.*?</li>", pattern.DOTALL);
+		Matcher matcherLI = patternLI.matcher(txt);
+		if (txt.startsWith("{\\rtf1\\")) {
 			// txt = Java2Html.convertToHtml(txt,
 			// JavaSourceConversionOptions.getDefault());
 			// return Html.fromHtml(txt);
@@ -1281,14 +1282,60 @@ public class lib {
 						End, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		    }
 		}
-		else if (matcher.matches())
+		else 
 		{
-			while (matcher.find())
+			if (matcherLI.find())
 			{
-				String Anchor = matcher.group();
-				Spanned spnAnchor = Html.fromHtml(Anchor);
-				if (span == null) span = new SpannableString("");
-				lkjsldkfkl
+				int start = 0;
+				do 
+				{
+					String LI = matcherLI.group();
+					SpannableString spnLI = new SpannableString(Html.fromHtml(LI));
+					spnLI.setSpan(new android.text.style.BulletSpan(),0,spnLI.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+					if (span == null || start == 0) 
+					{
+						span = new SpannableString(txt.substring(start, matcherLI.start()));
+					}
+					else
+					{
+						span = new SpannableString (TextUtils.concat(span,txt.substring(start,matcherLI.start())));
+					}
+					start = matcherLI.end()+1;
+					span = new SpannableString(TextUtils.concat(span,spnLI));
+				} while (matcherLI.find());
+				if (span!=null) txt = span.toString();
+			}
+			Matcher matcher = pattern.matcher(txt);
+	        if (matcher.find())
+			{
+				int start = 0;
+				boolean blnNewSpan = false;
+				do 
+				{
+					String Anchor = matcher.group();
+					SpannableString spnAnchor = new SpannableString(Html.fromHtml(Anchor));
+					if (span == null) 
+					{
+						span = new SpannableString(txt.substring(start, matcher.start()));
+						blnNewSpan = true;
+					}
+					else if(blnNewSpan)
+					{
+						span = new SpannableString(TextUtils.concat(span,txt.substring(start,matcher.start())));
+					}
+					start = matcher.end()+1;
+					if (blnNewSpan)
+					{
+						span = new SpannableString (TextUtils.concat(span,spnAnchor));
+					}
+					else
+					{
+						span = new SpannableString(TextUtils.replace
+								(span, new String[]{Anchor}, new CharSequence[]{spnAnchor}));
+					}
+				} while (matcher.find());
+				
+				if (span!=null) txt = span.toString();
 			}
 		}
 		if (txt.contains("http://") || txt.contains("https://"))
@@ -1320,8 +1367,12 @@ public class lib {
 				if (end == -1 || txt.indexOf(")",found+1)<end) end = txt.indexOf(")",found+1);
 				if (end != -1)
 				{
-					String url = txt.substring(start,end);
-					span.setSpan(new URLSpan(url), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+					URLSpan urls[] = span.getSpans(start, end, URLSpan.class); 
+					if (urls == null || urls.length==0)
+					{
+						String url = txt.substring(start,end);
+						span.setSpan(new URLSpan(url), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+					}
 					found1 = txt.indexOf("http://",end+1);
 					found2 = txt.indexOf("https://",end+1);
 					if ((found1>-1 && found1<found2) || found2 == -1 )
@@ -1369,7 +1420,7 @@ public class lib {
 		        }
 		        */
 		}
-		if (span == null) return new SpannedString(txt);
+		if (span == null) return new SpannableString(txt);
 		else return span;
 	}
 	

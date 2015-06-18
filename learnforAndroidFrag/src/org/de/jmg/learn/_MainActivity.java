@@ -530,7 +530,7 @@ public class _MainActivity extends Fragment {
 			 * 
 			 * } else { t.setLines(1); } }
 			 */
-			t.setText(lib.getSpanned(_vok.getWort()), TextView.BufferType.SPANNABLE);
+			t.setText(lib.getSpanableString(_vok.getWort()), TextView.BufferType.SPANNABLE);
 			if (_vok.getSprache() == EnumSprachen.Hebrew
 					|| _vok.getSprache() == EnumSprachen.Griechisch
 					|| (_vok.getFontWort().getName() == "Cardo")) {
@@ -543,7 +543,7 @@ public class _MainActivity extends Fragment {
 
 			v = findViewById(R.id.Comment);
 			t = (TextView) v;
-			t.setText(lib.getSpanned(_vok.getKommentar()),
+			t.setText(lib.getSpanableString(_vok.getKommentar()),
 					TextView.BufferType.SPANNABLE);
 			if (_vok.getSprache() == EnumSprachen.Hebrew
 					|| _vok.getSprache() == EnumSprachen.Griechisch
@@ -559,7 +559,7 @@ public class _MainActivity extends Fragment {
 			t = (TextView) v;
 			if (!libString.IsNullOrEmpty(_vok.getBedeutung2()))
 				t.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-			t.setText((showBeds ? lib.getSpanned(_vok.getBedeutung1()) : Vokabel.getComment(_vok
+			t.setText((showBeds ? lib.getSpanableString(_vok.getBedeutung1()) : Vokabel.getComment(_vok
 					.getBedeutung1())));
 			if (_vok.getFontBed().getName() == "Cardo") {
 				t.setTypeface(_vok.TypefaceCardo);
@@ -1077,14 +1077,14 @@ public class _MainActivity extends Fragment {
 			_txtWord.setVisibility(View.VISIBLE);
 			_txtKom.setVisibility(View.VISIBLE);
 			_txtedWord.setVisibility(View.GONE);
-			_txtWord.setText(lib.getSpanned(_txtedWord.getText().toString()));
+			_txtWord.setText(lib.getSpanableString(_txtedWord.getText().toString()));
 			View LayWord = findViewById(R.id.LayWord);
 			RelativeLayout.LayoutParams params = 
 					(RelativeLayout.LayoutParams) LayWord.getLayoutParams();
 			params.width = LayoutParams.WRAP_CONTENT;
 			LayWord.setLayoutParams(params);
 			_txtedKom.setVisibility(View.GONE);
-			_txtKom.setText(lib.getSpanned(_txtedKom.getText().toString()));
+			_txtKom.setText(lib.getSpanableString(_txtedKom.getText().toString()));
 			_txtedWord.setImeOptions(EditorInfo.IME_ACTION_NONE);
 			_txtedKom.setImeOptions(EditorInfo.IME_ACTION_NONE);
 			_txtMeaning1.setImeOptions(EditorInfo.IME_ACTION_DONE);
