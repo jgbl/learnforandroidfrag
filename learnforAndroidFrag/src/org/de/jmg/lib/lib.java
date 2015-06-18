@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.de.jmg.learn.MainActivity;
@@ -60,6 +61,7 @@ import android.os.Looper;
 import android.os.Message;
 //import android.runtime.*;
 import android.provider.*;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -1234,8 +1236,8 @@ public class lib {
 		}
 	}
 	public static Spanned getSpanned(String txt) throws IOException {
-		//final Pattern pattern = Pattern.compile("/<a[^>]+href=[\"']?([^'\"> ]+)[\"']?[^>]*>/i");
-		//Matcher matcher = pattern.matcher(txt);
+		final Pattern pattern = Pattern.compile("/<a.*?</a>/i");
+		Matcher matcher = pattern.matcher(txt);
         if (txt.startsWith("{\\rtf1\\")) {
 			// txt = Java2Html.convertToHtml(txt,
 			// JavaSourceConversionOptions.getDefault());
@@ -1278,6 +1280,16 @@ public class lib {
 				span.setSpan(new URLSpan(urls.get(i)), Start, 
 						End, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		    }
+		}
+		else if (matcher.matches())
+		{
+			while (matcher.find())
+			{
+				String Anchor = matcher.group();
+				Spanned spnAnchor = Html.fromHtml(Anchor);
+				if (span == null) span = new SpannableString("");
+				lkjsldkfkl
+			}
 		}
 		if (txt.contains("http://") || txt.contains("https://"))
 		{
