@@ -1221,7 +1221,7 @@ public class MainActivity extends AppCompatActivity {
 				String versionName = context.getPackageManager()
 					    .getPackageInfo(context.getPackageName(), 0).versionName;
 				intent.putExtra(Intent.EXTRA_SUBJECT, "learnforandroid " + versionName);
-				intent.putExtra(Intent.EXTRA_TEXT, "Hallo");
+				intent.putExtra(Intent.EXTRA_TEXT, "If you send me a vocabulary file, I will convert it for you.");
 				this.startActivity(Intent.createChooser(intent, "Send mail..."));
 			}
 			else if (id == R.id.mnuFileOpen) 
