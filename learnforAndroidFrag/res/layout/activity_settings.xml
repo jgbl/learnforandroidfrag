@@ -232,7 +232,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtLanguage"
-	            android:layout_marginTop="10dp"
+	            android:layout_marginTop="30dp"
+	            android:contentDescription="@string/spnColorDescription"
 	            android:text="@string/txtColors"
 	            android:textSize="18sp"
 	            android:textStyle="bold"
@@ -243,18 +244,18 @@
 	            android:layout_width="200dp"
 	            android:layout_height="wrap_content"
 	            android:layout_alignBottom="@+id/txtColors"
-	            android:layout_marginTop="0dp"
 	            android:layout_alignParentRight="true"
-	            android:contentDescription="@string/spnColorDescription"
-	            android:textSize="18sp"
-	            android:prompt="@string/spnColors" />
+	            android:layout_marginTop="0dp"
+	            android:prompt="@string/spnColors"
+	            android:textSize="18sp" />
 	       
 	        <TextView
 	            android:id="@+id/txtSounds"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtColors"
-	            android:layout_marginTop="10dp"
+	            android:layout_marginTop="30dp"
+	            android:contentDescription="@string/spnSoundsDescription"
 	            android:text="@string/txtSounds"
 	            android:textSize="18sp"
 	            android:textStyle="bold"
@@ -264,10 +265,9 @@
 	            android:id="@+id/spnSounds"
 	            android:layout_width="250dp"
 	            android:layout_height="wrap_content"
-	            android:layout_alignParentRight="true"
 	            android:layout_alignBottom="@+id/txtSounds"
+	            android:layout_alignParentRight="true"
 	            android:layout_marginTop="0dp"
-	            android:contentDescription="@string/spnSoundsDescription"
 	            android:prompt="@string/spnSounds"
 	            android:textSize="18sp" />
 

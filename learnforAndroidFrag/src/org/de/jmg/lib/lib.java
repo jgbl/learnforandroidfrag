@@ -1237,7 +1237,7 @@ public class lib {
 	}
 	public static SpannableString getSpanableString(String txt) throws IOException {
 		final Pattern pattern = Pattern.compile("(?i)<a.*?</a>");
-		final Pattern patternLI = Pattern.compile("(?i)<li>.*?<//li>", pattern.DOTALL);
+		final Pattern patternLI = Pattern.compile("(?i)<li>.*?<//li>", Pattern.DOTALL);
 		Matcher matcherLI = patternLI.matcher(txt);
 		if (txt.startsWith("{\\rtf1\\")) {
 			// txt = Java2Html.convertToHtml(txt,

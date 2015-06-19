@@ -19,7 +19,6 @@
 	            android:layout_height="wrap_content"
 	            android:text="@string/txtSettings"
 	            android:textSize="30sp"
-	            
 	            android:typeface="normal" />
 	
 	        <TextView
@@ -206,6 +205,7 @@
 	            android:layout_below="@+id/spnLanguages"
 	            android:layout_marginTop="0dp"
 	            android:text="@string/txtColors"
+	            android:contentDescription="@string/spnColorDescription"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
 	        
@@ -214,7 +214,6 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtColors"
-	            android:contentDescription="@string/spnColorDescription"
 	            android:textSize="18sp"
 	            android:prompt="@string/spnColors" />
 	       
@@ -224,6 +223,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/spnColors"
 	            android:text="@string/txtSounds"
+	            android:contentDescription="@string/spnSoundsDescription"
 	            android:textSize="18sp"
 	            android:typeface="normal" />
 	        
@@ -234,7 +234,6 @@
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtSounds"
 	            android:layout_marginTop="0dp"
-	            android:contentDescription="@string/spnSoundsDescription"
 	            android:prompt="@string/spnSounds"
 	        />
 	        

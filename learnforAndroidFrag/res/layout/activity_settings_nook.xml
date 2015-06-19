@@ -240,7 +240,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtLanguage"
-	            android:layout_marginTop="5dp"
+	            android:contentDescription="@string/spnColorDescription"
+	            android:layout_marginTop="45dp"
 	            android:text="@string/txtColors"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
@@ -250,9 +251,8 @@
 	            android:id="@+id/spnColors"
 	            android:layout_width="400dp"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/txtLanguage"
+	            android:layout_alignBottom="@+id/txtColors"
 	            android:layout_alignParentRight="true"
-	            android:contentDescription="@string/spnColorDescription"
 	            android:textSize="27sp"
 	            android:prompt="@string/spnColors" />
 	       
@@ -261,8 +261,9 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/txtColors"
-	            android:layout_marginTop="35dp"
+	            android:layout_marginTop="45dp"
 	            android:text="@string/txtSounds"
+	            android:contentDescription="@string/spnSoundsDescription"
 	            android:textSize="27sp"
 	            android:textStyle="bold"
 	            android:typeface="normal" />
@@ -273,9 +274,7 @@
 	            android:layout_width="450dp"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/txtColors"
-	            android:layout_marginTop="30dp"
-	            android:contentDescription="@string/spnSoundsDescription"
+	            android:layout_alignBottom="@+id/txtSounds"
 	            android:prompt="@string/spnSounds"
 	        />
 	        

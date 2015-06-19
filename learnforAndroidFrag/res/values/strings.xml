@@ -179,7 +179,7 @@
 	            <string name="PressBackAgain">press back again to exit</string>
 	            <string name="txtColors">colors</string>
 	            <string name="spnColors">Colors</string>
-	            <string name="spnColorDescription">Select Colors for each element</string>
+	            <string name="spnColorDescription">Select Colors for each element with a long touch</string>
 	            <string name="SelColor">sel</string>
 	            <string name="btnSelectColorHint">select the color of each element</string>
 	            <string name="imgColors">image containing the selected color</string>
@@ -198,7 +198,7 @@
 	            <string name="chkSound">Sound</string>
 	            <string name="chkSoundHint">switch sound on or off</string>
 	            <string name="txtSounds">sounds</string>
-	            <string name="spnSoundsDescription">select a soundfile</string>
+	            <string name="spnSoundsDescription">select a soundfile with a long touch</string>
 	            <string name="spnSounds">select as soundfile</string>
 	            <string name="mnuConvertMulti">convert multitext</string>
 	            <string name="mnuExtras">extras</string>
