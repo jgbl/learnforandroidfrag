@@ -1237,7 +1237,7 @@ public class lib {
 	}
 	public static SpannableString getSpanableString(String txt) throws IOException {
 		final Pattern pattern = Pattern.compile("(?i)<a.*?</a>");
-		final Pattern patternLI = Pattern.compile("(?i)<li>.*?</li>", pattern.DOTALL);
+		final Pattern patternLI = Pattern.compile("(?i)<li>.*?<//li>", pattern.DOTALL);
 		Matcher matcherLI = patternLI.matcher(txt);
 		if (txt.startsWith("{\\rtf1\\")) {
 			// txt = Java2Html.convertToHtml(txt,
@@ -1290,6 +1290,7 @@ public class lib {
 				do 
 				{
 					String LI = matcherLI.group();
+					LI = LI.replace("<//", "</");
 					SpannableString spnLI = new SpannableString(Html.fromHtml(LI));
 					spnLI.setSpan(new android.text.style.BulletSpan(),0,spnLI.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 					if (span == null || start == 0) 
