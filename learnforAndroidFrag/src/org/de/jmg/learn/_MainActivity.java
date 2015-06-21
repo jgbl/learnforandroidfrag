@@ -873,11 +873,12 @@ public class _MainActivity extends Fragment {
 			{
 				_txtMeaning1.getParent().requestDisallowInterceptTouchEvent(true);
 	            BottomOrTop pos = _txtMeaning1.getScrollBottomOrTopReached();
-	            float dist = e2.getY()-e1.getY();
-				if (pos == BottomOrTop.both || (pos == BottomOrTop.top 
-	            		&& dist >= 0)
+	            float distY = e2.getY()-e1.getY();
+	            float distX = e2.getX()-e1.getX();
+				if ((Math.abs(distX) > Math.abs(distY)) || (pos == BottomOrTop.both) || (pos == BottomOrTop.top 
+	            		&& distY >= 0)
 	            		|| (pos == BottomOrTop.bottom
-	            		&& dist <= 0)) 
+	            		&& distY <= 0)) 
 	            {
 	                _txtMeaning1.getParent().requestDisallowInterceptTouchEvent(false);
 	            }
