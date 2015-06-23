@@ -380,6 +380,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 	
+	
+	
+	
 	public void RemoveFragSettings()
 	{
 		if (fPA.fragSettings != null && mPager.getCurrentItem() != SettingsActivity.fragID)
@@ -454,6 +457,10 @@ public class MainActivity extends AppCompatActivity {
 		{
 			boolean res = this.fPA.fragChooser.onKeyDown(keyCode, event);
 			if (res == false) return res;
+		}
+		else if (mPager.getCurrentItem() == _MainActivity.fragID)
+		{
+			this.fPA.fragMain.removeCallbacks();
 		}
 		if (keyCode == KeyEvent.KEYCODE_HOME) {
 			try {

@@ -115,7 +115,7 @@ public class _MainActivity extends Fragment {
 		//if (mainView!=null)return mainView;
 		
 		mainView = inflater.inflate(R.layout.activity_main, container,false);
-		 _main = (MainActivity) getActivity();
+		_main = (MainActivity) getActivity();
 		 context = _main;
 		_vok = _main.vok;
 		libLearn.gStatus = "onCreate InitButtons";
@@ -186,7 +186,11 @@ public class _MainActivity extends Fragment {
 		{
 			_lastIsWrongVokID = savedInstanceState.getInt("lastIsWrongVokID");
 		}
+
 	}
+	
+
+	
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState)
@@ -203,9 +207,18 @@ public class _MainActivity extends Fragment {
 		handler.removeCallbacks(runnableFalse);
 		if (rFlashs!=null)
 		{
-			for (Runnable r: rFlashs)
+			if (rFlashs.size() > 0 )
 			{
-				handler.removeCallbacks(r);
+				for (Runnable r: rFlashs)
+				{
+					handler.removeCallbacks(r);
+					if (r instanceof resetLayoutTask || r instanceof hideBedBordersTask || r instanceof hideWordBordersTask)
+					{
+						handler.post(r);
+					}
+				}
+				rFlashs.clear();
+				handler.post(runnableFalse);
 			}
 		}
 	}
@@ -656,6 +669,7 @@ public class _MainActivity extends Fragment {
 	private int _lastIsWrongVokID;
 	MovementMethod oldMeaning1MovementMethod; 
 	
+	@SuppressLint("ClickableViewAccessibility")
 	private void InitButtons() throws Exception {
 		View v = findViewById(R.id.btnRight);
 		Button b = (Button) v;
@@ -787,7 +801,8 @@ public class _MainActivity extends Fragment {
 		_txtMeaning1.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                try
+            	removeCallbacks();
+            	try
                 {
 	            	if (v.getId() == R.id.txtMeaning1 && v.getVisibility()==View.VISIBLE && _txtMeaning1.getLineCount()>3) 
 	                {
@@ -819,25 +834,50 @@ public class _MainActivity extends Fragment {
 		_txtMeaning1.setOnLongClickListener(textlongclicklistener);
 		_MeaningBG = _txtMeaning1.getBackground();
 		_txtMeaning1.setBackgroundResource(0);
+		//_txtMeaning1.setOnTouchListener(OnTouchListenerRemoveCallbacks);
+		
 		_txtMeaning2 = (BorderedEditText) findViewById(R.id.txtMeaning2);
 		_txtMeaning2.setOnLongClickListener(textlongclicklistener);
 		_txtMeaning2.setBackgroundResource(0);
+		_txtMeaning2.setOnTouchListener(OnTouchListenerRemoveCallbacks);
+		
 		_txtMeaning3 = (BorderedEditText) findViewById(R.id.txtMeaning3);
 		_txtMeaning3.setOnLongClickListener(textlongclicklistener);
 		_txtMeaning3.setBackgroundResource(0);
+		_txtMeaning3.setOnTouchListener(OnTouchListenerRemoveCallbacks);
+		
 		_txtWord = (BorderedTextView) findViewById(R.id.word);
 		_txtWord.setOnLongClickListener(textlongclicklistener);
+		_txtWord.setOnTouchListener(OnTouchListenerRemoveCallbacks);
+
 		_txtedWord= (BorderedEditText) findViewById(R.id.edword);
 		_txtedWord.setOnLongClickListener(textlongclicklistener);
+		
 		_txtedKom = (BorderedEditText) findViewById(R.id.edComment);
 		_txtedKom.setOnLongClickListener(textlongclicklistener);
+		
 		_txtKom = (BorderedTextView) findViewById(R.id.Comment);
 		_txtKom.setOnLongClickListener(textlongclicklistener);
+		_txtKom.setOnTouchListener(OnTouchListenerRemoveCallbacks);
+		
 		_txtStatus = (BorderedTextView) findViewById(R.id.txtStatus);
+		
 		_scrollView = (ScrollView) findViewById(R.id.layoutMain);
+		_scrollView.setOnTouchListener(OnTouchListenerRemoveCallbacks);
+		
 		setBtnsEnabled(false);
 		setTextColors();
 	}
+	
+	@SuppressLint("ClickableViewAccessibility")
+	OnTouchListener OnTouchListenerRemoveCallbacks = new OnTouchListener() {
+		
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			removeCallbacks();
+			return false;
+		}
+	};
 	
 	GestureDetector detectorMeaning1 = new GestureDetector(_main, new GestureDetector.OnGestureListener() {
 		
