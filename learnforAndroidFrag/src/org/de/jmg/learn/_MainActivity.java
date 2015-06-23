@@ -204,7 +204,8 @@ public class _MainActivity extends Fragment {
 	
 	public void removeCallbacks()
 	{
-		handler.removeCallbacks(runnableFalse);
+		ArrayList<Runnable> runs = new ArrayList<Runnable>();
+		//handler.removeCallbacks(runnableFalse);
 		if (rFlashs!=null)
 		{
 			if (rFlashs.size() > 0 )
@@ -214,12 +215,17 @@ public class _MainActivity extends Fragment {
 					handler.removeCallbacks(r);
 					if (r instanceof resetLayoutTask || r instanceof hideBedBordersTask || r instanceof hideWordBordersTask)
 					{
-						handler.post(r);
+						runs.add(r);
+						//handler.post(r);
 					}
 				}
 				rFlashs.clear();
-				handler.post(runnableFalse);
+				//runs.add(runnableFalse);
 			}
+		}
+		for (Runnable r : runs)
+		{
+			r.run();
 		}
 	}
 	
@@ -714,15 +720,7 @@ public class _MainActivity extends Fragment {
 					if (!_vok.getCardMode()) {
 						setBtnsEnabled(false);
 						flashwords();
-						// getVokabel(false,true);
-						// runFlashWords();
 						
-						handler.postDelayed(
-								runnableFalse,
-								(long) ((_main.DisplayDurationWord * 1000 + _vok
-										.getAnzBed()
-										* 1000
-										* _main.DisplayDurationBed) * _main.PaukRepetitions));
 					} else {
 						getVokabel(false, false);
 					}
@@ -1211,13 +1209,7 @@ public class _MainActivity extends Fragment {
 									if (!_vok.getCardMode()) {
 										setBtnsEnabled(false);
 										flashwords();
-										Handler handler = new Handler();
-										handler.postDelayed(
-												runnableFalse,
-												(long) ((_main.DisplayDurationWord * 1000 + _vok
-														.getAnzBed()
-														* 1000
-														* _main.DisplayDurationBed) * _main.PaukRepetitions));
+										
 									}
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
@@ -1506,7 +1498,7 @@ public class _MainActivity extends Fragment {
 				tb.setVisibility(View.VISIBLE);
 				final ScrollView layoutScroll = (ScrollView) findViewById(R.id.layoutMain);
 				layoutScroll.setBackgroundColor(_main.Colors.get(ColorItems.background).ColorValue);
-				
+				runnableFalse.run();
 				
 			}
 			rFlashs.clear();
