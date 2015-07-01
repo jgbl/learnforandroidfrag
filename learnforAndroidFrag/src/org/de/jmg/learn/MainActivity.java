@@ -1424,8 +1424,8 @@ public class MainActivity extends AppCompatActivity {
 	
 	private void newvok() throws Exception
 	{
-		vok.NewFile();
 		mPager.setCurrentItem(_MainActivity.fragID);
+		vok.NewFile();
 		yesnoundefined res = lib.ShowMessageYesNo(this, getString(R.string.txtFlashCardFile),"");
 		if (res==yesnoundefined.undefined)return;
 		if (res == yesnoundefined.yes)

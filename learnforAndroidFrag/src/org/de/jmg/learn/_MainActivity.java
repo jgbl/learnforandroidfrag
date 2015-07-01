@@ -1093,11 +1093,19 @@ public class _MainActivity extends Fragment {
 			
 			try
 			{
-				_vok.setWort(_txtedWord.getText().toString());
-				_vok.setKommentar(_txtedKom.getText().toString());
-				_vok.setBedeutung1(_txtMeaning1.getText().toString());
-				_vok.setBedeutung2(_txtMeaning2.getText().toString());
-				_vok.setBedeutung3(_txtMeaning3.getText().toString());
+				if (!libString.IsNullOrEmpty(_txtedWord.getText().toString())
+						&& ! libString.IsNullOrEmpty(_txtMeaning1.getText().toString()))
+				{
+					_vok.setWort(_txtedWord.getText().toString());
+					_vok.setKommentar(_txtedKom.getText().toString());
+					_vok.setBedeutung1(_txtMeaning1.getText().toString());
+					_vok.setBedeutung2(_txtMeaning2.getText().toString());
+					_vok.setBedeutung3(_txtMeaning3.getText().toString());
+				}
+				else
+				{
+					if (lib.ShowMessageYesNo(context,context.getString(resId) , title))
+					
 				EndEdit2();
 			}
 			catch (Exception ex)

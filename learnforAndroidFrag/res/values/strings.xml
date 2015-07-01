@@ -258,5 +258,6 @@
 	            <string name="help">Help</string>
 	            <string name="close">Do you want to close the window?</string>
 	            <string name="mnuContact">contact</string>
+	            <string name="MeaningMustContainText">meaning 1 must contain text!</string>
         
 </resources>

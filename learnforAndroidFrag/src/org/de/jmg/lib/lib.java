@@ -1236,6 +1236,7 @@ public class lib {
 		}
 	}
 	public static SpannableString getSpanableString(String txt) throws IOException {
+		if (libString.IsNullOrEmpty(txt)) return new SpannableString("");
 		final Pattern pattern = Pattern.compile("(?i)<a.*?</a>");
 		final Pattern patternLI = Pattern.compile("(?i)<li>.*?<//li>", Pattern.DOTALL);
 		Matcher matcherLI = patternLI.matcher(txt);

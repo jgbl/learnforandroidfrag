@@ -40,7 +40,6 @@ import android.os.ParcelFileDescriptor;
 import android.widget.TextView;
 
 import org.de.jmg.learn.*;
-import org.de.jmg.learn.R;
 import org.de.jmg.lib.WindowsBufferedReader;
 import org.de.jmg.lib.RefSupport;
 import org.de.jmg.lib.lib;
@@ -564,7 +563,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Bedeutung3
-		functionReturnValue = mVok.get(mIndex).Bed3.trim();
+		if (mVok.get(mIndex).Bed3 != null) functionReturnValue = mVok.get(mIndex).Bed3.trim();
 		return functionReturnValue;
 	}
 
@@ -587,7 +586,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Bedeutung2
-		functionReturnValue = (mVok.get(mIndex).Bed2).trim();
+		if (mVok.get(mIndex).Bed2 != null) functionReturnValue = (mVok.get(mIndex).Bed2).trim();
 		return functionReturnValue;
 	}
 
@@ -610,7 +609,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Bedeutung1
-		functionReturnValue = (mVok.get(mIndex).Bed1).trim();
+		if (mVok.get(mIndex).Bed1 != null) functionReturnValue = (mVok.get(mIndex).Bed1).trim();
 		return functionReturnValue;
 	}
 
@@ -625,7 +624,7 @@ public class Vokabel {
 			aend = true;
 			mVok.get(mIndex).Bed1 = value;
 		} else {
-			throw new Exception("Bedeutung1 muÃŸÂ¸ Text enthalten!");
+			throw new Exception(Container.getString(R.string.MeaningMustContainText));
 		}
 	}
 
@@ -3092,13 +3091,16 @@ public class Vokabel {
 		return _URIName;
 	}
 	public static String getComment(String vok) {
-		int Start1 = vok.indexOf("[");
-		if (Start1 > -1) {
-			int Start2 = vok.indexOf("]", Start1 + 1);
-			if (Start2 > Start1) {
-				return vok.substring(Start1, Start2 + 1);
+		if (!libString.IsNullOrEmpty(vok))
+		{
+			int Start1 = vok.indexOf("[");
+			if (Start1 > -1) {
+				int Start2 = vok.indexOf("]", Start1 + 1);
+				if (Start2 > Start1) {
+					return vok.substring(Start1, Start2 + 1);
+				}
+	
 			}
-
 		}
 		return "";
 	}
