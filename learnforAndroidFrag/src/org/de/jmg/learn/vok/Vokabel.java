@@ -1615,6 +1615,7 @@ public class Vokabel {
 		if (index == -1)
 			index = mIndex;
 		mVok.remove(index);
+		aend = true;
 		mGesamtzahl = mVok.size();
 		if (mIndex>= mGesamtzahl) mIndex = mGesamtzahl - 1;
 		mblnLernInit = false;
