@@ -517,6 +517,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.ZÃƒÆ’Ã‚Â¤hler
+		if (mIndex>mVok.size()-1) mIndex= mVok.size()-1;
 		functionReturnValue = mVok.get(mIndex).z;
 		return functionReturnValue;
 	}
@@ -540,6 +541,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Kommentar
+		if (mIndex>mVok.size()-1) mIndex= mVok.size()-1;
 		functionReturnValue = mVok.get(mIndex).Kom;
 		return functionReturnValue;
 	}
@@ -563,6 +565,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Bedeutung3
+		if (mIndex>mVok.size()-1) mIndex= mVok.size()-1;
 		if (mVok.get(mIndex).Bed3 != null) functionReturnValue = mVok.get(mIndex).Bed3.trim();
 		return functionReturnValue;
 	}
@@ -586,6 +589,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Bedeutung2
+		if (mIndex>mVok.size()-1) mIndex= mVok.size()-1;
 		if (mVok.get(mIndex).Bed2 != null) functionReturnValue = (mVok.get(mIndex).Bed2).trim();
 		return functionReturnValue;
 	}
@@ -609,6 +613,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Bedeutung1
+		if (mIndex>mVok.size()-1) mIndex= mVok.size()-1;
 		if (mVok.get(mIndex).Bed1 != null) functionReturnValue = (mVok.get(mIndex).Bed1).trim();
 		return functionReturnValue;
 	}
@@ -637,6 +642,7 @@ public class Vokabel {
 		// wird beim Ermitteln einer Eignschaft auf der rechten Seite der
 		// Gleichung verwendet.
 		// Syntax: Debug.Print X.Wort
+		if (mIndex>mVok.size()-1) mIndex= mVok.size()-1;
 		functionReturnValue = mVok.get(mIndex).Wort;
 		return functionReturnValue;
 	}
