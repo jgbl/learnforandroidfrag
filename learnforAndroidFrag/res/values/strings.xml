@@ -259,5 +259,7 @@
 	            <string name="close">Do you want to close the window?</string>
 	            <string name="mnuContact">contact</string>
 	            <string name="MeaningMustContainText">meaning 1 must contain text!</string>
+	            <string name="WordOrMeaningMissing">The word or the meaning is missing! Do you want to delete the vocabulary?</string>
+	            <string name="EmptyWord">You can not assign an empty value to a word!</string>
         
 </resources>

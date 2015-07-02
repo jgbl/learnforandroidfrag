@@ -613,7 +613,7 @@ public class Vokabel {
 		return functionReturnValue;
 	}
 
-	public void setBedeutung1(String value) throws Exception {
+	public void setBedeutung1(String value, boolean blnDontThrow) throws Exception {
 		// ERROR: Not supported in C#: OnErrorStatement
 		libLearn.gStatus = "Vokabel.Bedeutung1 Start";
 		// ERROR: Not supported in C#: OnErrorStatement
@@ -623,7 +623,7 @@ public class Vokabel {
 		if ((value).length() > 0) {
 			aend = true;
 			mVok.get(mIndex).Bed1 = value;
-		} else {
+		} else if(!blnDontThrow){
 			throw new Exception(Container.getString(R.string.MeaningMustContainText));
 		}
 	}
@@ -641,7 +641,7 @@ public class Vokabel {
 		return functionReturnValue;
 	}
 
-	public void setWort(String value) throws Exception {
+	public void setWort(String value, boolean blnDontThow) throws Exception {
 		// ERROR: Not supported in C#: OnErrorStatement
 		libLearn.gStatus = "Vokabel.Wort Start";
 		// ERROR: Not supported in C#: OnErrorStatement
@@ -651,8 +651,8 @@ public class Vokabel {
 		if (value != null && (value).length() > 0) {
 			mVok.get(mIndex).Wort = value;
 			aend = true;
-		} else {
-			throw new Exception("You can not assign an empty value to a word!");
+		} else if (!blnDontThow){
+			throw new Exception(Container.getString(R.string.EmptyWord));
 		}
 	}
 
