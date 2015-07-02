@@ -524,7 +524,7 @@ public class _MainActivity extends Fragment {
 	public void getVokabel(boolean showBeds, boolean LoadNext) {
 		try {
 			if (_btnRight == null) return;
-			EndEdit();
+			EndEdit(false);
 			setBtnsEnabled(true);
 			if (showBeds) {
 				_btnRight.setEnabled(true);
@@ -780,7 +780,7 @@ public class _MainActivity extends Fragment {
 					}
 					else
 					{
-						EndEdit();
+						EndEdit(false);
 					}
 					
 				} catch (Exception e) {
@@ -1086,7 +1086,7 @@ public class _MainActivity extends Fragment {
 		
 	}
 	
-	void EndEdit() throws Exception
+	void EndEdit(boolean dontPrompt) throws Exception
 	{
 		if (_txtedWord==null)return;
 		if (_txtedWord.getVisibility()== View.VISIBLE)
@@ -1094,12 +1094,12 @@ public class _MainActivity extends Fragment {
 			
 			try
 			{
-				if (!libString.IsNullOrEmpty(_txtedWord.getText().toString())
-						&& !libString.IsNullOrEmpty(_txtMeaning1.getText().toString()))
+				if (dontPrompt || (!libString.IsNullOrEmpty(_txtedWord.getText().toString())
+						&& !libString.IsNullOrEmpty(_txtMeaning1.getText().toString())))
 				{
-					_vok.setWort(_txtedWord.getText().toString(),false);
+					_vok.setWort(_txtedWord.getText().toString(),dontPrompt);
 					_vok.setKommentar(_txtedKom.getText().toString());
-					_vok.setBedeutung1(_txtMeaning1.getText().toString(),false);
+					_vok.setBedeutung1(_txtMeaning1.getText().toString(),dontPrompt);
 					_vok.setBedeutung2(_txtMeaning2.getText().toString());
 					_vok.setBedeutung3(_txtMeaning3.getText().toString());
 				}
@@ -1271,7 +1271,7 @@ public class _MainActivity extends Fragment {
 					else
 					{
 						try {
-							EndEdit();
+							EndEdit(false);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							lib.ShowException(_main, e);

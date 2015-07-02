@@ -508,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private boolean saveVokAsync(boolean dontPrompt) throws Exception {
-		fPA.fragMain.EndEdit();
+		fPA.fragMain.EndEdit(true);
 		if (vok.aend) {
 			if (!dontPrompt) 
 			{
@@ -623,7 +623,7 @@ public class MainActivity extends AppCompatActivity {
 			if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
 			{
 				fPA.fragMain.setBtnsEnabled(false);
-				fPA.fragMain.EndEdit();
+				fPA.fragMain.EndEdit(false);
 			}
 			if (uri==null) saveVok(false);
 			try 
@@ -674,7 +674,7 @@ public class MainActivity extends AppCompatActivity {
 	private Handler handlerbackpressed = new Handler();
 
 	private synchronized boolean saveVok(boolean dontPrompt) throws Exception {
-		if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.EndEdit();
+		if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)fPA.fragMain.EndEdit(false);
 		if (vok.aend) 
 		{
 			if (!dontPrompt) 
@@ -1022,7 +1022,7 @@ public class MainActivity extends AppCompatActivity {
 		boolean blnActionCreateDocument = false;
 		try
 		{
-			fPA.fragMain.EndEdit();
+			fPA.fragMain.EndEdit(false);
 			if (!libString.IsNullOrEmpty(vok.getFileName()) || vok.getURI()==null || Build.VERSION.SDK_INT<19)
 			{
 				boolean blnSuccess = false;
@@ -1267,7 +1267,7 @@ public class MainActivity extends AppCompatActivity {
 				mPager.setCurrentItem(_MainActivity.fragID);
 				if (fPA.fragMain!=null && fPA.fragMain.mainView!=null)
 				{
-					fPA.fragMain.EndEdit();
+					fPA.fragMain.EndEdit(false);
 					vok.AddVokabel();
 					fPA.fragMain.getVokabel(true, false);
 					fPA.fragMain.StartEdit();
