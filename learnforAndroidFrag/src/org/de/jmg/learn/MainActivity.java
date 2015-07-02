@@ -1671,7 +1671,19 @@ public class MainActivity extends AppCompatActivity {
 					}
 					catch (Exception ex)
 					{
-						lib.ShowMessage(this, ex.getMessage(), this.getString(R.string.Error));
+						if (ex.getMessage().equalsIgnoreCase("SaveVokError") && ex.getCause()!=null )
+						{
+							lib.ShowMessage(this, getString(R.string.msgFileCouldNotBeSaved2) 
+									+ "\n"  + selectedUri.toString() + "\n" + ex.getCause().getMessage()
+									, getString(R.string.Error));
+						}
+						else
+						{
+							lib.ShowMessage(this, getString(R.string.msgFileCouldNotBeSaved2) 
+									+ "\n"  + selectedUri.toString() + "\n" + ex.getMessage()
+									, getString(R.string.Error));
+							//lib.ShowMessage(this, ex.getMessage(), this.getString(R.string.Error));
+						}
 					}
 				}
 			}
@@ -1719,13 +1731,25 @@ public class MainActivity extends AppCompatActivity {
 						}
 						catch (Exception ex)
 						{
-							lib.ShowMessage(this, ex.getMessage(), this.getString(R.string.Error));
+							if (ex.getMessage().equalsIgnoreCase("SaveVokError") && ex.getCause()!=null )
+							{
+								lib.ShowMessage(this, getString(R.string.msgFileCouldNotBeSaved2) 
+										+ "\n"  + selectedUri.toString() + "\n" + ex.getCause().getMessage()
+										, getString(R.string.Error));
+							}
+							else
+							{
+								lib.ShowMessage(this, getString(R.string.msgFileCouldNotBeSaved2) 
+										+ "\n"  + selectedUri.toString() + "\n" + ex.getMessage()
+										, getString(R.string.Error));
+								//lib.ShowMessage(this, ex.getMessage(), this.getString(R.string.Error));
+							}
 						}
 					}
 				}
 				catch(Exception e)
 				{
-					if (e.getMessage()=="SaveVokError" && e.getCause()!=null && e.getCause() instanceof IOException)
+					if (e.getMessage().equalsIgnoreCase("SaveVokError") && e.getCause()!=null && e.getCause() instanceof IOException)
 					{
 						lib.ShowMessage(this, getString(R.string.msgFileCouldNotBeSaved2) 
 								+ "\n"  + selectedUri.toString() + "\n" + e.getCause().getMessage()
