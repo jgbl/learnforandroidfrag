@@ -1658,14 +1658,21 @@ public class MainActivity extends AppCompatActivity {
 				
 				if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),"")==yesnoundefined.yes)
 				{
-					mPager.setCurrentItem(_MainActivity.fragID);
-					takePersistableUri(selectedUri,false);
-					vok.SaveFile(null, selectedUri,
-							_blnUniCode, false);
-					saveFilePrefs(false);
-					//if (blnNew) newvok();
-					if (fPA.fragMain!=null&&fPA.fragMain.mainView!=null)fPA.fragMain.SetActionBarTitle();
-					prefs.edit().putString("defaultURI",strUri).commit();
+					try
+					{
+						mPager.setCurrentItem(_MainActivity.fragID);
+						takePersistableUri(selectedUri,false);
+						vok.SaveFile(null, selectedUri,
+								_blnUniCode, false);
+						saveFilePrefs(false);
+						//if (blnNew) newvok();
+						if (fPA.fragMain!=null&&fPA.fragMain.mainView!=null)fPA.fragMain.SetActionBarTitle();
+						prefs.edit().putString("defaultURI",strUri).commit();
+					}
+					catch (Exception ex)
+					{
+						lib.ShowMessage(this, ex.getMessage(), this.getString(R.string.Error));
+					}
 				}
 			}
 			else if (resultCode == RESULT_OK && requestCode == FILE_OPENINTENT && data!=null) 
@@ -1699,14 +1706,21 @@ public class MainActivity extends AppCompatActivity {
 					
 					if (!blnWrongExt||lib.ShowMessageYesNo(this, getString(R.string.msgWrongExt),"")==yesnoundefined.yes)
 					{
-						mPager.setCurrentItem(_MainActivity.fragID);
-						takePersistableUri(selectedUri,false);
-						vok.SaveFile(null, selectedUri,
-								_blnUniCode, false);
-						saveFilePrefs(false);
-						//if (blnNew) newvok();
-						if(fPA.fragMain!=null&&fPA.fragMain.mainView!=null)fPA.fragMain.SetActionBarTitle();
-						prefs.edit().putString("defaultURI",strUri).commit();
+						try
+						{
+							mPager.setCurrentItem(_MainActivity.fragID);
+							takePersistableUri(selectedUri,false);
+							vok.SaveFile(null, selectedUri,
+									_blnUniCode, false);
+							saveFilePrefs(false);
+							//if (blnNew) newvok();
+							if(fPA.fragMain!=null&&fPA.fragMain.mainView!=null)fPA.fragMain.SetActionBarTitle();
+							prefs.edit().putString("defaultURI",strUri).commit();
+						}
+						catch (Exception ex)
+						{
+							lib.ShowMessage(this, ex.getMessage(), this.getString(R.string.Error));
+						}
 					}
 				}
 				catch(Exception e)

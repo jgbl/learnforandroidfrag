@@ -1823,17 +1823,24 @@ public class Vokabel {
 			{
 				finallyEx = ex;
 			}
-			libLearn.gStatus="savevok close os";
-			if (os != null) {
-				os.flush();
-				os.close();
-				os = null;
-			}
-			libLearn.gStatus="savevok close pfd";
-			if (pfd!=null)
+			try
 			{
-				pfd.close();
-				pfd=null;
+				libLearn.gStatus="savevok close os";
+				if (os != null) {
+					os.flush();
+					os.close();
+					os = null;
+				}
+				libLearn.gStatus="savevok close pfd";
+				if (pfd!=null)
+				{
+					pfd.close();
+					pfd=null;
+				}
+			}
+			catch (Exception ex)
+			{
+				finallyEx = ex;
 			}
 
 		}
