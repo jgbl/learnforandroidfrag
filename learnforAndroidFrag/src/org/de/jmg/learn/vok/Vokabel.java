@@ -2600,6 +2600,14 @@ public class Vokabel {
 						CurVok.Bed1 = CurVok.Bed1.replace("ùú", "\r\n");
 						CurVok.Bed2 = CurVok.Bed2.replace("ùú", "\r\n");
 						CurVok.Bed3 = CurVok.Bed3.replace("ùú", "\r\n");
+						if (!blnUnicode && CharsetASCII.equalsIgnoreCase("IBM437"))
+						{
+							CurVok.Wort = CurVok.Wort.replace("∙", "\r\n");
+							CurVok.Kom = CurVok.Kom.replace("∙", "\r\n");
+							CurVok.Bed1 = CurVok.Bed1.replace("∙", "\r\n");
+							CurVok.Bed2 = CurVok.Bed2.replace("∙", "\r\n");
+							CurVok.Bed3 = CurVok.Bed3.replace("∙", "\r\n");
+						}
 						if (blnSingleLine) {
 							CurVok.Wort = ConvMulti(CurVok.Wort);
 							CurVok.Kom = ConvMulti(CurVok.Kom); // .Kom.replace("Ã¹",
