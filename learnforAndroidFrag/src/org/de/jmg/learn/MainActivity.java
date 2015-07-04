@@ -165,13 +165,23 @@ public class MainActivity extends AppCompatActivity {
                         
                         if (position == fragFileChooser.fragID)
                     	{
-                    		try {
+                        	mnuAddNew.setEnabled(false);
+                        	try {
 								checkLoadFile();
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								lib.ShowException(MainActivity.this, e);
 							}
                     	}
+                        else if (position == _MainActivity.fragID)
+                        {
+                        	mnuAddNew.setEnabled(true);
+                        }
+                        else
+                        {
+                        	mnuAddNew.setEnabled(false);
+                        }
+                        
         				
         				
                 }
@@ -1194,7 +1204,8 @@ public class MainActivity extends AppCompatActivity {
 			lib.ShowException(this, ex);
 		}
 	}
-
+	public Menu OptionsMenu;
+	public MenuItem mnuAddNew;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -1203,6 +1214,8 @@ public class MainActivity extends AppCompatActivity {
 			//findViewById(R.menu.main).setBackgroundColor(Color.BLACK);
 			//.setBackgroundColor(Color.BLACK);
 			//resize();
+			OptionsMenu = menu;
+			mnuAddNew = menu.findItem(R.id.mnuAddWord);
 			return true;
 		} catch (Exception ex) {
 			lib.ShowException(this, ex);
