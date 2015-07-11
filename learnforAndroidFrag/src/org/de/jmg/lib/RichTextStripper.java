@@ -17,7 +17,7 @@ import org.de.jmg.lib.lib.libString;
 /// Translated from Python located at:
 /// http://stackoverflow.com/a/188877/448
 /// </remarks>
-/// Translated from c# from http://chrisbenard.net/2014/08/20/Extract-Text-from-RTF-in-.Net/RichTextStripper.cs
+/// Translated from c# (http://chrisbenard.net/2014/08/20/Extract-Text-from-RTF-in-.Net/RichTextStripper.cs)
 public class RichTextStripper
 {
 	private static class StackEntry
