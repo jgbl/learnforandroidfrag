@@ -64,6 +64,7 @@ import android.provider.*;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
@@ -1245,6 +1246,7 @@ public class lib {
 			// JavaSourceConversionOptions.getDefault());
 			// return Html.fromHtml(txt);
 			// return new SpannedString(stripRtf(txt));
+			return new SpannableString(RichTextStripper.StripRichTextFormat(txt));
 		}
         SpannableString span = null;
 		if (txt.contains("<link://"))
