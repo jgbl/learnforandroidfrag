@@ -37,9 +37,11 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.text.SpannableString;
 import android.widget.TextView;
 
 import org.de.jmg.learn.*;
+import org.de.jmg.lib.RichTextStripper;
 import org.de.jmg.lib.WindowsBufferedReader;
 import org.de.jmg.lib.RefSupport;
 import org.de.jmg.lib.lib;
@@ -3113,6 +3115,13 @@ public class Vokabel {
 		return _URIName;
 	}
 	public static String getComment(String vok) {
+		if (vok.startsWith("{\\rtf1\\")) {
+			// txt = Java2Html.convertToHtml(txt,
+			// JavaSourceConversionOptions.getDefault());
+			// return Html.fromHtml(txt);
+			// return new SpannedString(stripRtf(txt));
+			vok = RichTextStripper.StripRichTextFormat(vok);
+		}
 		if (!libString.IsNullOrEmpty(vok))
 		{
 			int Start1 = vok.indexOf("[");
