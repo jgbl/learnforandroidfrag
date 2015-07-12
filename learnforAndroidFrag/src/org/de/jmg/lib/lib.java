@@ -1236,7 +1236,7 @@ public class lib {
 			//throw new RuntimeException("CheckPermissions", ex);
 		}
 	}
-	public static SpannableString getSpanableString(String txt) throws IOException {
+	public static SpannableString getSpanableString(String txt) throws Exception {
 		if (libString.IsNullOrEmpty(txt)) return new SpannableString("");
 		final Pattern pattern = Pattern.compile("(?i)<a.*?</a>");
 		final Pattern patternLI = Pattern.compile("(?i)<li>.*?<//li>", Pattern.DOTALL);

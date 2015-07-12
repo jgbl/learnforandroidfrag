@@ -3114,7 +3114,7 @@ public class Vokabel {
 	{
 		return _URIName;
 	}
-	public static String getComment(String vok) {
+	public static String getComment(String vok) throws Exception {
 		if (vok.startsWith("{\\rtf1\\")) {
 			// txt = Java2Html.convertToHtml(txt,
 			// JavaSourceConversionOptions.getDefault());

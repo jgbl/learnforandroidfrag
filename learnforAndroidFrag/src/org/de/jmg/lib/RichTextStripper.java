@@ -107,7 +107,7 @@ public class RichTextStripper
 	/// </summary>
 	/// <param name="inputRtf">RTF formatted text</param>
 	/// <returns>Plain text from RTF</returns>
-	public static String StripRichTextFormat(String inputRtf)
+	public static String StripRichTextFormat(String inputRtf) throws Exception
 	{
 		if (inputRtf == null)
 		{
